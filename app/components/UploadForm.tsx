@@ -1,23 +1,26 @@
 'use client';
 
-import { Input } from "@/components/ui/input"
+import DOMPurify from 'dompurify';
 import MyInput from '@/app/components/ui/Input'
 import { Button } from "@/components/ui/button";
 import { useForm } from 'react-hook-form';
 
+
 export default function UploadForm() {
   const { register, handleSubmit, formState: { errors } } = useForm();
-
+  
   const onSubmit = (data: any) => {
     console.log(data);
+    const clean = DOMPurify.sanitize(data);
+    console.log(2,clean);
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="flex gap-4 flex-col">
-        <div className="flex gap-4 flex-col lg:flex-row">
+        <div className="flex gap-4 flex-col lg:flex-row align-start w-full">
             {/* First Name */}
-            <MyInput className="w-auto lg:w-124" label="First Name" register={register} errors={errors} required/>
+            <MyInput label="First Name" register={register} errors={errors} className="w-auto lg:w-1/2" required/>
 
             {/* Last Initial */}
             <MyInput label="Last Initial" register={register} errors={errors} required/>

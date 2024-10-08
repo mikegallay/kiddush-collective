@@ -14,11 +14,14 @@ interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 function configureRegisterOptions(required: boolean | undefined, label: string, type: string): object{
 
     const requiredDefault = (required) ? `${label} is required.` : false;
-    let registerOptions: RegisterOptions = {required: requiredDefault}   
- 
+    let registerOptions: RegisterOptions = {
+        required: requiredDefault,
+        validate: value => !/[<>'"&]/gi.test(value) || "Some special characters are not allowed"
+    }   
+
     if (type === 'email') {
         registerOptions = {
-            required: requiredDefault,
+            ...registerOptions,
             pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: 'Invalid email address'
@@ -26,7 +29,6 @@ function configureRegisterOptions(required: boolean | undefined, label: string, 
         }
     }
     
-    console.log(required,registerOptions);
     return registerOptions;
 }
 
@@ -37,7 +39,7 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
     const registerOptions = configureRegisterOptions(props.required, label, type)
     
     return (
-      <div className="flex flex-col">
+      <div className={`flex flex-col ${props.className}`}>
         <Label htmlFor={id} className="mb-2 text-sm font-medium text-gray-700">
           {label + (props.required ? '*' : '')}
         </Label>
