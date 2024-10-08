@@ -1,6 +1,8 @@
 'use client';
 
 import { Input } from "@/components/ui/input"
+import MyInput from '@/app/components/ui/Input'
+import { Button } from "@/components/ui/button";
 import { useForm } from 'react-hook-form';
 
 export default function UploadForm() {
@@ -11,27 +13,21 @@ export default function UploadForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {/* First Name */}
-      <label htmlFor="firstName">First Name</label>
-      <Input
-        id="firstName"
-        {...register('firstName', { required: 'First Name is required' })}
-        placeholder="Enter your first name"
-      />
-      {errors.firstName?.message && <span>{String(errors.firstName.message)}</span>}
+    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <div className="flex gap-4 flex-col">
+        <div className="flex gap-4 flex-col lg:flex-row">
+            {/* First Name */}
+            <MyInput className="w-auto lg:w-124" label="First Name" register={register} errors={errors} required/>
 
-      {/* Last Initial */}
-      <label htmlFor="lastInitial">Last Initial</label>
-      <Input
-        id="lastInitial"
-        {...register('lastInitial', { required: 'Last Initial is required' })}
-        placeholder="Enter your last initial"
-      />
-      {errors.lastInitial?.message && <span>{String(errors.lastInitial.message)}</span>}
+            {/* Last Initial */}
+            <MyInput label="Last Initial" register={register} errors={errors} required/>
+        </div>
 
-      
-      <button type="submit">Submit</button>
+        {/* Email */}
+        <MyInput label="Email" type="email" register={register} errors={errors} required/>
+        
+        <Button type="submit">Submit</Button>
+      </div>
     </form>
   );
 }

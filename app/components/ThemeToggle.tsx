@@ -6,11 +6,6 @@ import { useTheme } from '@/context/ThemeContext'; // Adjust path as necessary
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
-//   const toggleTheme = () => {
-//     const newTheme = theme === 'light' ? 'dark' : 'light';
-//     setTheme(newTheme);
-//   };
-
   useEffect(() => {
     document.documentElement.classList.toggle('dark', theme === 'dark');
     document.documentElement.classList.toggle('light', theme === 'light');
