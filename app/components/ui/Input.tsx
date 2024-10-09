@@ -7,8 +7,9 @@ import { FieldErrors, RegisterOptions, UseFormRegister } from 'react-hook-form';
 interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     type?: string;
-    register: UseFormRegister<any>;
-    errors: FieldErrors<any>;
+    formProps: any;
+    // register: UseFormRegister<any>;
+    // errors: FieldErrors<any>;
 }
 
 function configureRegisterOptions(required: boolean | undefined, label: string, type: string): object{
@@ -16,7 +17,7 @@ function configureRegisterOptions(required: boolean | undefined, label: string, 
     const requiredDefault = (required) ? `${label} is required.` : false;
     let registerOptions: RegisterOptions = {
         required: requiredDefault,
-        validate: value => !/[<>'"&]/gi.test(value) || "Some special characters are not allowed"
+        // validate: value => !/[<>'"&]/gi.test(value) || "Some special characters are not allowed"
     }   
 
     if (type === 'email') {
@@ -33,7 +34,7 @@ function configureRegisterOptions(required: boolean | undefined, label: string, 
 }
 
 const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
-    ({ label, type = 'text', register, errors, ...props }: MyInputProps, ref) => {
+    ({ label, type = 'text', formProps, ...props }: MyInputProps, ref) => {
     
     const id = label.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
     const registerOptions = configureRegisterOptions(props.required, label, type)
@@ -49,10 +50,10 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
             type={type}
             maxLength={(label === 'Last Initial') ? 1 : 100}
             className={(label === 'Last Initial') ? 'lg:w-12' : ''}
-            {...register(id, registerOptions)}
+            {...formProps.register(id, registerOptions)}
             // placeholder={`Enter your ${label}`}
         />
-      {errors[id]?.message && <span className='text-rose-700 text-sm italic pt-1'>{String(errors[id]?.message)}</span>}
+      {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic pt-1'>{String(formProps.errors[id]?.message)}</span>}
       </div>
     );
   }
