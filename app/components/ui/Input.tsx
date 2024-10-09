@@ -35,7 +35,7 @@ function configureRegisterOptions(required: boolean | undefined, label: string, 
 const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
     ({ label, type = 'text', register, errors, ...props }: MyInputProps, ref) => {
     
-    const id = label.trim().toLowerCase().replace(/\s+/g, '');
+    const id = label.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
     const registerOptions = configureRegisterOptions(props.required, label, type)
     
     return (
@@ -58,6 +58,6 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
   }
 );
 
-MyInput.displayName = 'MyInput';
+Input.displayName = 'MyInput';
 
 export default MyInput;
