@@ -6,6 +6,16 @@ export const raceOptions: { value: string, label: string }[] = [
   { value: "other", label: "Other" }
 ];
 
+export const jewishOptions: { value: string, label: string }[] = [
+  { value: "ashkenazi_jews", label: "Ashkenazi Jews" },
+  { value: "sephardi_jews", label: "Sephardi Jews" },
+  { value: "mizrahi_jews", label: "Mizrahi Jews" },
+  { value: "ethiopian_jews", label: "Ethiopian Jews (Beta Israel)" },
+  { value: "indian_jews", label: "Indian Jews" },
+  { value: "yemeni_jews", label: "Yemeni Jews" },
+  { value: "chinese_jews", label: "Chinese Jews" }
+];
+
 export const observanceLevel: { value: string, label: string }[] = [
   { value: "orthodox", label: "Orthodox" },
   { value: "modern_orthodox", label: "Modern Orthodox" },

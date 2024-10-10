@@ -12,6 +12,7 @@ import { FieldErrors, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
+    id: string;
     defaultOption?: string;
     options: { value: string, label: string }[];
     formProps: any;
@@ -22,9 +23,9 @@ interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 
 const MySelect = forwardRef<HTMLInputElement, SelectProps>(
-    ({ label, defaultOption, onChange, options, formProps, ...props }: SelectProps, ref) => {
+    ({ label, id, defaultOption, onChange, options, formProps, ...props }: SelectProps, ref) => {
     
-    const id = label.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
+    // const id = label.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
     const requiredDefault = (props.required) ? 'This field is required.' : false;
     const defaultSelectOption = (defaultOption) ? defaultOption : 'Select an Option';
 
