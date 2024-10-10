@@ -34,7 +34,7 @@ export default function UploadForm() {
 
         <MyInput label="Email" id="email" type="email" formProps={{register, errors}} required/>
 
-        <h2>Tell us a little more about yourself</h2>
+        <h2 className="font-bold">Tell us a little more about yourself</h2>
 
         <div className="flex gap-4 flex-col lg:flex-row">
           <MySelect label="Level of Observance" id="level_of_observance" options={observanceLevel} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2"/>

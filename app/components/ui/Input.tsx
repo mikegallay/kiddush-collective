@@ -40,8 +40,8 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
     const registerOptions = configureRegisterOptions(props.required, label, type)
     
     return (
-      <div className={`flex flex-col ${props.className}`}>
-        <Label htmlFor={id} className="mb-2 text-sm font-medium text-gray-700">
+      <div className={`flex flex-col gap-3 ${props.className}`}>
+        <Label htmlFor={id}>
           {label + (props.required ? '*' : '')}
         </Label>
         <Input
