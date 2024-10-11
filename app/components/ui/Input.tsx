@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { forwardRef } from 'react';
+import { RegisterOptions } from 'react-hook-form';
 
 
 interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -17,7 +18,7 @@ function configureRegisterOptions(required: boolean | undefined, label: string, 
     const requiredDefault = (required) ? `${label} is required.` : false;
     let registerOptions: RegisterOptions = {
         required: requiredDefault,
-        validate: value => !/[<>'"&]/gi.test(value) || "Some special characters are not allowed"
+        validate: (value: string) => !/[<>'"&“”‘’]/gi.test(value) || "Some special characters are not allowed"
     }   
 
     if (type === 'email') {
@@ -42,7 +43,7 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
     return (
       <div className={`flex flex-col gap-3 ${props.className}`}>
         <Label htmlFor={id}>
-          {label + (props.required ? '*' : '')}
+          {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
         <Input
             id={id}
@@ -53,7 +54,7 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
             {...formProps.register(id, registerOptions)}
             // placeholder={`Enter your ${label}`}
         />
-      {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic pt-1'>{String(formProps.errors[id]?.message)}</span>}
+      {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>}
       </div>
     );
   }

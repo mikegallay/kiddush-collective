@@ -1,0 +1,38 @@
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label"
+import { forwardRef } from 'react';
+
+interface MyTextareaProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    label: string;
+    id: string;
+    formProps: any;
+    // register: UseFormRegister<any>;
+    // errors: FieldErrors<any>;
+}
+
+const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
+    ({ label, id, formProps, ...props }: MyTextareaProps, ref) => {
+    
+    const requiredDefault = (props.required) ? 'This field is required.' : false;
+
+    return (
+      <div className={`flex flex-col gap-3 ${props.className}`}>
+        <Label htmlFor={id}>
+          {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
+        </Label>
+        <Textarea
+            id={id}
+            {...props}
+            {...formProps.register(id, { required: requiredDefault })}
+            // placeholder={`Enter your ${label}`}
+        />
+      {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>}
+      </div>
+    );
+  }
+);
+
+MyTextarea.displayName = 'MyTextarea';
+
+export default MyTextarea;

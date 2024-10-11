@@ -16,22 +16,20 @@ interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     defaultOption?: string;
     options: { value: string, label: string }[];
     formProps: any;
-    // setValue: (value: string, label: string) => void;
-    // register: UseFormRegister<any>;
-    // errors: FieldErrors<any>;
 }
 
 
 const MySelect = forwardRef<HTMLInputElement, SelectProps>(
     ({ label, id, defaultOption, onChange, options, formProps, ...props }: SelectProps, ref) => {
     
-    // const id = label.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
     const requiredDefault = (props.required) ? 'This field is required.' : false;
     const defaultSelectOption = (defaultOption) ? defaultOption : 'Select an Option';
 
     return (
       <div className="flex flex-col w-full gap-3">
-        <Label htmlFor={id}>{label + (props.required ? '*' : '')}</Label>
+        <Label htmlFor={id}>
+          {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
+        </Label>
         <Select onValueChange={(value: string) => formProps.setValue(id, value)}>
           <SelectTrigger {...formProps.register(id, { required: requiredDefault })}
         id={id}>
@@ -44,7 +42,7 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
                 </SelectItem>
               ))}
           </SelectContent>
-        {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-3'>{String(formProps.errors[id]?.message)}</span>}
+        {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>}
         </Select>
       </div>
     );
