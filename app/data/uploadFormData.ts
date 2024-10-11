@@ -39,6 +39,7 @@ export const influenceLevels: { value: string, label: string }[] = [
 ];
 
 export const countryList: { value: string, label: string }[] = [
+  {label: "I DO NOT KNOW", value: "do_not_know"},
   {label: "Albania", value: "Albania"},
   {label: "Åland Islands", value: "ÅlandIslands"},
   {label: "Algeria", value: "Algeria"},

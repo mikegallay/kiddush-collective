@@ -35,7 +35,9 @@ export default function UploadForm() {
 
         <MyInput label="Email" id="email" type="email" formProps={{register, errors}} required/>
 
-        <h2 className="font-bold border-b-2 border-solid border-gray-700">Tell us a little more about yourself</h2>
+        <MyInput label="Upload Your Kiddush" id="file" type="file" formProps={{register, errors}} required/>
+
+        <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">Tell Us About Yourself</h2>
 
         <div className="flex gap-6 flex-col lg:flex-row">
           <MySelect label="Level of Observance" id="level_of_observance" options={observanceLevel} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2"/>
@@ -54,16 +56,30 @@ export default function UploadForm() {
 
           <MySelect label="Which Jewish heritage best describes your background?" id="jewish_heritage" options={jewishOptions} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2"/>
         </div>
+
+        <MyTextarea label="Share your favorite memory of Shabbat? (optional)" id="shabbat_memory" formProps={{register, errors}}/>
+
+        <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">Tell Us About Your Family</h2>
    
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label="Where Are Your Parent's From?"id="parents_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+          <MySelect label="Where is Your Mother From?"id="mother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
 
-          <MySelect label="Where Are Your Grandparent's From?" id="grandparents_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" required/>
+          <MySelect label="Where is Your Father From?" id="father_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" required/>
+        </div>
+
+        <div className="flex gap-6 flex-col lg:flex-row">
+          <MySelect label="Where is Your Maternal Grandmother From?"id="maternal_gmother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+
+          <MySelect label="Where is Your Maternal Grandfather From?" id="maternal_gfather_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" required/>
+        </div>
+
+        <div className="flex gap-6 flex-col lg:flex-row">
+          <MySelect label="Where is Your Paternal Grandmother From?"id="paternal_gmother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+
+          <MySelect label="Where is Your Paternal Grandfather From?" id="paternal_gfather_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" required/>
         </div>
 
         <MyCheckbox label="I'm ok with my audio being used in social media, with the understanding that my identity and other personal information will not be shared." id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>
-
-        <MyTextarea label="Share your favorite memory of Shabbat? (optional)" id="shabbat_memory" formProps={{register, errors}}/>
 
         <Button className="w-auto lg:w-1/2 m-auto" type="submit">Submit</Button>
       </div>
