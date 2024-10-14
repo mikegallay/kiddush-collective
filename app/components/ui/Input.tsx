@@ -8,6 +8,7 @@ interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     id: string;
     type?: string;
+    description?: string;
     formProps: any;
     // register: UseFormRegister<any>;
     // errors: FieldErrors<any>;
@@ -35,7 +36,7 @@ function configureRegisterOptions(required: boolean | undefined, label: string, 
 }
 
 const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
-    ({ label, id, type = 'text', formProps, ...props }: MyInputProps, ref) => {
+    ({ label, id, type = 'text', description, formProps, ...props }: MyInputProps, ref) => {
     
     // const id = label.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
     const registerOptions = configureRegisterOptions(props.required, label, type)
@@ -54,7 +55,10 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
             {...formProps.register(id, registerOptions)}
             // placeholder={`Enter your ${label}`}
         />
-      {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>}
+      {formProps.errors[id]?.message ? 
+        <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span> :
+        description && <span className='text-gray-500 font-medium text-xs -mt-2 italic'>{String(description)}</span>
+      }
       </div>
     );
   }

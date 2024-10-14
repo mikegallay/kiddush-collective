@@ -6,13 +6,14 @@ import { forwardRef } from 'react';
 interface MyTextareaProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     id: string;
+    description?: string;
     formProps: any;
     // register: UseFormRegister<any>;
     // errors: FieldErrors<any>;
 }
 
 const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
-    ({ label, id, formProps, ...props }: MyTextareaProps, ref) => {
+    ({ label, id, description, formProps, ...props }: MyTextareaProps, ref) => {
     
     const requiredDefault = (props.required) ? 'This field is required.' : false;
 
@@ -27,7 +28,11 @@ const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
             {...formProps.register(id, { required: requiredDefault })}
             // placeholder={`Enter your ${label}`}
         />
-      {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>}
+        {formProps.errors[id]?.message ? 
+          <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span> :
+          description && <span className='text-gray-500 font-medium text-xs -mt-2 italic'>{String(description)}</span>
+        }
+      {/* {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>} */}
       </div>
     );
   }

@@ -7,11 +7,12 @@ import { forwardRef } from 'react';
 interface MyCheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     id: string;
+    description?: string;
     formProps: any;
 }
 
 const MyCheckbox = forwardRef<HTMLInputElement, MyCheckboxProps>(
-    ({ label, id, formProps, ...props }: MyCheckboxProps, ref) => {
+    ({ label, id, description, formProps, ...props }: MyCheckboxProps, ref) => {
     
     const requiredDefault = (props.required) ? 'This field is required.' : false;
     
@@ -26,7 +27,10 @@ const MyCheckbox = forwardRef<HTMLInputElement, MyCheckboxProps>(
             {...formProps.register(id, { required: requiredDefault })}
             onCheckedChange={(value: string) => formProps.setValue(id, value)}
         />
-      {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>}
+        {formProps.errors[id]?.message ? 
+          <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span> :
+          description && <span className='text-gray-500 font-medium text-xs -mt-2 italic'>{String(description)}</span>
+        }
       </div>
     );
   }

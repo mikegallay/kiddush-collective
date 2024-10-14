@@ -14,13 +14,14 @@ interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     id: string;
     defaultOption?: string;
+    description? : string
     options: { value: string, label: string }[];
     formProps: any;
 }
 
 
 const MySelect = forwardRef<HTMLInputElement, SelectProps>(
-    ({ label, id, defaultOption, onChange, options, formProps, ...props }: SelectProps, ref) => {
+    ({ label, id, description, defaultOption, onChange, options, formProps, ...props }: SelectProps, ref) => {
     
     const requiredDefault = (props.required) ? 'This field is required.' : false;
     const defaultSelectOption = (defaultOption) ? defaultOption : 'Select an Option';
@@ -42,7 +43,10 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
                 </SelectItem>
               ))}
           </SelectContent>
-        {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>}
+          {formProps.errors[id]?.message ? 
+            <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span> :
+            description && <span className='text-gray-500 font-medium text-xs -mt-2 italic'>{String(description)}</span>
+          }
         </Select>
       </div>
     );
