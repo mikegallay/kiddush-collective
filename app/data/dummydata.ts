@@ -6,24 +6,24 @@ export const data: {}[] = [
       first_name: "David",
       influence_level: "holidays",
       jewish_heritage: "mizrahi_jews",
-      kiddush_frequency: "occasionally",
+      kiddush_frequency: "every_shabbat",
       last_initial: "C",
       level_of_observance: "reform",
       maternal_gfather_from: "Morocco",
       maternal_gmother_from: "Egypt",
       moderated: true,
-      mother_from: "USA",
+      mother_from: "Israel",
       ok_with_audio: "on",
       paternal_gfather_from: "Israel",
       paternal_gmother_from: "France",
-      race_options: "middle_eastern",
+      race_options: "asian",
       shabbat_is_favorite: "false",
       shabbat_memory: "Singing songs with family",
       location: {
         lat: 31.0461,
         lng: 34.8516
       },
-      mp3_location: "uploads/davidcohen_kiddush.mp3"
+      mp3_location: "uploads/kiddush.mp3"
     },
     {
       id:"user2",
@@ -49,7 +49,7 @@ export const data: {}[] = [
         lat: 51.5098,
         lng: -0.1180
       },
-      mp3_location: "uploads/rachelgreen_kiddush.mp3"
+      mp3_location: "uploads/kiddush.mp3"
     },
     {
       id:"user3",
@@ -75,7 +75,7 @@ export const data: {}[] = [
         lat: 52.5200,
         lng: 13.4050
       },
-      mp3_location: "uploads/jacobweiss_kiddush.mp3"
+      mp3_location: "uploads/kiddush.mp3"
     },
     {
       id:"user4",
@@ -101,7 +101,7 @@ export const data: {}[] = [
         lat: 48.8566,
         lng: 2.3522
       },
-      mp3_location: "uploads/hannahlevy_kiddush.mp3"
+      mp3_location: "uploads/kiddush.mp3"
     },
     {
       id:"user5",
@@ -127,6 +127,6 @@ export const data: {}[] = [
         lat: -33.9249,
         lng: 18.4241
       },
-      mp3_location: "uploads/aarongoldberg_kiddush.mp3"
+      mp3_location: "uploads/kiddush.mp3"
     }
   ]
