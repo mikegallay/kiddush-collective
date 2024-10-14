@@ -14,10 +14,15 @@ export default function UploadForm() {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   
   const onSubmit = (data: any) => {
+    console.log('data',data)
     const sanitizedObject: { [key: string]: any } = {};
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
-        sanitizedObject[key] = DOMPurify.sanitize(data[key]);
+        if (typeof data[key] !== 'boolean') {
+          sanitizedObject[key] = DOMPurify.sanitize(data[key]);
+        } else {
+          sanitizedObject[key] = data[key];
+        }
       }
     }
     console.log('clean',sanitizedObject);
@@ -37,7 +42,7 @@ export default function UploadForm() {
 
         <MyInput label="Upload Your Kiddush Audio (optional)" id="file" type="file" description="No file to share? That's ok! We'd still love to learn more about you and where you are from." formProps={{register, errors}}/>
 
-        <MyTextarea label="Share your favorite memory about this Kiddush. (optional)" id="shabbat_memory" description="If you don't upload any audio, use this space to share any Shabbat memory." formProps={{register, errors}}/>
+        <MyTextarea label="Share your favorite memory about this Kiddush." id="shabbat_memory" description="If you don't upload any audio, use this space to share any Shabbat memory." formProps={{register, errors}}/>
         
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">Tell Us About Yourself</h2>
 
@@ -64,19 +69,19 @@ export default function UploadForm() {
         <div className="flex gap-6 flex-col lg:flex-row">
           <MySelect label="Where is Your Mother From?"id="mother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
 
-          <MySelect label="Where is Your Father From?" id="father_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" required/>
+          <MySelect label="Where is Your Father From?" id="father_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
           <MySelect label="Where is Your Maternal Grandmother From?"id="maternal_gmother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
 
-          <MySelect label="Where is Your Maternal Grandfather From?" id="maternal_gfather_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" required/>
+          <MySelect label="Where is Your Maternal Grandfather From?" id="maternal_gfather_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
           <MySelect label="Where is Your Paternal Grandmother From?"id="paternal_gmother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
 
-          <MySelect label="Where is Your Paternal Grandfather From?" id="paternal_gfather_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" required/>
+          <MySelect label="Where is Your Paternal Grandfather From?" id="paternal_gfather_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
         </div>
 
         <MyCheckbox label="I'm ok with my audio being used in social media, with the understanding that my identity and other personal information will not be shared." id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>
