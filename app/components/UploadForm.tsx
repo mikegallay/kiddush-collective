@@ -7,7 +7,7 @@ import MyCheckbox from '@/app/components/ui/Checkbox';
 import MyTextarea from '@/app/components/ui/Textarea';
 import MyLocationSelector from '@/app/components/ui/LocationSelector';
 import { Button } from "@/components/ui/button";
-import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, countryList } from '@/app/data/uploadFormData';
+import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels } from '@/app/data/uploadFormData';
 
 import { useForm } from 'react-hook-form';
 

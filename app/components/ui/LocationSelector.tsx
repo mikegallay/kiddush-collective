@@ -21,7 +21,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query"
-import { Label } from "@/components/ui/label";
 import { useState } from 'react';
 import { locationList } from '@/app/data/locationData';
 
