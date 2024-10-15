@@ -5,6 +5,7 @@ import MyInput from '@/app/components/ui/Input';
 import MySelect from '@/app/components/ui/Select';
 import MyCheckbox from '@/app/components/ui/Checkbox';
 import MyTextarea from '@/app/components/ui/Textarea';
+import MyLocationSelector from '@/app/components/ui/LocationSelector';
 import { Button } from "@/components/ui/button";
 import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, countryList } from '@/app/data/uploadFormData';
 
@@ -33,17 +34,19 @@ export default function UploadForm() {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="flex gap-6 flex-col">
         <div className="flex gap-6 flex-col lg:flex-row">
-            <MyInput label="First Name" id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2" required/>
+            <MyInput label="First Name" id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2" />
 
-            <MyInput label="Last Initial" id="last_initial" formProps={{register, errors}} required/>
+            <MyInput label="Last Initial" id="last_initial" formProps={{register, errors}} />
         </div>
 
-        <MyInput label="Email" id="email" type="email" formProps={{register, errors}} required/>
+        <MyInput label="Email" id="email" type="email" formProps={{register, errors}} />
+
+        <MyLocationSelector label="Where do you live?" id="you_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact. " required/>
 
         <MyInput label="Upload Your Kiddush Audio (optional)" id="file" type="file" description="No file to share? That's ok! We'd still love to learn more about you and where you are from." formProps={{register, errors}}/>
 
         <MyTextarea label="Share your favorite memory about this Kiddush." id="shabbat_memory" description="If you don't upload any audio, use this space to share any Shabbat memory." formProps={{register, errors}}/>
-        
+
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">Tell Us About Yourself</h2>
 
         <div className="flex gap-6 flex-col lg:flex-row">
@@ -67,21 +70,21 @@ export default function UploadForm() {
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">Tell Us About Your Family</h2>
    
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label="Where is Your Mother From?"id="mother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+          <MyLocationSelector label="Where is Your Mother From?" id="mother_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." required/>
 
-          <MySelect label="Where is Your Father From?" id="father_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+          <MyLocationSelector label="Where is Your Father From?" id="father_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." required/>
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label="Where is Your Maternal Grandmother From?"id="maternal_gmother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+          <MyLocationSelector label="Where is Your Maternal Grandmother From?" id="maternal_gmother_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." required/>
 
-          <MySelect label="Where is Your Maternal Grandfather From?" id="maternal_gfather_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+          <MyLocationSelector label="Where is Your Maternal Grandfather From?" id="maternal_gfather_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." required/>
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label="Where is Your Paternal Grandmother From?"id="paternal_gmother_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+          <MyLocationSelector label="Where is Your Paternal Grandmother From?" id="paternal_gmother_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." required/>
 
-          <MySelect label="Where is Your Paternal Grandfather From?" id="paternal_gfather_from" options={countryList} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" />
+          <MyLocationSelector label="Where is Your Paternal Grandmother From?" id="paternal_gfather_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." required/>
         </div>
 
         <MyCheckbox label="I'm ok with my audio being used in social media, with the understanding that my identity and other personal information will not be shared." id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>

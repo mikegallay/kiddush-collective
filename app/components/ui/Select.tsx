@@ -5,10 +5,16 @@ import {
   SelectGroup,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+// import {
+//   Drawer,
+//   DrawerContent,
+//   DrawerTrigger,
+// } from "@/components/ui/drawer"
+// import { useMediaQuery } from "@/hooks/use-media-query"
 import { Label } from "@/components/ui/label";
 import { forwardRef } from 'react';
-import { FieldErrors, RegisterOptions, UseFormRegister } from 'react-hook-form';
+// import { FieldErrors, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -23,6 +29,7 @@ interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
 const MySelect = forwardRef<HTMLInputElement, SelectProps>(
     ({ label, id, description, defaultOption, onChange, options, formProps, ...props }: SelectProps, ref) => {
     
+    // const isDesktop = useMediaQuery("(min-width: 768px)")
     const requiredDefault = (props.required) ? 'This field is required.' : false;
     const defaultSelectOption = (defaultOption) ? defaultOption : 'Select an Option';
 
