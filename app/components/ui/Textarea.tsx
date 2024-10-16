@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input"
+import { customInputClasses } from '@/app/utils/customClasses';
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label"
 import { forwardRef } from 'react';
@@ -26,6 +26,7 @@ const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
             id={id}
             {...props}
             {...formProps.register(id, { required: requiredDefault })}
+            className={customInputClasses}
             // placeholder={`Enter your ${label}`}
         />
         {formProps.errors[id]?.message ? 

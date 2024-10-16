@@ -1,6 +1,7 @@
 'use client';
 
 import DOMPurify from 'dompurify';
+import { customInputClasses } from '@/app/utils/customClasses';
 import MyInput from '@/app/components/ui/Input';
 import MySelect from '@/app/components/ui/Select';
 import MyCheckbox from '@/app/components/ui/Checkbox';
@@ -30,7 +31,7 @@ function mapDrawer(register: any, setValue: any) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" className="justify-start">{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>Open Map Selector</>}</Button>
+        <Button variant="outline" className={`justify-start ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>Open Map Selector</>}</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>

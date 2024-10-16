@@ -12,6 +12,7 @@ import {
 //   DrawerTrigger,
 // } from "@/components/ui/drawer"
 // import { useMediaQuery } from "@/hooks/use-media-query"
+import { customInputClasses } from '@/app/utils/customClasses';
 import { Label } from "@/components/ui/label";
 import { forwardRef } from 'react';
 // import { FieldErrors, RegisterOptions, UseFormRegister } from 'react-hook-form';
@@ -39,7 +40,7 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
         <Select onValueChange={(value: string) => formProps.setValue(id, value)}>
-          <SelectTrigger {...formProps.register(id, { required: requiredDefault })}
+          <SelectTrigger className={customInputClasses} {...formProps.register(id, { required: requiredDefault })}
         id={id}>
             <SelectValue placeholder={defaultSelectOption} />
           </SelectTrigger>

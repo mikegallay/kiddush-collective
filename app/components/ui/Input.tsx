@@ -2,7 +2,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { forwardRef } from 'react';
 import { RegisterOptions } from 'react-hook-form';
-
+import { customInputClasses } from '@/app/utils/customClasses';
 
 interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -51,7 +51,7 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
             {...props}
             type={type}
             maxLength={(label === 'Last Initial') ? 1 : 100}
-            className={(label === 'Last Initial') ? 'lg:w-12' : ''}
+            className={`${customInputClasses} ${(label === 'Last Initial') ? 'lg:w-12' : ''}`}
             {...formProps.register(id, registerOptions)}
             // placeholder={`Enter your ${label}`}
         />

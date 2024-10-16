@@ -18,7 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-
+import { customInputClasses } from '@/app/utils/customClasses';
 import { Button } from "@/components/ui/button";
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { useState } from 'react';
@@ -55,6 +55,7 @@ const MyLocationSelector = (
     const requiredDefault = props.required ? 'This field is required.' : false;
     formProps.register(id, { required: requiredDefault })
 
+
     if (isDesktop) {
       return (
         <div className="flex flex-col w-full gap-2">
@@ -63,7 +64,7 @@ const MyLocationSelector = (
           </p>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild >
-              <Button variant="outline" className="w-auto justify-start">
+              <Button variant="outline" className={`w-auto justify-start ${customInputClasses}`}>
                 {selectedStatus ? <>{selectedStatus.label}</> : <>{pin} Select Location</>}
               </Button>
             </PopoverTrigger>
@@ -86,7 +87,7 @@ const MyLocationSelector = (
           </p>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Button variant="outline" className="w-auto  justify-start">
+            <Button variant="outline" className={`w-auto justify-start ${customInputClasses}`}>
               {selectedStatus ? <>{selectedStatus.label}</> : <>{pin} Select Location</>}
             </Button>
           </DrawerTrigger>
