@@ -31,7 +31,7 @@ function mapDrawer(register: any, setValue: any) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" className={`justify-start ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>Open Map Selector</>}</Button>
+        <Button variant="outline" className={`justify-start w-auto ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>Open Map Selector</>}</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
@@ -90,7 +90,7 @@ export default function UploadForm() {
         <div className="flex gap-6 flex-col lg:flex-row">
           <MyLocationSelector label="Where do you live?" id="you_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." />
 
-          <div className="w-3/4 flex flex-col gap-2">
+          <div className="w-auto lg:w-1/2 flex flex-col gap-2">
             <p className="text-sm">
               Provide a more specific location (Optional)
             </p>
