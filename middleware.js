@@ -10,7 +10,7 @@ export function middleware(request) {
     default-src 'self';
     script-src 'self' ${development ? "'unsafe-eval' 'unsafe-inline'" : `'nonce-${nonce}'`};
     style-src 'self' ${development ? "'unsafe-inline'" : `'nonce-${nonce}'`};
-    img-src 'self' blob: data:;
+    img-src 'self' blob: data: https://*.basemaps.cartocdn.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';

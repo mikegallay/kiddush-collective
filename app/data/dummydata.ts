@@ -20,7 +20,7 @@ export const data: {}[] = [
       paternal_gmother_from: "Paris",
       race_options: "asian",
       shabbat_is_favorite: "false",
-      shabbat_memory: "Cooking with my grandmother and singing songs with family",
+      shabbat_memory: "Cooking with my grandmother and singing songs with family. Shabbat was truly a time where we all were able to connect without distraction.",
       location: {
         lat: 31.0461,
         lng: 34.8516
