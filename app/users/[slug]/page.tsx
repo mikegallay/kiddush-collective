@@ -57,10 +57,10 @@ export default function Page({ params }: { params: { slug: string } }) {
                 </div>
             </div>
 
-            <div className="bg-slate-100 dark:bg-gray-800 p-4 rounded-lg shadow-md border-2 mb-6 flex justify-center align-middle ">
+            <div className="bg-slate-200 dark:bg-gray-800 p-4 rounded-lg mb-6 flex justify-center align-middle ">
                 <div className="relative p-2 lg:p-4 my-6 italic text-gray-600 w-auto max-w-[90%] lg:max-w-[70%]">
-                    <span className="absolute text-8xl -top-4 -left-2 text-amber-600 opacity-60">&ldquo;</span>
-                    <span className="absolute text-8xl -bottom-14 right-1 text-amber-600 opacity-60">&rdquo;</span>
+                    <span className="absolute text-8xl -top-4 -left-2 text-amber-600 opacity-40">&ldquo;</span>
+                    <span className="absolute text-8xl -bottom-14 right-1 text-amber-600 opacity-40">&rdquo;</span>
                     <p className="relative z-10 italic text-amber-600 text-center w-full text-3xl">
                         {user.shabbat_memory}
                     </p>
@@ -69,34 +69,34 @@ export default function Page({ params }: { params: { slug: string } }) {
             
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2">
                 <h2>Family Information</h2>
-                <div className="flex gap-4 lg:flex-row">
-                    <div className="flex gap-1 flex-col w-auto lg:w-1/2">
+                <div className="flex lg:gap-4 flex-col lg:flex-row">
+                    <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
                         <h3 className={headerClasses}>My Mother is from</h3>
                         <p>{getCountryName(locationList,user.mother_from)}</p>
                     </div>
-                    <div className="flex gap-1 flex-col w-auto lg:w-1/2">
+                    <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
                         <h3 className={headerClasses}>My Father is from</h3>
                         <p>{getCountryName(locationList,user.father_from)}</p>
                     </div>
                 </div>
 
-                <div className="flex gap-4 lg:flex-row">
-                    <div className="flex gap-1 flex-col w-auto lg:w-1/2">
+                <div className="flex lg:gap-4 flex-col lg:flex-row">
+                    <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
                         <h3 className={headerClasses}>My Maternal Grandmother is from</h3>
                         <p>{getCountryName(locationList,user.maternal_gmother_from)}</p>
                     </div>
-                    <div className="flex gap-1 flex-col w-auto lg:w-1/2">
+                    <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
                         <h3 className={headerClasses}>My Maternal Grandfather is from</h3>
                         <p>{getCountryName(locationList,user.maternal_gfather_from)}</p>
                     </div>
                 </div>
 
-                <div className="flex gap-4 lg:flex-row">
-                    <div className="flex gap-1 flex-col w-auto lg:w-1/2">
+                <div className="flex lg:gap-4 flex-col lg:flex-row">
+                    <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
                         <h3 className={headerClasses}>My Paternal Grandmother is from</h3>
                         <p>{getCountryName(locationList,user.paternal_gmother_from)}</p>
                     </div>
-                    <div className="flex gap-1 flex-col w-auto lg:w-1/2">
+                    <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
                         <h3 className={headerClasses}>My Paternal Grandfather is from</h3>
                         <p>{getCountryName(locationList,user.paternal_gfather_from)}</p>
                     </div>
