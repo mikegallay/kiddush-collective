@@ -1,5 +1,6 @@
 export type UserProps = {
     id:string;
+    birth_year:string;
     email: string;
     father_from: string;
     first_name: string;
@@ -17,6 +18,7 @@ export type UserProps = {
     race_options: string;
     shabbat_is_favorite: string;
     shabbat_memory: string;
+    you_from: string;
     location: {
       lat: number;
       lng: number;
