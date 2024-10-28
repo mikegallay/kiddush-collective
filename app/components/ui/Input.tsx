@@ -42,7 +42,7 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
     const registerOptions = configureRegisterOptions(props.required, label, type)
     
     return (
-      <div className={`flex flex-col gap-3 ${props.className}`}>
+      <div className={`flex flex-col gap-3 ${props.className || ''}`}>
         <Label htmlFor={id}>
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
@@ -51,7 +51,7 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
             {...props}
             type={type}
             maxLength={(label === 'Last Initial') ? 1 : 100}
-            className={`${customInputClasses} ${(label === 'Last Initial') ? 'lg:w-12' : ''}`}
+            className={`${customInputClasses} ${(label === 'Last Initial') ? 'lg:w-12' : ''} ${formProps.errors[id]?.message && 'border-rose-700'}`}
             {...formProps.register(id, registerOptions)}
             // placeholder={`Enter your ${label}`}
         />

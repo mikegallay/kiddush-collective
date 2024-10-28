@@ -1,7 +1,8 @@
 // 'use client';
 import {data} from '@/app/data/dummydata';
 import {UserProps} from '@/app/data/globalProps';
-import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, countryList } from '@/app/data/uploadFormData';
+import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels } from '@/app/data/uploadFormData';
+import { locationList } from '@/app/data/locationData';
 import { getSelectLabel, getCountryName, getCountryLatLng } from '@/app/utils/utilityFunctions';
 
 export default function Page({ params }: { params: { slug: string } }) {
@@ -21,17 +22,17 @@ export default function Page({ params }: { params: { slug: string } }) {
             <h2 className={headerClasses}>Influence Level</h2>
             <p>{getSelectLabel(influenceLevels,user.influence_level)}</p>
             <h2 className={headerClasses}>Mother from</h2>
-            <p>{getCountryName(countryList,user.mother_from)}</p>
+            <p>{getCountryName(locationList,user.mother_from)}</p>
             <h2 className={headerClasses}>Father from</h2>
-            <p>{getCountryName(countryList,user.father_from)}</p>
+            <p>{getCountryName(locationList,user.father_from)}</p>
             <h2 className={headerClasses}>Maternal Grandmother from</h2>
-            <p>{getCountryName(countryList,user.maternal_gmother_from)}</p>
+            <p>{getCountryName(locationList,user.maternal_gmother_from)}</p>
             <h2 className={headerClasses}>Maternal Grandfather from</h2>
-            <p>{getCountryName(countryList,user.maternal_gfather_from)}</p>
+            <p>{getCountryName(locationList,user.maternal_gfather_from)}</p>
             <h2 className={headerClasses}>Paternal Grandmother from</h2>
-            <p>{getCountryName(countryList,user.paternal_gmother_from)}</p>
+            <p>{getCountryName(locationList,user.paternal_gmother_from)}</p>
             <h2 className={headerClasses}>Paternal Grandfather from</h2>
-            <p>{getCountryName(countryList,user.paternal_gfather_from)}</p>
+            <p>{getCountryName(locationList,user.paternal_gfather_from)}</p>
             <audio controls>
                 <source src="/uploads/kiddush.mp3" type="audio/mpeg"/>
                 Your browser does not support the audio element.
@@ -49,12 +50,12 @@ export default function Page({ params }: { params: { slug: string } }) {
             <h2 className={headerClasses}>Jewish Heritage</h2>
             <p>{getSelectLabel(jewishOptions,user.jewish_heritage)}</p>
             <p>--- --- ---</p>
-            <p>M-{getCountryLatLng(countryList,user.mother_from)}</p>
-            <p>F-{getCountryLatLng(countryList,user.father_from)}</p>
-            <p>MGM-{getCountryLatLng(countryList,user.maternal_gmother_from)}</p>
-            <p>MGF-{getCountryLatLng(countryList,user.maternal_gfather_from)}</p>
-            <p>PGM-{getCountryLatLng(countryList,user.paternal_gmother_from)}</p>
-            <p>PGF-{getCountryLatLng(countryList,user.paternal_gfather_from)}</p>
+            <p>M-{getCountryLatLng(locationList,user.mother_from)}</p>
+            <p>F-{getCountryLatLng(locationList,user.father_from)}</p>
+            <p>MGM-{getCountryLatLng(locationList,user.maternal_gmother_from)}</p>
+            <p>MGF-{getCountryLatLng(locationList,user.maternal_gfather_from)}</p>
+            <p>PGM-{getCountryLatLng(locationList,user.paternal_gmother_from)}</p>
+            <p>PGF-{getCountryLatLng(locationList,user.paternal_gfather_from)}</p>
         </div>     
     )
 }

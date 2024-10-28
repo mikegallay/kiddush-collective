@@ -58,13 +58,15 @@ const MyLocationSelector = (
 
     if (isDesktop) {
       return (
-        <div className="flex flex-col w-full gap-2">
+        <div className="flex flex-col w-auto gap-2 flex-1">
           <p className="text-sm">
             {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
           </p>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild >
-              <Button variant="outline" className={`w-auto justify-start ${customInputClasses}`}>
+              <Button 
+                variant="outline" 
+                className={`w-auto justify-start ${customInputClasses}`}>
                 {selectedStatus ? <>{selectedStatus.label}</> : <>{pin} Select Location</>}
               </Button>
             </PopoverTrigger>

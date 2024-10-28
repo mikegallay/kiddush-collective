@@ -35,13 +35,15 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
     const defaultSelectOption = (defaultOption) ? defaultOption : 'Select an Option';
 
     return (
-      <div className="flex flex-col w-full gap-3">
+      <div className={`flex flex-col w-auto gap-3 ${props.className || ''}`}>
         <Label htmlFor={id}>
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
         <Select onValueChange={(value: string) => formProps.setValue(id, value)}>
-          <SelectTrigger className={customInputClasses} {...formProps.register(id, { required: requiredDefault })}
-        id={id}>
+          <SelectTrigger 
+            className={`${customInputClasses} ${formProps.errors[id]?.message && 'border-rose-700'}`} 
+            {...formProps.register(id, { required: requiredDefault })}
+            id={id}>
             <SelectValue placeholder={defaultSelectOption} />
           </SelectTrigger>
           <SelectContent>

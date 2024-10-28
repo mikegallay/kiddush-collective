@@ -18,7 +18,7 @@ const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
     const requiredDefault = (props.required) ? 'This field is required.' : false;
 
     return (
-      <div className={`flex flex-col gap-3 ${props.className}`}>
+      <div className={`flex flex-col gap-3 flex-1 ${props.className || ''}`}>
         <Label htmlFor={id}>
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
@@ -26,7 +26,7 @@ const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
             id={id}
             {...props}
             {...formProps.register(id, { required: requiredDefault })}
-            className={customInputClasses}
+            className={`${customInputClasses} ${formProps.errors[id]?.message && 'border-rose-700'}`} 
             // placeholder={`Enter your ${label}`}
         />
         {formProps.errors[id]?.message ? 

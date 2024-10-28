@@ -38,3 +38,11 @@ export const influenceLevels: { value: string, label: string }[] = [
   { value: "holidays", label: "Just the Holidays" },
   { value: "traditionalist", label: "Traditionalist" }
 ];
+
+export function getYearOptions() {
+  const yearOptions = [];
+  for (let year = 1920; year <= 2024; year++) {
+    yearOptions.push({ value: year.toString(), label: year.toString() });
+  }
+  return yearOptions;
+}
