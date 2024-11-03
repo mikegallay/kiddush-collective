@@ -1,4 +1,5 @@
 // 'use client';
+import dynamic from 'next/dynamic';
 import {data} from '@/app/data/dummydata';
 import { fonts } from '@/app/fonts';
 import {UserProps} from '@/app/data/globalProps';
@@ -17,6 +18,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     const user = (data as UserProps[]).find((user: UserProps) => user.id === params.slug);
     const headerClasses="text-xs font-bold pt-4 italic text-gray-500";
 
+    const DynamicMap = dynamic(() => import('@/app/components/MapUser'), { ssr: false });
 
     if (!params.slug) {
         return <div>Loading...</div>;
@@ -47,7 +49,8 @@ export default function Page({ params }: { params: { slug: string } }) {
                 </div>
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2 flex-1">
                     <div className="w-full h-96 overflow-hidden bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-500">Map will be displayed here</span> 
+                        <DynamicMap {...user} />
+                        {/* <span className="text-gray-500">Map will be displayed here</span>  */}
                     </div>
                     <div className="flex justify-center -mt-4 mb-2">
                         <audio controls>
@@ -111,6 +114,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             
             
             <p>--- --- ---</p>
+            <p>ME-{getCountryLatLng(locationList,user.you_from)}</p>
             <p>M-{getCountryLatLng(locationList,user.mother_from)}</p>
             <p>F-{getCountryLatLng(locationList,user.father_from)}</p>
             <p>MGM-{getCountryLatLng(locationList,user.maternal_gmother_from)}</p>

@@ -1,3 +1,5 @@
+import L from 'leaflet';
+
 type SelectProps = {
     value: string;
     label: string;
@@ -20,7 +22,23 @@ lng: number;
     return foundItem ? foundItem.label : undefined;
   };
 
-  export const getCountryLatLng = (array: CountryProps[], value: string): [number, number] | undefined => {
+  // export const getCountryLatLng = (array: CountryProps[], value: string): [number, number] | undefined => {
+  //   const foundItem = array.find(item => item.value === value);
+  //   return foundItem ? [foundItem.lat, foundItem.lng] : undefined;
+  // };
+
+
+
+  export const getCountryLatLng = (
+    array: CountryProps[], 
+    value: string
+  ): L.LatLngExpression => {
     const foundItem = array.find(item => item.value === value);
-    return foundItem ? [foundItem.lat, foundItem.lng] : undefined;
+
+    if (foundItem) {
+      return [foundItem.lat, foundItem.lng]; // Return as a tuple [lat, lng]
+    } else {
+      // Return a default location, like (0, 0), or throw an error if needed
+      return [0, 0];
+    }
   };
