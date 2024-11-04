@@ -114,13 +114,13 @@ export default function Page({ params }: { params: { slug: string } }) {
             
             
             <p>--- --- ---</p>
-            <p>ME-{getCountryLatLng(locationList,user.you_from)}</p>
-            <p>M-{getCountryLatLng(locationList,user.mother_from)}</p>
-            <p>F-{getCountryLatLng(locationList,user.father_from)}</p>
-            <p>MGM-{getCountryLatLng(locationList,user.maternal_gmother_from)}</p>
-            <p>MGF-{getCountryLatLng(locationList,user.maternal_gfather_from)}</p>
-            <p>PGM-{getCountryLatLng(locationList,user.paternal_gmother_from)}</p>
-            <p>PGF-{getCountryLatLng(locationList,user.paternal_gfather_from)}</p>
+            <p>ME-{String(getCountryLatLng(locationList,user.you_from))}</p>
+            <p>M-{String(getCountryLatLng(locationList,user.mother_from))}</p>
+            <p>F-{String(getCountryLatLng(locationList,user.father_from))}</p>
+            <p>MGM-{String(getCountryLatLng(locationList,user.maternal_gmother_from))}</p>
+            <p>MGF-{String(getCountryLatLng(locationList,user.maternal_gfather_from))}</p>
+            <p>PGM-{String(getCountryLatLng(locationList,user.paternal_gmother_from))}</p>
+            <p>PGF-{String(getCountryLatLng(locationList,user.paternal_gfather_from))}</p>
         </div>     
     )
 }

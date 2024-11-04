@@ -69,7 +69,7 @@ const LocationMarker = ({ setPosition, pinPosition }: { setPosition: (latlng: L.
         )}
         <MapContainer
         id="map"
-        center={initialPosition} 
+        center={[initialPosition[0],initialPosition[1]]} 
         zoom={latLng ? 9 : 5}
         style={{ height: '400px', width: '100%' }}
         >
