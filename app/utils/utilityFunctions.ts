@@ -1,4 +1,5 @@
 import L from 'leaflet';
+import { locationList } from '@/app/data/locationData';
 
 type SelectProps = {
     value: string;
@@ -30,10 +31,9 @@ lng: number;
 
 
   export const getCountryLatLng = (
-    array: CountryProps[], 
     value: string
   ): L.LatLngExpression => {
-    const foundItem = array.find(item => item.value === value);
+    const foundItem = locationList.find(item => item.value === value);
 
     if (foundItem) {
       return [foundItem.lat, foundItem.lng]; // Return as a tuple [lat, lng]
