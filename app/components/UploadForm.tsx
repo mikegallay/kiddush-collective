@@ -14,7 +14,7 @@ import {
   DrawerTrigger, DrawerHeader, DrawerTitle, DrawerDescription,DrawerClose
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button";
-import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, getYearOptions } from '@/app/data/uploadFormData';
+import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, getYearOptions } from '@/app/data/uploadFormData';
 import { useForm } from 'react-hook-form';
 import { MouseEventHandler, useState } from 'react';
 
@@ -101,11 +101,14 @@ export default function UploadForm() {
             <MyInput label="First Name" id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
 
             <MyInput label="Last Initial" id="last_initial" formProps={{register, errors}} />
+
+        
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
             <MyInput label="Email" id="email" type="email" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]"/>
             <MySelect label="Birth Year" id="birth_year" options={getYearOptions()} formProps={{register, errors, setValue}} required className=""/>
+            <MySelect label="Gender" id="gender" options={genderOptions} formProps={{register, errors, setValue}} required className=""/>
         </div>
 
         

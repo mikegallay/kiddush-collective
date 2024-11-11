@@ -6,7 +6,7 @@ export default function MapUserLegend() {
     const [legendVisible, setLegendVisible] = useState(false)
 
     return (
-        <div className='map-legend-wrapper absolute top-0 bottom-0 m-2 z-20 text-right '>
+        <div className='map-legend-wrapper absolute top-0 right-0 m-6 z-20 text-right '>
             <button 
                 className="relative bg-white border-stone-300 border-2 py-2 px-3 mb-2 rounded-sm shadow-sm"
                 aria-label="Toggle Legend"

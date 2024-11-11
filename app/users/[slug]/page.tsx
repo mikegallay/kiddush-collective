@@ -55,7 +55,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                     </div>
                     <MapUserLegend/>
                     <div className="flex justify-center -mt-4 mb-2 z-20 relative">
-                        <audio controls>
+                        <audio className="border-slate-500 border-2 shadow-lg rounded-full" controls>
                             <source src="/uploads/kiddush.mp3" type="audio/mpeg"/>
                             Your browser does not support the audio element.
                         </audio>

@@ -1,3 +1,8 @@
+export const genderOptions: { value: string, label: string }[] = [
+  { value: "male", label: "XY" },
+  { value: "female", label: "XX" }
+];
+
 export const raceOptions: { value: string, label: string }[] = [
   { value: "white", label: "White" },
   { value: "black", label: "Black" },
