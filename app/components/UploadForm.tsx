@@ -41,10 +41,10 @@ function mapDrawer(register: any, setValue: any) {
       <DrawerTrigger asChild>
         <Button variant="outline" className={`justify-start w-auto ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>Open Map Selector</>}</Button>
       </DrawerTrigger>
-      <DrawerContent >
+      <DrawerContent data-vaul-no-drag>
         <DrawerHeader>
           <DrawerTitle>Can you be more specific?</DrawerTitle>
-          <DrawerDescription>Please be as specific as possible to better represent your location. You don't have to share your exact location. An approximation is fine. Drop a pin and the hit the button to make your selection.</DrawerDescription>
+          <DrawerDescription>Please be as specific as possible to better represent your location. You don't have to share your exact location. An approximation is fine. Drop a pin and click "Make Selection".</DrawerDescription>
         </DrawerHeader>
         <div className="w-full h-96 overflow-hidden bg-gray-200 flex items-center justify-center">
           <DynamicMap 

@@ -18,7 +18,7 @@ const MyCheckbox = forwardRef<HTMLInputElement, MyCheckboxProps>(
     
     return (
       <div className={`flex flex-col gap-2 ${props.className || ''}`}>
-        <div className="flex flex-row-reverse justify-end gap-4">
+        <div className="flex flex-row-reverse justify-end gap-4 items-center">
           <Label className="leading-normal" htmlFor={id}>
               {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
           </Label>
