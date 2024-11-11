@@ -13,54 +13,45 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import { Polyline } from 'react-leaflet/Polyline'
 import { bezierSpline } from "@turf/bezier-spline";
 
-const myIcon = L.icon({
-    iconUrl: '/images/marker-icon-2x.png',
-    iconSize: [26, 41],
-    iconAnchor: [13, 41],
-    popupAnchor: [0, -50],
+// interface PolylineProps {
+//     positions: LatLngExpression[];
+//     color: string;
+//   }
+
+const mapMarker: (icon: string) => L.Icon = (icon:string) => {
+  return L.icon({
+    iconUrl: `/images/${icon}.png`,
+    iconSize: [25, 29],
+    iconAnchor: [13, 29],
+    popupAnchor: [0, -25],
     shadowUrl: '/images/marker-shadow.png',
-    shadowSize: [40, 41],
-    shadowAnchor: [13, 41]
-});
+    shadowSize: [25, 29],
+    shadowAnchor: [13, 29]
+})
+}
 
-interface PolylineProps {
-    positions: LatLngExpression[];
-    color: string;
-  }
-
-const LocationMarker = (pinPosition: L.LatLng | null ) => {
-    return pinPosition === null ? null : (
-        <Marker position={pinPosition} icon={myIcon || undefined} />
-    );
-};
-
-const FitBoundsOnPolylines: React.FC<{ polylines: PolylineProps[] }> = ({ polylines }) => {
-    const map = useMap();
+// const FitBoundsOnPolylines: React.FC<{ polylines: PolylineProps[] }> = ({ polylines }) => {
+//     const map = useMap();
   
-    useEffect(() => {
-      if (polylines.length > 0) {
-        const bounds = new LatLngBounds([]);
+//     useEffect(() => {
+//       if (polylines.length > 0) {
+//         const bounds = new LatLngBounds([]);
   
-        // Add all polyline positions to the bounds
-        polylines.forEach((polyline) => {
-          polyline.positions.forEach((position) => bounds.extend(position));
-        });
+//         // Add all polyline positions to the bounds
+//         polylines.forEach((polyline) => {
+//           polyline.positions.forEach((position) => bounds.extend(position));
+//         });
   
-        map.fitBounds(bounds);
-      }
-    }, [map, polylines]);
+//         map.fitBounds(bounds);
+//       }
+//     }, [map, polylines]);
   
-    return null;
-  };
+//     return null;
+//   };
 
 // const MapUser = ({ setLocation }: { setLocation: (latLng: [number, number] | null) => void }) => {
 const MapUser = (data :  UserProps | null)  => {
-    // const initialPosition = data 
-    //     ? getCountryLatLng(data.you_from)
-    //     : [51.505, -0.09];
 
-    // const fatherFrom = data ? getCountryLatLng(data.father_from) : [0,0];
-    // const fatherFrom: L.LatLngExpression =  data && data.father_from && getCountryLatLng( data.father_from);
     const initialPosition = getCountryLatLng(data?.you_from || '');
     const fatherFrom = getCountryLatLng(data?.father_from || '');
     const motherFrom = getCountryLatLng(data?.mother_from || '');
@@ -93,7 +84,7 @@ const MapUser = (data :  UserProps | null)  => {
       const offset = Math.random() * 0.15 - 0.075;//b-t -0.075 and 0.075
       const dx = p2[0] - p1[0];
       const dy = p2[1] - p1[1];
-      const offsetMidpoint = [midpoint[0] + dy * offset, midpoint[1] - dx * 1];
+      const offsetMidpoint = [midpoint[0] + dy * offset, midpoint[1] - dx * offset];
     
       const points = [[p1[1], p1[0]], [offsetMidpoint[1], offsetMidpoint[0]], [p2[1], p2[0]]];
       const line: GeoJSON.LineString = {
@@ -121,18 +112,23 @@ const MapUser = (data :  UserProps | null)  => {
     
 
     return (
-
         <MapContainer
         id="map"
         center={initialPosition} 
         zoom={5}
-        style={{ height: '400px', width: '100%' }}
+        style={{ height: '100%', width: '100%' }}
         >
             <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
 
             {/* <LocationMarker pinPosition={[51.505, -0.09]} /> */}
-            <Marker position={initialPosition} icon={myIcon || undefined} />
+            <Marker position={initialPosition} icon={mapMarker('marker-main') || undefined} />
+            <Marker position={fatherFrom} icon={mapMarker('marker-father') || undefined} />
+            <Marker position={motherFrom} icon={mapMarker('marker-mother') || undefined} />
+            <Marker position={patGrandFather} icon={mapMarker('marker-pat-father') || undefined} />
+            <Marker position={patGrandMother} icon={mapMarker('marker-pat-mother') || undefined} />
+            <Marker position={matGrandFather} icon={mapMarker('marker-mat-father') || undefined} />
+            <Marker position={matGrandMother} icon={mapMarker('marker-mat-mother') || undefined} />
 
             <FeatureGroup>
                 {/* {polylines.map((polyline, idx) => (
@@ -142,7 +138,7 @@ const MapUser = (data :  UserProps | null)  => {
                     // <Polyline key={idx} positions={polyline.positions} color={polyline.color} />
                     <LeafletGeoJSON key={idx} data={polyline.curve} style={{
                       color: polyline.color,
-                      weight: 2.5,
+                      weight: 2.8,
                       opacity: 0.8
                     }}/>
                 ))}

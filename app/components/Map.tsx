@@ -8,13 +8,13 @@ import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 
 const myIcon = L.icon({
-    iconUrl: '/images/marker-icon-2x.png',
-    iconSize: [26, 41],
-    iconAnchor: [13, 41],
-    popupAnchor: [0, -50],
+    iconUrl: '/images/marker-main.png',
+    iconSize: [25, 29],
+    iconAnchor: [13, 29],
+    popupAnchor: [0, -25],
     shadowUrl: '/images/marker-shadow.png',
-    shadowSize: [40, 41],
-    shadowAnchor: [13, 41]
+    shadowSize: [25, 29],
+    shadowAnchor: [13, 29]
 });
 
 const LocationMarker = ({ setPosition, pinPosition }: { setPosition: (latlng: L.LatLng) => void, pinPosition: L.LatLng | null }) => {
