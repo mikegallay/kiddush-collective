@@ -127,7 +127,7 @@ export default function UploadForm() {
 
         <MyInput label="Upload Your Kiddush Audio (optional)" id="file" type="file" description="No file to share? That's ok! We'd still love to learn more about you and where you are from." formProps={{register, errors}}/>
 
-        <MyTextarea label="Share your favorite memory about this Kiddush. (optional)" id="shabbat_memory" description="If you don't upload any audio, use this space to share any Shabbat memory." formProps={{register, errors}}/>
+        <MyTextarea label="Favorite Shabbat Memory. (optional)" id="shabbat_memory" description="Tell us about any memory related to this Kiddush or Shabbat." formProps={{register, errors}}/>
 
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">Tell Us About Yourself</h2>
 

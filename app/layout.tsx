@@ -1,5 +1,6 @@
 import './globals.css';
 import { ThemeProvider } from '@/context/ThemeContext';
+import { AudioProvider } from '@/context/AudioContext';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 
@@ -17,9 +18,11 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-white text-black dark:bg-black dark:text-white transition-colors">
         <ThemeProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <AudioProvider>
+            <Header />
+              <main>{children}</main>
+            <Footer />
+          </AudioProvider>
         </ThemeProvider>
       </body>
     </html>

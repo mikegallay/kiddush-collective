@@ -4,6 +4,7 @@ import {data} from '@/app/data/dummydata';
 import { fonts } from '@/app/fonts';
 import {UserProps} from '@/app/data/globalProps';
 import MapUserLegend from '@/app/components/MapUserLegend';
+import AudioPlayer from '@/app/components/AudioPlayer';
 import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels } from '@/app/data/uploadFormData';
 import { locationList } from '@/app/data/locationData';
 import { getSelectLabel, getCountryName, getCountryLatLng } from '@/app/utils/utilityFunctions';
@@ -55,10 +56,11 @@ export default function Page({ params }: { params: { slug: string } }) {
                     </div>
                     <MapUserLegend/>
                     <div className="flex justify-center -mt-4 mb-2 z-20 relative">
-                        <audio className="border-slate-500 border-2 shadow-lg rounded-full" controls>
+                        <AudioPlayer src="/uploads/kiddush.mp3" mode="full" />
+                        {/* <audio className="border-slate-500 border-2 shadow-lg rounded-full" controls>
                             <source src="/uploads/kiddush.mp3" type="audio/mpeg"/>
                             Your browser does not support the audio element.
-                        </audio>
+                        </audio> */}
                     </div>
                 </div>
             </div>

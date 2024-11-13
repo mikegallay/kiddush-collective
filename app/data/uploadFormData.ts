@@ -41,7 +41,8 @@ export const kiddushFrequency: { value: string, label: string }[] = [
 export const influenceLevels: { value: string, label: string }[] = [
   { value: "strict_observance", label: "Strict Observance" },
   { value: "holidays", label: "Just the Holidays" },
-  { value: "traditionalist", label: "Traditionalist" }
+  { value: "traditionalist", label: "Traditionalist" },
+  { value: "no_influence", label: "No Influence" }
 ];
 
 export function getYearOptions() {
