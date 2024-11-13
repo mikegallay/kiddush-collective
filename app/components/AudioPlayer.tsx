@@ -86,7 +86,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
   const progress = (currentTime / duration) * 100;
 
   return (
-    <div className={`audio-player flex flex-row gap-2 justify-center ${mode === 'micro' ? 'micro-player' : 'p-2 bg-slate-100 border-slate-700 border-2 rounded-full shadow-lg'}`}>
+    <div className={`audio-player flex flex-row gap-3 lg:gap-2 justify-center ${mode === 'micro' ? 'micro-player' : 'p-2 lg:p-1 lg:pr-2 bg-slate-100 border-slate-400 border-2 rounded-full shadow-md'}`}>
       <audio ref={audioRef} src={src} onEnded={() => setIsPlaying(false)} />
 
       {/* Circular Play Button with Progress */}
