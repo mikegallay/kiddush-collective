@@ -3,13 +3,15 @@ import ThemeToggle from './ThemeToggle'; // Adjust the path as necessary
 import { getI18n, getScopedI18n } from '@/locales/server';
 import { LocaleSwitcher } from './LocaleSwitcher';
 
+type NavProps = '0.title' | '0.url' //incomplete type fix
+
 export default async function Header() {
 
   const t = await getScopedI18n('header.navItems');
   const totalNavs = 4;
   const navItems = Array.from({ length: totalNavs }, (_, index) => ({
-    title: t(`${index}.title`),
-    url: t(`${index}.url`),
+    title: t(`${index}.title` as NavProps),
+    url: t(`${index}.url` as NavProps),
   }));
 
   return (
