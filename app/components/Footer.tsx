@@ -1,8 +1,13 @@
-export default function Footer() {
+import { getScopedI18n } from "@/locales/server";
+
+export default async function Footer() {
+
+    const t = await getScopedI18n('footer');
+
     return (
       <footer className="bg-gray-100 dark:bg-gray-800 p-4 text-center">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} The Kiddush Project. All rights reserved.
+          &copy; {new Date().getFullYear()} {t('copyright')}
         </p>
         <nav aria-label="Footer navigation">
           <ul className="flex justify-center space-x-4">

@@ -15,11 +15,11 @@ export default {
       { title: "Privacy Policy", url: "/privacy" },
       { title: "Terms of Service", url: "/terms" }
     ],
-    copyright:"The Kiddush Collective. All rights reserved.",
+    copyright:"The Kiddush Collective. Reservados todos los derechos.",
   },
   home:{
-    title: "Welcome to The Kiddush Collective",
-    description: "A global catalog of how Kiddush is said around the world, celebrating diversity and unity."
+    title: "Bienvenidos al Kiddush Collective",
+    description: "Un catálogo global de cómo se dice Kidush en todo el mundo, celebrando la diversidad y la unidad."
   },
   about: {
     title: "About Us",

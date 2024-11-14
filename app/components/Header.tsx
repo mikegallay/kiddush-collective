@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle'; // Adjust the path as necessary
-import { getI18n, getScopedI18n } from '@/locales/server';
+import { getScopedI18n } from '@/locales/server';
 import { LocaleSwitcher } from './LocaleSwitcher';
 
 type NavProps = '0.title' | '0.url' //incomplete type fix

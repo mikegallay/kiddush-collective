@@ -1,15 +1,21 @@
 import Link from 'next/link';
 import {data} from '@/app/data/dummydata';
 import {UserProps} from '@/app/data/globalProps'
+import { getScopedI18n } from '@/locales/server';
 
-export default function HomePage() {
+
+
+export default async function HomePage() {
+  
+  const t = await getScopedI18n('home');
+  
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-4">
       <h1 className="text-4xl font-bold mb-4 text-center">
-        Welcome to The Kiddush Collective
+        {t('title')}
       </h1>
       <p className="text-lg text-center mb-8">
-        A global catalog of how Kiddush is said around the world, celebrating diversity and unity.
+        {t('description')}
       </p>
 
       {/* Placeholder for map component */}
