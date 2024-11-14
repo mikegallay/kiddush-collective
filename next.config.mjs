@@ -6,8 +6,8 @@ const nextConfig = {
     // },
     // output: 'standalone',
     env: {
-        ENVIRONMENT: process.env.ENVIRONMENT,
-      }
+      ENVIRONMENT: process.env.ENVIRONMENT,
+    }
 }
 
 export default nextConfig;
