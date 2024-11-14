@@ -23,7 +23,7 @@ interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     defaultOption?: string;
     description? : string
     options: { value: string, label: string }[];
-    formProps: any;
+    formProps?: any;
 }
 
 

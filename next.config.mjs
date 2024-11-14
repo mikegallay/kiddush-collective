@@ -7,7 +7,14 @@ const nextConfig = {
     // output: 'standalone',
     env: {
       ENVIRONMENT: process.env.ENVIRONMENT,
-    }
+    },
+    transpilePackages: ['next-international', 'international-types'],
+    // eslint: {
+    //   ignoreDuringBuilds: true,
+    // },
+    // typescript: {
+    //   ignoreBuildErrors: true,
+    // },
 }
 
 export default nextConfig;
