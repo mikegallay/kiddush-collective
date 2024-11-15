@@ -28,6 +28,12 @@ export default {
   faq: {
     title: "Frequent Asked Questions",
     description: "You have questions, we have answers?"
+  },
+  upload: {
+    title: "Upload Your Kiddush",
+    description: "Please fill out the following form to upload your Kiddush. Your information helps us catalogue the various ways Kiddush is said across different regions and observance levels.",
+    fname: "First Name",
+    linitial: "Last Initial",
   }
 
 } as const;

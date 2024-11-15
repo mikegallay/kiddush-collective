@@ -25,3 +25,8 @@ export type UserProps = {
     };
     mp3_location: string;
   }
+
+  export type UploadFormProps = {
+    fname: string;
+    linitial: string;
+  }

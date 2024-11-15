@@ -14,6 +14,7 @@ import {
   DrawerTrigger, DrawerHeader, DrawerTitle, DrawerDescription,DrawerClose
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button";
+import {UploadFormProps} from '@/app/data/globalProps'
 import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, getYearOptions } from '@/app/data/uploadFormData';
 import { useForm } from 'react-hook-form';
 import { MouseEventHandler, useState } from 'react';
@@ -75,7 +76,8 @@ function mapDrawer(register: any, setValue: any) {
   )
 }
 
-export default function UploadForm() {
+export default function UploadForm({ localeData }:{ localeData: UploadFormProps; }) {
+
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   
   const onSubmit = (data: any) => {
@@ -98,9 +100,9 @@ export default function UploadForm() {
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="flex gap-6 flex-col">
         <div className="flex gap-6 flex-col lg:flex-row">
-            <MyInput label="First Name" id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
+            <MyInput label={localeData.fname} id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
 
-            <MyInput label="Last Initial" id="last_initial" formProps={{register, errors}} />
+            <MyInput label={localeData.linitial} id="last_initial" formProps={{register, errors}} />
 
         
         </div>
