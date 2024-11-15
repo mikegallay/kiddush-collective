@@ -3,8 +3,6 @@ import {data} from '@/app/data/dummydata';
 import {UserProps} from '@/app/data/globalProps'
 import { getScopedI18n } from '@/locales/server';
 
-
-
 export default async function HomePage() {
   
   const t = await getScopedI18n('home');

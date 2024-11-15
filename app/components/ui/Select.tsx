@@ -6,16 +6,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import {
-//   Drawer,
-//   DrawerContent,
-//   DrawerTrigger,
-// } from "@/components/ui/drawer"
-// import { useMediaQuery } from "@/hooks/use-media-query"
 import { customInputClasses } from '@/app/utils/customClasses';
 import { Label } from "@/components/ui/label";
+import { FormDefaultProps } from '@/app/data/globalProps'
 import { forwardRef } from 'react';
-// import { FieldErrors, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -23,16 +17,17 @@ interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     defaultOption?: string;
     description? : string
     options: { value: string, label: string }[];
+    translations: FormDefaultProps;
     formProps?: any;
 }
 
 
 const MySelect = forwardRef<HTMLInputElement, SelectProps>(
-    ({ label, id, description, defaultOption, onChange, options, formProps, ...props }: SelectProps, ref) => {
+    ({ label, id, description, defaultOption, onChange, options, translations, formProps, ...props }: SelectProps, ref) => {
     
     // const isDesktop = useMediaQuery("(min-width: 768px)")
-    const requiredDefault = (props.required) ? 'This field is required.' : false;
-    const defaultSelectOption = (defaultOption) ? defaultOption : 'Select an Option';
+    const requiredDefault = (props.required) ? translations.inputDefaultError : false;
+    const defaultSelectOption = (defaultOption) ? defaultOption : translations.selectDefault;
 
     return (
       <div className={`flex flex-col w-auto gap-3 ${props.className || ''}`}>

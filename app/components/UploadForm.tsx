@@ -14,14 +14,14 @@ import {
   DrawerTrigger, DrawerHeader, DrawerTitle, DrawerDescription,DrawerClose
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button";
-import {UploadFormProps} from '@/app/data/globalProps'
+import {UploadFormProps, FormDefaultProps} from '@/app/data/globalProps'
 import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, getYearOptions } from '@/app/data/uploadFormData';
 import { useForm } from 'react-hook-form';
 import { MouseEventHandler, useState } from 'react';
 
 const DynamicMap = dynamic(() => import('@/app/components/Map'), { ssr: false });
 
-function mapDrawer(register: any, setValue: any) {
+function mapDrawer(register: any, setValue: any, localeData:UploadFormProps) {
 
   const [location, setLocation] = useState<number[] | null>(null);
   register("specific_location", { required: false })
@@ -40,12 +40,12 @@ function mapDrawer(register: any, setValue: any) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" className={`justify-start w-auto ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>Open Map Selector</>}</Button>
+        <Button variant="outline" className={`justify-start w-auto ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>{localeData.mapButton}</>}</Button>
       </DrawerTrigger>
       <DrawerContent data-vaul-no-drag>
         <DrawerHeader>
-          <DrawerTitle>Can you be more specific?</DrawerTitle>
-          <DrawerDescription>Please be as specific as possible to better represent your location. You don't have to share your exact location. An approximation is fine. Drop a pin and click "Make Selection".</DrawerDescription>
+          <DrawerTitle>{localeData.mapDrawerTitle}</DrawerTitle>
+          <DrawerDescription>{localeData.mapDrawerDescription}</DrawerDescription>
         </DrawerHeader>
         <div className="w-full h-96 overflow-hidden bg-gray-200 flex items-center justify-center">
           <DynamicMap 
@@ -60,14 +60,14 @@ function mapDrawer(register: any, setValue: any) {
                 size="lg"
                 className="w-1/2"
                 variant="outline"
-              >Cancel</Button>
+              >{localeData.cancelButton}</Button>
             </DrawerClose>
             <DrawerClose asChild>
               <Button
                 size="lg"
                 className="w-1/2"
                 onClick={() => onClick()}
-              >Make Selection</Button>
+              >{localeData.makeSelectionButton}</Button>
             </DrawerClose>
           </div>
         </div>
@@ -79,6 +79,15 @@ function mapDrawer(register: any, setValue: any) {
 export default function UploadForm({ localeData }:{ localeData: UploadFormProps; }) {
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+
+  const formDefaults = {
+    inputDefaultError: localeData.inputDefaultError,
+    requiredError: localeData.requiredError,
+    selectDefault: localeData.selectOptionButton,
+    emailError: localeData.emailError,
+    charError: localeData.charError,
+    filterList: localeData.filterList
+  }
   
   const onSubmit = (data: any) => {
     console.log('data',data)
@@ -100,80 +109,75 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
       <div className="flex gap-6 flex-col">
         <div className="flex gap-6 flex-col lg:flex-row">
-            <MyInput label={localeData.fname} id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
-
-            <MyInput label={localeData.linitial} id="last_initial" formProps={{register, errors}} />
-
-        
+            <MyInput label={localeData.fname} id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" translations={formDefaults} required/>
+            <MyInput label={localeData.linitial} id="last_initial" translations={formDefaults} formProps={{register, errors}} />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-            <MyInput label="Email" id="email" type="email" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]"/>
-            <MySelect label="Birth Year" id="birth_year" options={getYearOptions()} formProps={{register, errors, setValue}} required className=""/>
-            <MySelect label="Gender" id="gender" options={genderOptions} formProps={{register, errors, setValue}} required className=""/>
+            <MyInput label={localeData.email} id="email" type="email" formProps={{register, errors}} translations={formDefaults} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
+            <MySelect label={localeData.dob} id="birth_year" options={getYearOptions()} translations={formDefaults} formProps={{register, errors, setValue}} required className=""/>
+            <MySelect label={localeData.gender} id="gender" options={genderOptions} translations={formDefaults} formProps={{register, errors, setValue}} required className=""/>
         </div>
 
         
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MyLocationSelector label="Where do you live?" id="you_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." />
+          <MyLocationSelector label={localeData.youlive} id="you_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" translations={formDefaults} description={localeData.fromInfo} />
 
           <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1">
-            <p className="text-sm">
-              Provide a more specific location (Optional)
-            </p>
-            {mapDrawer(register,setValue)}
-            <p className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>To better represent your location on the map.</p>
+            <p className="text-sm">{localeData.youliveExact}</p>
+            {mapDrawer(register,setValue,localeData)}
+            <p className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>{localeData.youliveInfo}</p>
           </div>
         </div>
 
-        <MyInput label="Upload Your Kiddush Audio (optional)" id="file" type="file" description="No file to share? That's ok! We'd still love to learn more about you and where you are from." formProps={{register, errors}}/>
+        <MyInput label={localeData.uploadFile} id="file" type="file" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
 
-        <MyTextarea label="Favorite Shabbat Memory. (optional)" id="shabbat_memory" description="Tell us about any memory related to this Kiddush or Shabbat." formProps={{register, errors}}/>
+        <MyTextarea label={localeData.shabbatMemory} id="shabbat_memory" description={localeData.shabbatMemoryInfo} formProps={{register, errors}}/>
 
-        <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">Tell Us About Yourself</h2>
+        <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">{localeData.moreInfoTitle}</h2>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label="Level of Observance" id="level_of_observance" options={observanceLevel} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect label={localeData.observance} id="level_of_observance" options={observanceLevel} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
           
-          <MySelect label="How Often Do You Say Kiddush?" id="kiddush_frequency" options={kiddushFrequency} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2  flex-1" />
+          <MySelect label={localeData.kiddushFreq} id="kiddush_frequency" options={kiddushFrequency} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2  flex-1" />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label="How Much Does Judaism Influence Your Life?" id="influence_level" options={influenceLevels} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect label={localeData.influence} id="influence_level" options={influenceLevels} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
 
-          <MySelect label="Shabbat is my favorite day of the week." id="shabbat_is_favorite" options={[{value: "true", label: "True" },{ value: "false", label: "False" }]} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect label={localeData.favoriteDay} id="shabbat_is_favorite" options={[{value: "true", label: "True" },{ value: "false", label: "False" }]} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label="Race Options" id="race_options" options={raceOptions} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect label={localeData.race} id="race_options" options={raceOptions} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
 
-          <MySelect label="Which Jewish heritage best describes your background?" id="jewish_heritage" options={jewishOptions} formProps={{register, errors, setValue}} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect label={localeData.heritage} id="jewish_heritage" options={jewishOptions} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
         </div>
 
-        <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">Tell Us About Your Family</h2>
+        <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">{localeData.familyTitle}</h2>
    
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MyLocationSelector label="Where is Your Mother From?" id="mother_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." />
+          <MyLocationSelector label={localeData.motherFrom} id="mother_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
 
-          <MyLocationSelector label="Where is Your Father From?" id="father_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." />
+          <MyLocationSelector label={localeData.fatherFrom} id="father_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MyLocationSelector label="Where is Your Maternal Grandmother From?" id="maternal_gmother_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." />
+          <MyLocationSelector label={localeData.matGrandmotherFrom} id="maternal_gmother_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
 
-          <MyLocationSelector label="Where is Your Maternal Grandfather From?" id="maternal_gfather_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." />
+          <MyLocationSelector label={localeData.matGrandfatherFrom} id="maternal_gfather_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MyLocationSelector label="Where is Your Paternal Grandmother From?" id="paternal_gmother_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." />
+          <MyLocationSelector label={localeData.patGrandmotherFrom} id="paternal_gmother_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
 
-          <MyLocationSelector label="Where is Your Paternal Grandmother From?" id="paternal_gfather_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" description="This location will not be exact." />
+          <MyLocationSelector label={localeData.patGrandmfatherFrom} id="paternal_gfather_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
         </div>
 
-        <MyCheckbox label="I'm ok with my audio being used in social media, with the understanding that my identity and other personal information will not be shared." id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>
+        <MyCheckbox label={localeData.optin} id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>
 
-        <Button className="w-auto lg:w-1/2 m-auto" type="submit">Submit</Button>
+        <Button className="w-auto lg:w-1/2 m-auto" type="submit">{localeData.submitButton}</Button>
       </div>
     </form>
   );

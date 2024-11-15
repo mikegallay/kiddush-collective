@@ -3,6 +3,7 @@ import { Label } from "@/components/ui/label"
 import { forwardRef } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 import { customInputClasses } from '@/app/utils/customClasses';
+import { FormDefaultProps } from '@/app/data/globalProps'
 
 interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -10,25 +11,23 @@ interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     type?: string;
     description?: string;
     formProps: any;
+    translations: FormDefaultProps;
     // register: UseFormRegister<any>;
     // errors: FieldErrors<any>;
 }
 
-function configureRegisterOptions(required: boolean | undefined, label: string, type: string): object{
+function configureRegisterOptions(required: boolean | undefined, label: string, type: string, translations: FormDefaultProps): object{
 
-    const requiredDefault = (required) ? `${label} is required.` : false;
+    const requiredDefault = (required) ? `${label} ${translations.requiredError}.` : false;
     let registerOptions: RegisterOptions = {
         required: requiredDefault,
-        validate: (value: string) => !/[<>'"&“”‘’]/gi.test(value) || "Some special characters are not allowed"
+        validate: (value: string) => !/[<>'"&“”‘’]/gi.test(value) || translations.charError
     }   
 
     if (type === 'email') {
         registerOptions = {
             ...registerOptions,
-            pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address'
-            }
+            validate: (value: string) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value) || translations.emailError
         }
     }
     
@@ -36,10 +35,9 @@ function configureRegisterOptions(required: boolean | undefined, label: string, 
 }
 
 const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
-    ({ label, id, type = 'text', description, formProps, ...props }: MyInputProps, ref) => {
+    ({ label, id, type = 'text', description, formProps, translations, ...props }: MyInputProps, ref) => {
     
-    // const id = label.trim().toLowerCase().replace(/[^\w\s]/gi, '').replace(/\s+/g, '-');
-    const registerOptions = configureRegisterOptions(props.required, label, type)
+    const registerOptions = configureRegisterOptions(props.required, label, type, translations)
     
     return (
       <div className={`flex flex-col gap-3 ${props.className || ''}`}>
@@ -50,8 +48,8 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
             id={id}
             {...props}
             type={type}
-            maxLength={(label === 'Last Initial') ? 1 : 100}
-            className={`${customInputClasses} ${(label === 'Last Initial') ? 'lg:w-12' : ''} ${formProps.errors[id]?.message && 'border-rose-700'}`}
+            maxLength={(id === 'last_initial') ? 1 : 100}
+            className={`${customInputClasses} ${(id === 'last_initial') ? 'lg:w-12' : ''} ${formProps.errors[id]?.message && 'border-rose-700'}`}
             {...formProps.register(id, registerOptions)}
             // placeholder={`Enter your ${label}`}
         />

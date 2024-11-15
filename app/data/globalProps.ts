@@ -29,4 +29,53 @@ export type UserProps = {
   export type UploadFormProps = {
     fname: string;
     linitial: string;
+    email: string;
+    dob: string;
+    gender: string;
+    youlive: string;
+    youliveExact: string;
+    youliveInfo: string;
+    mapDrawerTitle: string;
+    mapDrawerDescription: string;
+    uploadFile: string;
+    uploadFileInfo: string;
+    shabbatMemory: string;
+    shabbatMemoryInfo: string;
+    moreInfoTitle: string;
+    observance: string;
+    kiddushFreq: string;
+    influence: string;
+    favoriteDay:string;
+    race: string;
+    heritage: string;
+    familyTitle: string;
+    motherFrom: string;
+    fatherFrom: string;
+    matGrandmotherFrom: string;
+    matGrandfatherFrom: string;
+    patGrandmotherFrom: string;
+    patGrandmfatherFrom: string;
+    fromInfo:string;
+    optin: string;
+    submitButton: string;
+    cancelButton: string;
+    makeSelectionButton: string;
+    selectOptionButton: string;
+    locationButton: string;
+    mapButton: string;
+    inputDefaultError: string;
+    requiredError: string;
+    emailError: string;
+    invalidEmailError: string;
+    charError: string;
+    filterList: string;
+  }
+
+  export type FormDefaultProps = {
+    inputDefaultError: string;
+    requiredError: string;
+    selectDefault: string;
+    emailError: string;
+    charError: string;
+    filterList: string;
   }
