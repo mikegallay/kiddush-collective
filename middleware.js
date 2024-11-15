@@ -11,6 +11,13 @@ const I18nMiddleware = createI18nMiddleware({
   });
 
 export function middleware(request) {
+    const { pathname } = request.nextUrl;
+
+    // Ignore static files
+    if (pathname.startsWith('/images') || pathname.startsWith('/uploads') || pathname.startsWith('/_next')) {
+        return NextResponse.next();
+    }
+
     const response = I18nMiddleware(request);
     const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
     const cspHeader = `
@@ -25,8 +32,9 @@ export function middleware(request) {
     frame-ancestors 'none';
     upgrade-insecure-requests;
 `
-    const requestHeaders = new Headers(response.headers);
     // const requestHeaders = new Headers(request.headers)
+    const requestHeaders = new Headers(response ? response.headers : request.headers);
+
     requestHeaders.set('x-nonce', nonce)
     requestHeaders.set('Content-Security-Policy', cspHeader.replace(/\s{2,}/g, ' ').trim())
     requestHeaders.set('Referrer-Policy', 'strict-origin')
@@ -37,7 +45,7 @@ export function middleware(request) {
     requestHeaders.set('Permissions-Policy', 'geolocation=(self), microphone=()')
     requestHeaders.set('Referrer-Policy', 'strict-origin')
 
-    return NextResponse.next({
+    return response || NextResponse.next({
         headers: requestHeaders,
         request: {
             headers: requestHeaders,
@@ -54,7 +62,7 @@ export const config = {
          * - _next/image (image optimization files)
          * - favicon.ico (favicon file)
          */
-        '/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)',
+        // '/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt).*)',
         {
             source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
             missing: [
