@@ -35,6 +35,7 @@ export type UserProps = {
     youlive: string;
     youliveExact: string;
     youliveInfo: string;
+    youliveMoreInfo: string;
     mapDrawerTitle: string;
     mapDrawerDescription: string;
     uploadFile: string;

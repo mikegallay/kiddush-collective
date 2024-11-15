@@ -40,6 +40,7 @@ export default {
     youlive: "Dónde vives?",
     youliveExact: "Proporciona una ubicación más precisa (opcional)",
     youliveInfo: "Para representar mejor tu ubicación en el mapa.",
+    youliveMoreInfo: "Entendemos que prefieras no compartir tu ubicación exacta en el mapa. Esta opción ayuda a que el mapa sea más completo, respetando tu privacidad.",
     mapDrawerTitle: "Puedes ser más específico",
     mapDrawerDescription: "Por favor, sé lo más específico posible para representar mejor tu ubicación. No tienes que compartir tu ubicación exacta. Una aproximación es suficiente. Coloca un pin y haz clic en Seleccionar.",
     uploadFile: "Sube tu audio de Kidush (opcional)",

@@ -15,6 +15,7 @@ export default async function UploadPage() {
     mapDrawerDescription: t('mapDrawerDescription'),
     youliveExact: t('youliveExact'),
     youliveInfo: t('youliveInfo'),
+    youliveMoreInfo: t('youliveMoreInfo'),
     uploadFile: t('uploadFile'),
     uploadFileInfo: t('uploadFileInfo'),
     shabbatMemory: t('shabbatMemory'),

@@ -7,6 +7,7 @@ import MyInput from '@/app/components/ui/Input';
 import MySelect from '@/app/components/ui/Select';
 import MyCheckbox from '@/app/components/ui/Checkbox';
 import MyTextarea from '@/app/components/ui/Textarea';
+import { MyHoverCard } from '@/app/components/ui/HoverCard';
 import MyLocationSelector from '@/app/components/ui/LocationSelector';
 import {
   Drawer,
@@ -17,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import {UploadFormProps, FormDefaultProps} from '@/app/data/globalProps'
 import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, getYearOptions } from '@/app/data/uploadFormData';
 import { useForm } from 'react-hook-form';
+import { InfoCircledIcon } from "@radix-ui/react-icons"
 import { MouseEventHandler, useState } from 'react';
 
 const DynamicMap = dynamic(() => import('@/app/components/Map'), { ssr: false });
@@ -125,7 +127,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
           <MyLocationSelector label={localeData.youlive} id="you_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" translations={formDefaults} description={localeData.fromInfo} />
 
           <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1">
-            <p className="text-sm">{localeData.youliveExact}</p>
+            <p className="text-sm"><span>{localeData.youliveExact} <MyHoverCard trigger={<InfoCircledIcon/>} content={localeData.youliveMoreInfo}/></span></p>
             {mapDrawer(register,setValue,localeData)}
             <p className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>{localeData.youliveInfo}</p>
           </div>
