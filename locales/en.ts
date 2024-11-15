@@ -40,7 +40,7 @@ export default {
     youlive: "Where do you live?",
     youliveExact: "Provide a more specific location (optional)",
     youliveInfo: "To better represent your location on the map.",
-    youliveMoreInfo: "We understand you might prefer not to share your exact location on the map. This optional input helps make the map more complete while respecting your privacy.",
+    youliveMoreInfo: "We understand you might not want to reveal your exact location on the map. By selecting an area close to your location, rather than your exact position, this optional input helps our map feel more complete while still maintaining your privacy.",
     mapDrawerTitle: "Can you be more specific",
     mapDrawerDescription: "Please be as specific as possible to better represent your location. You don't have to share your exact location. An approximation is fine. Drop a pin and click Make Selection.",
     uploadFile: "Upload Your Kiddush Audio (optional)",
