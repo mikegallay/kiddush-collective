@@ -6,7 +6,7 @@ let development = process.env.ENVIRONMENT === 'development'
 // console.log("Is Development Mode:", development);
 
 const I18nMiddleware = createI18nMiddleware({
-    locales: ['en', 'es'],
+    locales: ['en', 'es', 'il'],
     defaultLocale: 'en',
   });
 

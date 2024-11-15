@@ -38,7 +38,7 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
           <SelectTrigger 
             className={`${customInputClasses} ${formProps.errors[id]?.message && 'border-rose-700'}`} 
             {...formProps.register(id, { required: requiredDefault })}
-            id={id}>
+            id={id} dir={props.dir ? props.dir : 'ltr'}>
             <SelectValue placeholder={defaultSelectOption} />
           </SelectTrigger>
           <SelectContent>

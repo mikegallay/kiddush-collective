@@ -17,11 +17,12 @@ export function LocaleSwitcher() {
 
   const localeOptions: { value: string, label: string }[] = [
     { value: "en", label: "EN" },
-    { value: "es", label: "ES" }
+    { value: "es", label: "ES" },
+    { value: "il", label: "IL" }
   ] as const;
 
   // type LanguageCode = typeof localeOptions[number]['value'];
-  type LanguageCode = "en" | "es"
+  type LanguageCode = "en" | "es" | "il"
 
   return (
     // <MySelect label="Birth Year" id="birth_year" options={localeOptions} onChange={(e) => changeLocale('es')} className=""/>

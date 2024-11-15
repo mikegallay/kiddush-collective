@@ -6,11 +6,9 @@ export default async function Footer() {
 
     return (
       <footer className="bg-gray-100 dark:bg-gray-800 p-4 text-center">
-        <p className="text-sm">
-          &copy; {new Date().getFullYear()} {t('copyright')}
-        </p>
+       
         <nav aria-label="Footer navigation">
-          <ul className="flex justify-center space-x-4">
+          <ul className="flex justify-center gap-6">
             <li>
               <a
                 href="/privacy"
@@ -29,6 +27,9 @@ export default async function Footer() {
             </li>
           </ul>
         </nav>
+        <p className="text-sm">
+          &copy; {new Date().getFullYear()} {t('copyright')}
+        </p>
       </footer>
     );
   }

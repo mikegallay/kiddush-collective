@@ -20,6 +20,7 @@ import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFreq
 import { useForm } from 'react-hook-form';
 import { InfoCircledIcon } from "@radix-ui/react-icons"
 import { MouseEventHandler, useState } from 'react';
+import { useCurrentLocale } from '@/locales/client'
 
 const DynamicMap = dynamic(() => import('@/app/components/Map'), { ssr: false });
 
@@ -82,6 +83,8 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
+  const dir = useCurrentLocale() === 'il' ? 'rtl' : 'ltr';
+
   const formDefaults = {
     inputDefaultError: localeData.inputDefaultError,
     requiredError: localeData.requiredError,
@@ -117,8 +120,8 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
         <div className="flex gap-6 flex-col lg:flex-row">
             <MyInput label={localeData.email} id="email" type="email" formProps={{register, errors}} translations={formDefaults} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
-            <MySelect label={localeData.dob} id="birth_year" options={getYearOptions()} translations={formDefaults} formProps={{register, errors, setValue}} required className=""/>
-            <MySelect label={localeData.gender} id="gender" options={genderOptions} translations={formDefaults} formProps={{register, errors, setValue}} required className=""/>
+            <MySelect dir={dir} label={localeData.dob} id="birth_year" options={getYearOptions()} translations={formDefaults} formProps={{register, errors, setValue}} required className=""/>
+            <MySelect dir={dir} label={localeData.gender} id="gender" options={genderOptions} translations={formDefaults} formProps={{register, errors, setValue}} required className=""/>
         </div>
 
         
@@ -140,21 +143,21 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">{localeData.moreInfoTitle}</h2>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label={localeData.observance} id="level_of_observance" options={observanceLevel} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.observance} id="level_of_observance" options={observanceLevel} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
           
-          <MySelect label={localeData.kiddushFreq} id="kiddush_frequency" options={kiddushFrequency} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2  flex-1" />
+          <MySelect dir={dir} label={localeData.kiddushFreq} id="kiddush_frequency" options={kiddushFrequency} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2  flex-1" />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label={localeData.influence} id="influence_level" options={influenceLevels} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.influence} id="influence_level" options={influenceLevels} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
 
-          <MySelect label={localeData.favoriteDay} id="shabbat_is_favorite" options={[{value: "true", label: "True" },{ value: "false", label: "False" }]} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.favoriteDay} id="shabbat_is_favorite" options={[{value: "true", label: "True" },{ value: "false", label: "False" }]} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect label={localeData.race} id="race_options" options={raceOptions} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.race} id="race_options" options={raceOptions} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
 
-          <MySelect label={localeData.heritage} id="jewish_heritage" options={jewishOptions} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.heritage} id="jewish_heritage" options={jewishOptions} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
         </div>
 
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">{localeData.familyTitle}</h2>

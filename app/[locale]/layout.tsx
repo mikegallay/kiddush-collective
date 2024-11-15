@@ -25,7 +25,7 @@ export default async function RootLayout({
   const { locale } = await params;
   
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={locale === 'ar' || locale === 'il' ? 'rtl' : 'ltr'}>
       <body className="bg-white text-black dark:bg-black dark:text-white transition-colors">
         <LocaleProvider locale={locale}>
           <ThemeProvider>
