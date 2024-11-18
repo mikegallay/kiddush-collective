@@ -8,7 +8,8 @@ export default {
       { title: "אודות", url: "/about" },
       { title: "שאלות נפוצות", url: "/faq" },
       { title: "העלה", url: "/upload" }
-    ]
+    ],
+    skipToMain: "דלג לתוכן הראשי"
   },
   footer: {
     footerLinks: [

@@ -8,7 +8,8 @@ export default {
       { title: "About", url: "/about" },
       { title: "FAQ", url: "/faq" },
       { title: "Upload", url: "/upload" }
-    ]
+    ],
+    skipToMain: "Skip to main content"
   },
   footer: {
     footerLinks: [

@@ -25,7 +25,7 @@ export default async function HomePage() {
         {data && (data as UserProps[]).map((item:UserProps) => {
           return (
             <div className="mb-4" key={item.id}>
-              <Link href={`/users/${item.id}`} className="text-lg font-bold mb-2 decoration-solid">{item.id} - {item.first_name}</Link>
+              <Link href={`users/${item.id}`} className="text-lg font-bold mb-2 decoration-solid">{item.id} - {item.first_name}</Link>
             </div>
           );
         })
