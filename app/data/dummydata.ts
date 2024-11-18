@@ -6,7 +6,7 @@ export const data: {}[] = [
       father_from: "Cairo",
       first_name: "David",
       gender: "male",
-      you_from: "United States - NewYork",
+      you_from: "United States - California",
       influence_level: "holidays",
       jewish_heritage: "mizrahi_jews",
       kiddush_frequency: "every_shabbat",
@@ -22,10 +22,7 @@ export const data: {}[] = [
       race_options: "asian",
       shabbat_is_favorite: "false",
       shabbat_memory: "Cooking with my grandmother and singing songs with family. Shabbat was truly a time where we all were able to connect without distraction.",
-      location: {
-        lat: 31.0461,
-        lng: 34.8516
-      },
+      specific_location: "40.737242357886416,-73.98468017578126",
       mp3_location: "uploads/kiddush.mp3"
     },
     {
@@ -35,26 +32,23 @@ export const data: {}[] = [
       father_from: "United Kingdom",
       first_name: "Rachel",
       gender: "female",
-      you_from: "United States - Texas",
+      you_from: "United States - California",
       influence_level: "strict_observance",
       jewish_heritage: "ashkenazi_jews",
       kiddush_frequency: "every_shabbat",
       last_initial: "G",
       level_of_observance: "modern_orthodox",
-      maternal_gfather_from: "Russia",
-      maternal_gmother_from: "Ukraine",
+      maternal_gfather_from: "Markham",
+      maternal_gmother_from: "Markham",
       moderated: true,
-      mother_from: "Canada",
+      mother_from: "United Kingdom",
       ok_with_audio: "off",
-      paternal_gfather_from: "United Kingdom",
-      paternal_gmother_from: "Ireland",
+      paternal_gfather_from: "Mashhad",
+      paternal_gmother_from: "Mashhad",
       race_options: "white",
       shabbat_is_favorite: "true",
       shabbat_memory: "Reading stories together",
-      location: {
-        lat: 51.5098,
-        lng: -0.1180
-      },
+      specific_location: "",
       mp3_location: "uploads/kiddush.mp3"
     },
     {
@@ -80,10 +74,7 @@ export const data: {}[] = [
       race_options: "white",
       shabbat_is_favorite: "true",
       shabbat_memory: "Family meals together",
-      location: {
-        lat: 52.5200,
-        lng: 13.4050
-      },
+      specific_location: "40.737242357886416,-73.98468017578126",
       mp3_location: "uploads/kiddush.mp3"
     },
     {
@@ -109,10 +100,7 @@ export const data: {}[] = [
       race_options: "hispanic",
       shabbat_is_favorite: "true",
       shabbat_memory: "Lighting candles with family",
-      location: {
-        lat: 48.8566,
-        lng: 2.3522
-      },
+      specific_location: "",
       mp3_location: "uploads/kiddush.mp3"
     },
     {
@@ -138,10 +126,7 @@ export const data: {}[] = [
       race_options: "white",
       shabbat_is_favorite: "false",
       shabbat_memory: "Playing games after dinner",
-      location: {
-        lat: -33.9249,
-        lng: 18.4241
-      },
+      specific_location: "40.737242357886416,-73.98468017578126",
       mp3_location: "uploads/kiddush.mp3"
     }
   ]

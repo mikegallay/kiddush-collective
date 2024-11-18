@@ -19,10 +19,7 @@ export type UserProps = {
     shabbat_is_favorite: string;
     shabbat_memory: string;
     you_from: string;
-    location: {
-      lat: number;
-      lng: number;
-    };
+    specific_location: string;
     mp3_location: string;
   }
 

@@ -52,7 +52,12 @@ const mapMarker: (icon: string) => L.Icon = (icon:string) => {
 // const MapUser = ({ setLocation }: { setLocation: (latLng: [number, number] | null) => void }) => {
 const MapUser = (data :  UserProps | null)  => {
 
-    const initialPosition = getCountryLatLng(data?.you_from || '');
+    const initialPosition: L.LatLngExpression = 
+      data?.specific_location === '' 
+        ? getCountryLatLng(data?.you_from || '') 
+        : data?.specific_location.split(',').map(Number) as [number, number];
+
+    // const initialPosition = getCountryLatLng(data?.you_from || '');
     const fatherFrom = getCountryLatLng(data?.father_from || '');
     const motherFrom = getCountryLatLng(data?.mother_from || '');
     const matGrandFather = getCountryLatLng(data?.maternal_gfather_from || '');

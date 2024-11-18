@@ -115,7 +115,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
     await pause(2000);
     setIsSubmitting(false);
-    router.push("/upload/thank-you");
+    // router.push("/upload/thank-you");
 
     return;
 

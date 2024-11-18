@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import {data} from '@/app/data/dummydata';
 import {UserProps} from '@/app/data/globalProps'
-import { getScopedI18n } from '@/locales/server';
+import { getScopedI18n, getCurrentLocale } from '@/locales/server';
 
 export default async function HomePage() {
   
   const t = await getScopedI18n('home');
+  const loc = await getCurrentLocale();
   
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-4">
@@ -25,7 +26,7 @@ export default async function HomePage() {
         {data && (data as UserProps[]).map((item:UserProps) => {
           return (
             <div className="mb-4" key={item.id}>
-              <Link href={`users/${item.id}`} className="text-lg font-bold mb-2 decoration-solid">{item.id} - {item.first_name}</Link>
+              <Link href={`${loc}/users/${item.id}`} className="text-lg font-bold mb-2 decoration-solid">{item.id} - {item.first_name}</Link>
             </div>
           );
         })
