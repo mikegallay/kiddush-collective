@@ -76,7 +76,12 @@ export default {
     charError: "Some special characters are not allowed",
     invalidEmailError: "Invalid email address",
     filterList: "Filter Location List..."
-
+  },
+  thankyou: {
+    title: "Thank You",
+    subhead: "Your submission has been received successfully.",
+    content: "In order to ensure all user generated content meets our standards, we will personally review and approve each submission. This process may take up to 48 hours. We appreciate your patience and understanding.",
+    backhome: "Back To Home"
   }
 
 } as const;

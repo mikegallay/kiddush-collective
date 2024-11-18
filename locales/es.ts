@@ -76,6 +76,13 @@ export default {
     charError: "Algunos caracteres especiales no se permiten",
     invalidEmailError: "Dirección de correo electrónico no válida",
     filterList: "Filtrar lista de ubicaciones..."
+  },
+  thankyou: {
+    title: "¡Gracias!",
+    subhead: "Su envío ha sido recibido exitosamente.",
+    content: "Para garantizar que todo el contenido generado por los usuarios cumpla con nuestros estándares, revisaremos y aprobaremos personalmente cada envío. Este proceso puede tardar hasta 48 horas. Agradecemos su paciencia y comprensión.",
+    backhome: "Volver a la página de inicio"
+
   }
 
 } as const;

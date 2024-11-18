@@ -83,3 +83,17 @@ body {
 .hover-card-trigger svg {
   display: inline;
 }
+
+.spin {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

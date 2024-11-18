@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import DOMPurify from 'dompurify';
 import { customInputClasses } from '@/app/utils/customClasses';
+import { pause } from '@/app/utils/utilityFunctions'
 import MyInput from '@/app/components/ui/Input';
 import MySelect from '@/app/components/ui/Select';
 import MyCheckbox from '@/app/components/ui/Checkbox';
@@ -18,8 +19,9 @@ import { Button } from "@/components/ui/button";
 import {UploadFormProps, FormDefaultProps} from '@/app/data/globalProps'
 import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, getYearOptions } from '@/app/data/uploadFormData';
 import { useForm } from 'react-hook-form';
-import { InfoCircledIcon } from "@radix-ui/react-icons"
-import { MouseEventHandler, useState } from 'react';
+import { InfoCircledIcon, UpdateIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
+import { useState } from 'react';
 import { useCurrentLocale } from '@/locales/client'
 
 const DynamicMap = dynamic(() => import('@/app/components/Map'), { ssr: false });
@@ -30,8 +32,6 @@ function mapDrawer(register: any, setValue: any, localeData:UploadFormProps) {
   register("specific_location", { required: false })
   function onClick() {
     console.log('make selection', location);
-    // const arr = [Math.random()*120 - 60, Math.random()*120 - 60]
-    // setLocation(arr)
     setValue("specific_location", location)
   }
 
@@ -80,8 +80,11 @@ function mapDrawer(register: any, setValue: any, localeData:UploadFormProps) {
 }
 
 export default function UploadForm({ localeData }:{ localeData: UploadFormProps; }) {
-
+  
+  const router = useRouter();
+ 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const [isSumbitting, setIsSubmitting] = useState(false);
 
   const dir = useCurrentLocale() === 'il' ? 'rtl' : 'ltr';
 
@@ -94,8 +97,10 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     filterList: localeData.filterList
   }
   
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log('data',data)
+    setIsSubmitting(true);
+
     const sanitizedObject: { [key: string]: any } = {};
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
@@ -107,7 +112,32 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
       }
     }
     console.log('clean',sanitizedObject);
+
+    await pause(2000);
+    setIsSubmitting(false);
+    router.push("/upload/thank-you");
+
+    return;
+
     // return sanitizedObject;
+    try {
+      const response = await fetch('/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sanitizedObject),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        console.log(`Submission successful! ID: ${result.id}`);
+        setIsSubmitting(false);
+      } else {
+        alert(`Error: ${result.error}`);
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+      alert("An error occurred");
+    }
   };
 
   return (
@@ -120,8 +150,8 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
         <div className="flex gap-6 flex-col lg:flex-row">
             <MyInput label={localeData.email} id="email" type="email" formProps={{register, errors}} translations={formDefaults} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
-            <MySelect dir={dir} label={localeData.dob} id="birth_year" options={getYearOptions()} translations={formDefaults} formProps={{register, errors, setValue}} required className=""/>
-            <MySelect dir={dir} label={localeData.gender} id="gender" options={genderOptions} translations={formDefaults} formProps={{register, errors, setValue}} required className=""/>
+            <MySelect dir={dir} label={localeData.dob} id="birth_year" options={getYearOptions()} translations={formDefaults} formProps={{register, errors, setValue}} className=""/>
+            <MySelect dir={dir} label={localeData.gender} id="gender" options={genderOptions} translations={formDefaults} formProps={{register, errors, setValue}} className=""/>
         </div>
 
         
@@ -182,7 +212,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
         <MyCheckbox label={localeData.optin} id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>
 
-        <Button className="w-auto lg:w-1/2 m-auto" type="submit">{localeData.submitButton}</Button>
+        <Button disabled={isSumbitting} className="w-auto lg:w-1/2 m-auto" type="submit">{isSumbitting ? <span className='flex flex-row justify-center items-center gap-1'><UpdateIcon className="inline spin"/> Processing</span> : localeData.submitButton}</Button>
       </div>
     </form>
   );

@@ -42,3 +42,12 @@ lng: number;
       return [0, 0];
     }
   };
+
+  export async function pause(ms: number) {
+    return new Promise<void>(resolve => {
+      const intervalId = globalThis.setInterval(() => {
+        resolve();
+      }, ms);
+      return () => globalThis.clearInterval(intervalId);
+    });
+  }
