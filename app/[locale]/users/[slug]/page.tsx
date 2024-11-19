@@ -29,7 +29,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         return <div>User not found</div>;
     }
     return (
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-[1024px] mx-auto">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-[1280px] mx-auto">
             <div className="flex flex-col justify-center lg:flex-row lg:justify-between lg:items-end relative mb-3">
                 <h1 className={`text-amber-600 text-3xl lg:text-4xl italic font-black mb-2 lg:mb-0 ${fonts.oswald}`}>{user.first_name} {user.last_initial}.</h1>
                 <AudioPlayer src="/uploads/kiddush.mp3" mode="full" />
@@ -37,7 +37,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             <div className="flex flex-col-reverse lg:flex-row gap-6 mb-6">
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2 w-auto lg:w-1/3">
                     <h2 className="hidden">Personal Information</h2>
-                    <h3 className={`${headerClasses} pt-0`}>Approximate Age</h3>
+                    <h3 className={`${headerClasses} !pt-0`}>Approximate Age</h3>
                     <p>{calculateAge(user.birth_year)}</p>
                     <h3 className={headerClasses}>From</h3>
                     <p>{getCountryName(locationList,user.you_from)}</p>

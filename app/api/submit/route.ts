@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import csrf from 'csrf';
+import { encrypt, decrypt } from '@/app/utils/encryptionHelper';
 import clientPromise from "@/lib/mongodb";
 
 const tokens = new csrf();
@@ -20,12 +21,25 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid CSRF token' }, { status: 403 });
     }
 
+    const encryptedEmail = encrypt(data.email);
+    // console.log('encryptedEmail',encryptedEmail);
+    // console.log('decryptedEmail',decrypt(encryptedEmail));
+    
     // Connect to MongoDB
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);
 
+    //remove csrfToken before saving to db
+    const { csrfToken, ...dataWithoutCsrf } = data;
+
     // Insert the data into a collection
-    const result = await db.collection("submissions").insertOne(data);
+    const result = await db.collection("submissions").insertOne({
+      ...dataWithoutCsrf,
+      email: encryptedEmail.content, // Store encrypted email
+      iv: encryptedEmail.iv,         // Store the IV for decryption later
+      createdAt: new Date()
+
+    });
 
     return NextResponse.json({ success: true, id: result.insertedId });
   } catch (error) {

@@ -9,11 +9,15 @@ export default async function Header() {
   
   const locale = await getCurrentLocale();
   const t = await getScopedI18n('header.navItems');
-  const totalNavs = 4;
-  const navItems = Array.from({ length: totalNavs }, (_, index) => ({
-    title: t(`${index}.title` as NavProps),
-    url: t(`${index}.url` as NavProps),
-  }));
+  const totalNavs = 20;
+  // localization doesn't really allow for nested array, so making totalNavs
+  // a large number slight future proofs this for bigger navs.
+  const navItems = [];
+  for (let i = 0; i < totalNavs; i++) {
+    const title = t(`${i}.title` as NavProps);
+    if (title === `${i}.title`) break;
+    navItems.push({ title, url: t(`${i}.url` as NavProps) });
+  }
 
   console.log('locale',locale);
   

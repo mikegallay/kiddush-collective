@@ -125,17 +125,14 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
     //add approved flag and timestamp to data.
     sanitizedObject.approved = false;
-    sanitizedObject.timeStamp = Date.now();
+    sanitizedObject.csrfToken = csrfToken;
 
     console.log('clean',sanitizedObject);
 
-    await pause(2000);
-    setIsSubmitting(false);
+    // await pause(2000);
+    // setIsSubmitting(false);
     // router.push("/upload/thank-you");
 
-    return;
-
-    // return sanitizedObject;
     try {
       const response = await fetch('/api/submit', {
         method: 'POST',
@@ -146,13 +143,16 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
       const result = await response.json();
       if (response.ok) {
         console.log(`Submission successful! ID: ${result.id}`);
-        setIsSubmitting(false);
+        router.push("/upload/thank-you");
+        // setIsSubmitting(false);
       } else {
         alert(`Error: ${result.error}`);
+        setIsSubmitting(false);
       }
     } catch (error) {
       console.error("Error submitting form", error);
       alert("An error occurred");
+      setIsSubmitting(false);
     }
   };
 
