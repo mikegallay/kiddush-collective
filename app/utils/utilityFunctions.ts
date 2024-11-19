@@ -34,9 +34,10 @@ lng: number;
     value: string
   ): L.LatLngExpression => {
     const foundItem = locationList.find(item => item.value === value);
+    const offset = (Math.random() * 0.02) - 0.01;
 
     if (foundItem) {
-      return [foundItem.lat, foundItem.lng]; // Return as a tuple [lat, lng]
+      return [foundItem.lat + offset, foundItem.lng + offset]; // Return as a tuple [lat, lng]
     } else {
       // Return a default location, like (0, 0), or throw an error if needed
       return [0, 0];

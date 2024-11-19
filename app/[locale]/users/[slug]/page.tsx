@@ -53,7 +53,7 @@ export default function Page({ params }: { params: { slug: string } }) {
                     <p>{getSelectLabel(jewishOptions,user.jewish_heritage)}</p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2 flex-1 relative">
-                    <div className="w-full h-full overflow-hidden bg-gray-200 flex items-center justify-center z-10 relative">
+                    <div className="w-full h-96 lg:h-full overflow-hidden bg-gray-200 flex items-center justify-center z-10 relative">
                         <DynamicMap {...user} />
                         {/* <span className="text-gray-500">Map will be displayed here</span>  */}
                     </div>

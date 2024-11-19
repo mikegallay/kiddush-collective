@@ -47,7 +47,7 @@ export const data: {}[] = [
       paternal_gmother_from: "Mashhad",
       race_options: "white",
       shabbat_is_favorite: "true",
-      shabbat_memory: "Reading stories together",
+      shabbat_memory: "On Shabbat, we gather as a family for a special meal. We light candles, recite Kiddush, and share challah. Afterward, we enjoy quality time—whether playing board games, singing songs, or taking a peaceful walk together, savoring the connection and calm of the day.",
       specific_location: "",
       mp3_location: "uploads/kiddush.mp3"
     },

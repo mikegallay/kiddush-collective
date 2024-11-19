@@ -128,12 +128,12 @@ const MapUser = (data :  UserProps | null)  => {
 
             {/* <LocationMarker pinPosition={[51.505, -0.09]} /> */}
             <Marker position={initialPosition} icon={mapMarker('marker-main') || undefined} />
-            <Marker position={fatherFrom} icon={mapMarker('marker-father') || undefined} />
-            <Marker position={motherFrom} icon={mapMarker('marker-mother') || undefined} />
-            <Marker position={patGrandFather} icon={mapMarker('marker-pat-father') || undefined} />
-            <Marker position={patGrandMother} icon={mapMarker('marker-pat-mother') || undefined} />
-            <Marker position={matGrandFather} icon={mapMarker('marker-mat-father') || undefined} />
-            <Marker position={matGrandMother} icon={mapMarker('marker-mat-mother') || undefined} />
+            <Marker position={fatherFrom} icon={mapMarker('marker-father') || undefined}><Popup>Father</Popup></Marker>
+            <Marker position={motherFrom} icon={mapMarker('marker-mother') || undefined}><Popup>Mother</Popup></Marker>
+            <Marker position={patGrandFather} icon={mapMarker('marker-pat-father') || undefined}><Popup>Paternal Grandfather</Popup></Marker>
+            <Marker position={patGrandMother} icon={mapMarker('marker-pat-mother') || undefined}><Popup>Paternal Grandmother</Popup></Marker>
+            <Marker position={matGrandFather} icon={mapMarker('marker-mat-father') || undefined}><Popup>Maternal Grandfather</Popup></Marker>
+            <Marker position={matGrandMother} icon={mapMarker('marker-mat-mother') || undefined}><Popup>Maternal Grandmother</Popup></Marker>
 
             <FeatureGroup>
                 {/* {polylines.map((polyline, idx) => (
