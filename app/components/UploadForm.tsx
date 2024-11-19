@@ -21,7 +21,7 @@ import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFreq
 import { useForm } from 'react-hook-form';
 import { InfoCircledIcon, UpdateIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCurrentLocale } from '@/locales/client'
 
 const DynamicMap = dynamic(() => import('@/app/components/Map'), { ssr: false });
@@ -85,6 +85,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
  
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const [isSumbitting, setIsSubmitting] = useState(false);
+  const [csrfToken, setCsrfToken] = useState('');
 
   const dir = useCurrentLocale() === 'il' ? 'rtl' : 'ltr';
 
@@ -96,9 +97,19 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     charError: localeData.charError,
     filterList: localeData.filterList
   }
+
+  useEffect(() => {
+    const fetchCsrfToken = async () => {
+      const res = await fetch('/api/csrf-token');
+      const data = await res.json();
+      setCsrfToken(data.csrfToken);
+    };
+
+    fetchCsrfToken();
+  }, []);
   
   const onSubmit = async (data: any) => {
-    console.log('data',data)
+    // console.log('data',data)
     setIsSubmitting(true);
 
     const sanitizedObject: { [key: string]: any } = {};
@@ -111,6 +122,11 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
         }
       }
     }
+
+    //add approved flag and timestamp to data.
+    sanitizedObject.approved = false;
+    sanitizedObject.timeStamp = Date.now();
+
     console.log('clean',sanitizedObject);
 
     await pause(2000);
