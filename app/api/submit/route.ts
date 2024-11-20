@@ -31,13 +31,14 @@ export async function POST(req: Request) {
     const db = client.db(process.env.MONGODB_DB);
 
     //remove csrfToken before saving to db
-    const { csrfToken, ...dataWithoutCsrf } = data;
+    const { csrfToken, file_upload, ...dataWithoutCsrf } = data;
 
     // Insert the data into a collection
     const result = await db.collection("submissions").insertOne({
       ...dataWithoutCsrf,
       email: encryptedEmail.content, // Store encrypted email
-      iv: encryptedEmail.iv,         // Store the IV for decryption later
+      iv: encryptedEmail.iv,        // Store the IV for decryption later
+      file_upload: '/uploads/kiddush.mp3',
       createdAt: new Date()
 
     });

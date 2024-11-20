@@ -123,6 +123,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
     //add approved flag and timestamp to data.
     sanitizedObject.approved = false;
+    sanitizedObject.topUser = false;
     sanitizedObject.csrfToken = csrfToken;
 
     console.log('clean',sanitizedObject);
@@ -180,7 +181,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
           </div>
         </div>
 
-        <MyInput label={localeData.uploadFile} id="file" type="file" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
+        <MyInput label={localeData.uploadFile} id="file_upload" type="file" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
 
         <MyTextarea maxLength={250} label={localeData.shabbatMemory} id="shabbat_memory" description={localeData.shabbatMemoryInfo} formProps={{register, errors}}/>
 

@@ -64,7 +64,7 @@ export default {
     patGrandmfatherFrom: "Where is Your Paternal Grandfather From?",
     fromInfo: "This location will not be exact.",
     optin: "I'm ok with my audio being used in social media, with the understanding that my identity and other personal information will not be shared.",
-    submitButton: "Sumbit",
+    submitButton: "Submit",
     cancelButton: "Cancel",
     makeSelectionButton: "Make Selection",
     selectOptionButton: "Select an Option",
