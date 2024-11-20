@@ -1,6 +1,6 @@
 // 'use client';
 import dynamic from 'next/dynamic';
-import {data} from '@/app/data/dummydata';
+// import {data} from '@/app/data/dummydata';
 import { fonts } from '@/app/fonts';
 import {UserProps} from '@/app/data/globalProps';
 import MapUserLegend from '@/app/components/MapUserLegend';
@@ -8,6 +8,19 @@ import AudioPlayer from '@/app/components/AudioPlayer';
 import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels } from '@/app/data/uploadFormData';
 import { locationList } from '@/app/data/locationData';
 import { getSelectLabel, getCountryName, getCountryLatLng } from '@/app/utils/utilityFunctions';
+import { connectToDatabase } from '@/lib/mongodb';
+import { ObjectId } from 'mongodb';
+
+async function getUserFromDatabase(slug: string): Promise<UserProps | null> {
+    const { db } = await connectToDatabase();
+    const usersCollection = db.collection('submissions');
+
+    const user = await usersCollection.findOne({slug}) as UserProps;
+    
+    if (!user) return null;
+    
+    return user
+  }
 
 function calculateAge(yearString: string): number | null {
     const year = parseInt(yearString, 10);
@@ -16,8 +29,8 @@ function calculateAge(yearString: string): number | null {
     return currentYear - year;
 }
 
-export default function Page({ params }: { params: { slug: string } }) {
-    const user = (data as UserProps[]).find((user: UserProps) => user.id === params.slug);
+export default async function Page({ params }: { params: { slug: string } }) {
+    const user = await getUserFromDatabase(params.slug) as UserProps;//(data as UserProps[]).find((user: UserProps) => user.id === params.slug);
     const headerClasses="text-xs font-bold pt-4 italic text-gray-500";
 
     const DynamicMap = dynamic(() => import('@/app/components/MapUser'), { ssr: false });

@@ -125,6 +125,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     sanitizedObject.approved = false;
     sanitizedObject.topUser = false;
     sanitizedObject.csrfToken = csrfToken;
+    sanitizedObject.id = `${sanitizedObject.first_name}_${sanitizedObject.last_initial}_${Math.floor(10000 + Math.random() * 90000)}`
 
     console.log('clean',sanitizedObject);
 

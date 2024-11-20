@@ -1,5 +1,8 @@
+import { ObjectId } from 'mongodb';
+
 export type UserProps = {
-    id:string;
+    _id:ObjectId;
+    slug:string;
     birth_year:string;
     email: string;
     father_from: string;

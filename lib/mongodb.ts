@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, Db } from 'mongodb';
 
 const uri = process.env.MONGODB_URI!;
 const options = {};
@@ -24,3 +24,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 export default clientPromise;
+
+export async function connectToDatabase(): Promise<{ db: Db }> {
+  const client = await clientPromise;
+  const db = client.db(process.env.MONGODB_DB || 'myDatabase');
+  return { db };
+}

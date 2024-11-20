@@ -26,6 +26,7 @@
     "csrf": "^3.1.0",
     "dompurify": "^3.1.7",
     "geojson": "^0.5.0",
+    "ioredis": "^5.4.1",
     "leaflet": "^1.9.4",
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "lucide-react": "^0.451.0",
