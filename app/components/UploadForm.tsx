@@ -31,13 +31,11 @@ function mapDrawer(register: any, setValue: any, localeData:UploadFormProps) {
   const [location, setLocation] = useState<number[] | null>(null);
   register("specific_location", { required: false })
   function onClick() {
-    console.log('make selection', location);
     setValue("specific_location", location)
   }
 
   const handleSetLocation = (latLng: [number, number] | null) => {
     setLocation(latLng);
-    console.log('Location set:', latLng);
   };
 
   return (

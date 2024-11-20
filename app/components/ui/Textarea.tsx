@@ -22,7 +22,6 @@ const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
     const requiredDefault = (props.required) ? 'This field is required.' : false;
 
     const updateTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      console.log('update text');
       setCharCount(e.target.value.length);
     };
 

@@ -10,8 +10,6 @@ interface EncryptedData {
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY!;
 const IV_LENGTH = parseInt(process.env.IV_LENGTH || '16', 10);
 
-console.log('Encryption key:', ENCRYPTION_KEY);
-
 if (!ENCRYPTION_KEY || ENCRYPTION_KEY.length !== 32) {
   throw new Error('ENCRYPTION_KEY must be 32 characters long and set in the environment variables.');
 }

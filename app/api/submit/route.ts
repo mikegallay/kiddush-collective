@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const data = await req.json();
 
     // Validate data (optional)
-    // if (!data.firstName || !data.lastName) {
+    // if (!data.firs_tname || !data.last_initial) {
     //   return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     // }
 
@@ -24,7 +24,8 @@ export async function POST(req: Request) {
     const encryptedEmail = encrypt(data.email);
     // console.log('encryptedEmail',encryptedEmail);
     // console.log('decryptedEmail',decrypt(encryptedEmail));
-    
+    // return;
+
     // Connect to MongoDB
     const client = await clientPromise;
     const db = client.db(process.env.MONGODB_DB);

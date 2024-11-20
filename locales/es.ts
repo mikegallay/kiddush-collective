@@ -1,4 +1,4 @@
-console.log('Loaded ES');
+// console.log('Loaded ES');
 
 export default {
   title: 'Spanish',

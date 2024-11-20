@@ -46,7 +46,6 @@ const LocationMarker = ({ setPosition, pinPosition }: { setPosition: (latlng: L.
     const handlePositionChange = (position: L.LatLng) => {
         setLatLng(position); // Store lat/lng of the clicked location
         setLocation([position.lat, position.lng]);
-        console.log('Clicked location:', position.lat, position.lng); // You can do whatever you want with the coordinates
     };
 
     return (

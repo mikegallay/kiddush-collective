@@ -22,13 +22,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
 
   // Set duration once audio metadata is loaded
   useEffect(() => {
-    console.log('set duration',audioRef.current);
     
     const audioElement = audioRef.current;
     if (audioElement) {
         audioElement.load();
       audioElement.onloadedmetadata = () => {
-        console.log('set',audioElement.duration);
         
         setDuration(audioElement.duration);
       };

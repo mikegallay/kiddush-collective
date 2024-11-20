@@ -1,4 +1,4 @@
-console.log('Loaded EN');
+// console.log('Loaded IL');
 
 export default {
   title: 'Hebrew',

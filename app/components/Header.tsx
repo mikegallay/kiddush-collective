@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import ThemeToggle from './ThemeToggle'; // Adjust the path as necessary
+// import ThemeToggle from './ThemeToggle'; // Adjust the path as necessary
 import { getScopedI18n, getCurrentLocale } from '@/locales/server';
 import { LocaleSwitcher } from './LocaleSwitcher';
 
@@ -19,9 +19,6 @@ export default async function Header() {
     navItems.push({ title, url: t(`${i}.url` as NavProps) });
   }
 
-  console.log('locale',locale);
-  
-
   return (
     <header className={`bg-gray-100 dark:bg-gray-800 p-4`}>
       <nav aria-label="Main navigation" className="flex justify-between items-center max-w-[1280px] m-auto px-6">
@@ -32,7 +29,7 @@ export default async function Header() {
         </ul>
         <div className="flex flex-row gap-3">     
           <LocaleSwitcher/>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </div>
       </nav>
     </header>

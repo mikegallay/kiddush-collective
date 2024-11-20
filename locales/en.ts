@@ -1,4 +1,4 @@
-console.log('Loaded EN');
+// console.log('Loaded EN');
 
 export default {
   title: 'English',

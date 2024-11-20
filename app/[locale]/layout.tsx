@@ -1,5 +1,5 @@
 import '@/app/globals.css';
-import { ThemeProvider } from '@/context/ThemeContext';
+// import { ThemeProvider } from '@/context/ThemeContext';
 import { AudioProvider } from '@/context/AudioContext';
 import { LocaleProvider } from '@/locales/provider';
 import { getCurrentLocale } from '@/locales/server';
@@ -28,7 +28,7 @@ export default async function RootLayout({
     <html lang={locale} dir={locale === 'ar' || locale === 'il' ? 'rtl' : 'ltr'}>
       <body className="bg-white text-black dark:bg-black dark:text-white transition-colors">
         <LocaleProvider locale={locale}>
-          <ThemeProvider>
+          {/* <ThemeProvider> */}
             <AudioProvider>
               <section className="wrapper flex flex-col min-h-screen">
                 <SkipToContent/>
@@ -37,7 +37,7 @@ export default async function RootLayout({
                 <Footer />
               </section>
             </AudioProvider>
-          </ThemeProvider>
+          {/* </ThemeProvider> */}
         </LocaleProvider>
       </body>
     </html>
