@@ -8,7 +8,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, FeatureGroup, use
 // import { locationList } from '@/app/data/locationData';
 import { getCountryLatLng } from '@/app/utils/utilityFunctions';
 import 'leaflet/dist/leaflet.css';
-import L, { LatLngExpression, LatLngBounds } from 'leaflet';
+import L, { LatLngExpression, LatLngBounds, LeafletMouseEventHandlerFn } from 'leaflet';
 import AudioPlayer from '@/app/components/AudioPlayer';
 // import { GeoJSON as LeafletGeoJSON } from 'react-leaflet';
 import 'leaflet-defaulticon-compatibility';
@@ -55,8 +55,6 @@ const MapHome = ()  => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-   
-
     useEffect(() => {
       async function fetchUsers() {
         try {
@@ -81,6 +79,28 @@ const MapHome = ()  => {
     if (loading) return <div>Loading markers...</div>;
     if (error) return <div>Error: {error}</div>;
 
+    const ZoomOnMarkerClick = ({ user }: { user: UserProps }) => {
+      const map = useMap();
+      const position = initialPosition(user);
+    
+      const handleClick = () => {
+        map.setView(position, 7, { animate: true }); // Zoom level 15, change as needed
+      };
+    
+      return (
+        <Marker position={position} icon={mapMarker || undefined} eventHandlers={{ click: handleClick }}>
+          <Popup>
+            <div className='flex flex-row gap-2 items-center'>
+                <AudioPlayer src={user.file_upload} mode="micro" />
+                <Link className="font-semibold !text-amber-600" href={`/users/${user.slug}`}>
+                <span className="italic">Discover</span>
+                <span className={`flex flex-row items-center text-lg/5 ${fonts.oswald}`}>{`${user.first_name} ${user.last_initial}.`}<TriangleRightIcon className="scale-150"/></span></Link>
+            </div>
+          </Popup>
+        </Marker>
+      );
+    };
+
     return (
         <MapContainer
         id="map"
@@ -96,17 +116,7 @@ const MapHome = ()  => {
 
             <FeatureGroup>
               {users.map((user) => (
-                <Marker position={initialPosition(user)} icon={mapMarker || undefined}>
-                  <Popup className="relative">
-                    <div className='flex flex-row gap-2 items-center'>
-                      <AudioPlayer src={user.file_upload} mode="micro" />
-                      <Link className="font-semibold !text-amber-600" href={`/users/${user.slug}`}>
-                        <span className="italic">Discover</span>
-                        <span className={`flex flex-row items-center text-lg/5 ${fonts.oswald}`}>{`${user.first_name} ${user.last_initial}.`}<TriangleRightIcon className="scale-150"/></span></Link>
-                    </div> {
-                    }
-                  </Popup>
-                </Marker>
+                  <ZoomOnMarkerClick key={user.slug} user={user} />
               ))}
             </FeatureGroup>
             
