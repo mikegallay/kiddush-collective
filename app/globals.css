@@ -84,6 +84,14 @@ body {
   display: inline;
 }
 
+.leaflet-popup-close-button{
+  display: none;
+}
+
+.leaflet-popup-content{
+  margin: 8px 11px 10px 14px!important
+}
+
 .spin {
   animation: spin 1.5s linear infinite;
 }

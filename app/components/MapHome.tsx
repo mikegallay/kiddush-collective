@@ -1,6 +1,7 @@
 'use client';
 
 import {  useEffect, useState } from 'react';
+import { fonts } from '@/app/fonts';
 import { UserProps } from '@/app/data/globalProps';
 import Link from 'next/link';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, FeatureGroup, useMap } from 'react-leaflet';
@@ -8,11 +9,13 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, FeatureGroup, use
 import { getCountryLatLng } from '@/app/utils/utilityFunctions';
 import 'leaflet/dist/leaflet.css';
 import L, { LatLngExpression, LatLngBounds } from 'leaflet';
+import AudioPlayer from '@/app/components/AudioPlayer';
 // import { GeoJSON as LeafletGeoJSON } from 'react-leaflet';
 import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 // import { Polyline } from 'react-leaflet/Polyline'
 // import { bezierSpline } from "@turf/bezier-spline";
+import { TriangleRightIcon } from '@radix-ui/react-icons';
 
 const mapMarker = L.icon({
     iconUrl: `/images/marker-main.png`,
@@ -94,9 +97,14 @@ const MapHome = ()  => {
             <FeatureGroup>
               {users.map((user) => (
                 <Marker position={initialPosition(user)} icon={mapMarker || undefined}>
-                  <Popup>
-                    <h4>{`${user.first_name} ${user.last_initial}.`}</h4>
-                    <Link href={`/users/${user.slug}`}>View User</Link>
+                  <Popup className="relative">
+                    <div className='flex flex-row gap-2 items-center'>
+                      <AudioPlayer src={user.file_upload} mode="micro" />
+                      <Link className="font-semibold !text-amber-600" href={`/users/${user.slug}`}>
+                        <span className="italic">Discover</span>
+                        <span className={`flex flex-row items-center text-lg/5 ${fonts.oswald}`}>{`${user.first_name} ${user.last_initial}.`}<TriangleRightIcon className="scale-150"/></span></Link>
+                    </div> {
+                    }
                   </Popup>
                 </Marker>
               ))}

@@ -24,6 +24,7 @@ export type UserProps = {
     you_from: string;
     specific_location: string;
     mp3_location: string;
+    file_upload: string;
   }
 
   export type UploadFormProps = {

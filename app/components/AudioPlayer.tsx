@@ -91,7 +91,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
       <div className="play-button-container relative w-8 h-8" onClick={handlePlayPause}>
       <svg className="w-full h-full absolute" viewBox="0 0 36 36">
           <path
-            className="fill-white stroke-slate-400 stroke-2 [stroke-linecap:round]"
+            className="fill-transparent stroke-slate-400 stroke-2 [stroke-linecap:round]"
             strokeDasharray="100 100"
             d="M18 2a16 16 0 1 1 0 32 16 16 0 1 1 0-32"
           />
