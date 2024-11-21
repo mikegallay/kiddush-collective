@@ -106,12 +106,12 @@ const MapUser = (data :  UserProps | null)  => {
 
 
     const polylines = [
-        { positions: [initialPosition, fatherFrom], curve: curved([latLngToArray(initialPosition), latLngToArray(fatherFrom)]), color:'#4063FF' },
-        { positions: [fatherFrom, patGrandFather], curve: curved([latLngToArray(fatherFrom), latLngToArray(patGrandFather)]), color:'#7491FF' },
-        { positions: [fatherFrom, patGrandMother], curve: curved([latLngToArray(fatherFrom), latLngToArray(patGrandMother)]), color:'#7491FF' },
-        { positions: [initialPosition, motherFrom], curve: curved([latLngToArray(initialPosition), latLngToArray(motherFrom)]), color:'#FF3D3D' },
-        { positions: [motherFrom, matGrandFather], curve: curved([latLngToArray(motherFrom), latLngToArray(matGrandFather)]), color:'#FF7575' },
-        { positions: [motherFrom, matGrandMother], curve: curved([latLngToArray(motherFrom), latLngToArray(matGrandMother)]), color:'#FF7575' },
+        { positions: [initialPosition, fatherFrom], curve: curved([latLngToArray(initialPosition), latLngToArray(fatherFrom)]), color:'#4063FF', dash:'0' },
+        { positions: [fatherFrom, patGrandFather], curve: curved([latLngToArray(fatherFrom), latLngToArray(patGrandFather)]), color:'#7491FF', dash:'5,5' },
+        { positions: [fatherFrom, patGrandMother], curve: curved([latLngToArray(fatherFrom), latLngToArray(patGrandMother)]), color:'#7491FF', dash:'5,5' },
+        { positions: [initialPosition, motherFrom], curve: curved([latLngToArray(initialPosition), latLngToArray(motherFrom)]), color:'#FF3D3D', dash:'0' },
+        { positions: [motherFrom, matGrandFather], curve: curved([latLngToArray(motherFrom), latLngToArray(matGrandFather)]), color:'#FF7575', dash:'5,5' },
+        { positions: [motherFrom, matGrandMother], curve: curved([latLngToArray(motherFrom), latLngToArray(matGrandMother)]), color:'#FF7575', dash:'5,5' },
         // Add more polylines as needed
       ];
     
@@ -143,6 +143,7 @@ const MapUser = (data :  UserProps | null)  => {
                     // <Polyline key={idx} positions={polyline.positions} color={polyline.color} />
                     <LeafletGeoJSON key={idx} data={polyline.curve} style={{
                       color: polyline.color,
+                      dashArray: polyline.dash,
                       weight: 2.8,
                       opacity: 0.8
                     }}/>
