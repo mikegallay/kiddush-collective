@@ -19,8 +19,10 @@ export default {
     copyright:"The Kiddush Collective. Reservados todos los derechos.",
   },
   home:{
-    title: "Bienvenidos al Kiddush Collective",
-    description: "Un catálogo global de cómo se dice Kidush en todo el mundo, celebrando la diversidad y la unidad."
+    title: "Una tradición compartida.\n Una conexión personal",
+    description: "Encender velas de Shabat y decir Kidush conecta a judíos de generaciones y geografías. Las mismas palabras, a través de diferentes acentos y melodías, nos recuerdan a todos nuestra herencia compartida. ¿Qué recuerdos y tradiciones te mantienen conectado?",
+    button: "Comparte Tu Conexión",
+    mapTooltip: "Descubrir"
   },
   about: {
     title: "Acerca de",

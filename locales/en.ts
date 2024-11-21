@@ -19,8 +19,10 @@ export default {
     copyright:"The Kiddush Collective. All rights reserved.",
   },
   home:{
-    title: "Welcome to The Kiddush Collective",
-    description: "A global catalog of how Kiddush is said around the world, celebrating diversity and unity."
+    title: "A Shared Tradition.\nA Personal Connection.",
+    description: "Lighting Shabbat candles and saying Kiddush connects Jews across generations and geographies. The same words, through different accents and melodies, remind us all of our shared heritage. What memories and traditions keep you connected?",
+    button: "Share Your Connection",
+    mapTooltip: "Discover"
   },
   about: {
     title: "About Us",

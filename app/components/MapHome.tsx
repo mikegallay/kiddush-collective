@@ -15,7 +15,7 @@ import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 // import { Polyline } from 'react-leaflet/Polyline'
 // import { bezierSpline } from "@turf/bezier-spline";
-import { TriangleRightIcon } from '@radix-ui/react-icons';
+import { SymbolIcon, TriangleRightIcon } from '@radix-ui/react-icons';
 
 const mapMarker = L.icon({
     iconUrl: `/images/marker-main.png`,
@@ -49,7 +49,7 @@ const FitBoundsOnUsers: React.FC<{ users: UserProps[] }> = ({ users }) => {
   return null;
 }
 
-const MapHome = ()  => {
+const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
 
     const [users, setUsers] = useState<UserProps[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -76,25 +76,25 @@ const MapHome = ()  => {
       fetchUsers();
     }, []);
 
-    if (loading) return <div>Loading markers...</div>;
-    if (error) return <div>Error: {error}</div>;
+    if (loading) return <div className='spin'><SymbolIcon/></div>;
+    if (error) return <div className="text-red-700">Error: {error}</div>;
 
     const ZoomOnMarkerClick = ({ user }: { user: UserProps }) => {
       const map = useMap();
       const position = initialPosition(user);
     
       const handleClick = () => {
-        map.setView(position, 7, { animate: true }); // Zoom level 15, change as needed
+        map.setView(position, 7, { animate: true });
       };
     
       return (
         <Marker position={position} icon={mapMarker || undefined} eventHandlers={{ click: handleClick }}>
           <Popup>
-            <div className='flex flex-row gap-2 items-center'>
+            <div className={`flex gap-2 items-center justify-left ${loc==='il' ? 'flex-row-reverse' : 'flex-row'}`}>
                 <AudioPlayer src={user.file_upload} mode="micro" />
                 <Link className="font-semibold !text-amber-600" href={`/users/${user.slug}`}>
-                <span className="italic">Discover</span>
-                <span className={`flex flex-row items-center text-lg/5 ${fonts.oswald}`}>{`${user.first_name} ${user.last_initial}.`}<TriangleRightIcon className="scale-150"/></span></Link>
+                <span className="italic">{tooltip}</span>
+                <span className={`flex flex-row items-center text-lg/5 ${loc==='il' ? 'flex-row-reverse' : 'flex-row'} ${fonts.oswald}`}>{`${user.first_name} ${user.last_initial}`}<TriangleRightIcon className="scale-150"/></span></Link>
             </div>
           </Popup>
         </Marker>
@@ -110,9 +110,6 @@ const MapHome = ()  => {
         >
             <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-
-            {/* <LocationMarker pinPosition={[51.505, -0.09]} /> */}
-            
 
             <FeatureGroup>
               {users.map((user) => (
