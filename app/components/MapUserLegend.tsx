@@ -21,11 +21,11 @@ export default function MapUserLegend() {
             <ul className="relative map-legend-container bg-white border-stone-300 border-2 p-4 rounded-lg text-left shadow-sm" id="legend" aria-hidden={!legendVisible}>
                 <li><span><img className='inline pr-2' src={'/images/marker-main.png'} width='25' height='29'/>User</span></li>
                 <li><span><img className='inline pr-2' src={'/images/marker-father.png'} width='25' height='29'/>Father</span></li>
-                <li><span><img className='inline pr-2' src={'/images/marker-mother.png'} width='25' height='29'/>Mother</span></li>
-                <li><span><img className='inline pr-2' src={'/images/marker-pat-father.png'} width='25' height='29'/>Father's Father</span></li>
                 <li><span><img className='inline pr-2' src={'/images/marker-pat-mother.png'} width='25' height='29'/>Father's Mother</span></li>
-                <li><span><img className='inline pr-2' src={'/images/marker-mat-father.png'} width='25' height='29'/>Mother's Father</span></li>
+                <li><span><img className='inline pr-2' src={'/images/marker-pat-father.png'} width='25' height='29'/>Father's Father</span></li>
+                <li><span><img className='inline pr-2' src={'/images/marker-mother.png'} width='25' height='29'/>Mother</span></li>
                 <li><span><img className='inline pr-2' src={'/images/marker-mat-mother.png'} width='25' height='29'/>Mother's Mother</span></li>
+                <li><span><img className='inline pr-2' src={'/images/marker-mat-father.png'} width='25' height='29'/>Mother's Father</span></li>
             </ul>}
         </div>
     );
