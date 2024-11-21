@@ -133,9 +133,9 @@ function StatusList({
           {locations.map((loc) => (
             <CommandItem
               key={loc.value}
-              value={loc.value}
+              value={loc.label}
               onSelect={(value) => {
-                const selectedValue = locations.find((priority) => priority.value === value) || null
+                const selectedValue = locations.find((priority) => priority.label === value) || null
                 const selected = (selectedValue) ? selectedValue.value : 'No Selection'
                 formProps.setValue(id, selected)
                 setSelectedStatus(selectedValue)

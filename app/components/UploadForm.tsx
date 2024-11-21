@@ -129,6 +129,8 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
     console.log('clean',sanitizedObject);
 
+    return;
+
     // await pause(2000);
     // setIsSubmitting(false);
     // router.push("/upload/thank-you");
