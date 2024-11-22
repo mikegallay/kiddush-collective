@@ -75,7 +75,7 @@ const FilterDropdown = ({
           </SelectTrigger>
           <SelectContent>
             { property ? (
-              (filterOptions as { [key: string]: Option[] })[property].map((option) => (
+              (filterOptions as { [key: string]: { value: string; label: string }[] })[property].map((option) => (
                 <SelectItem key={option.label} value={option.value}>
                   {option.label}
                 </SelectItem>
