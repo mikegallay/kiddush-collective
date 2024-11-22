@@ -45,6 +45,23 @@ export const influenceLevels: { value: string, label: string }[] = [
   { value: "no_influence", label: "No Influence" }
 ];
 
+export const filterOptions: { value: string, label: string }[] = [
+  { value: "influence_level", label: "Level of Influence" },
+  { value: "kiddush_frequency", label: "Kiddush Frequency" },
+  { value: "level_of_observance", label: "Observance Level" },
+  { value: "jewish_heritage", label: "Jewish Ancestry" },
+  { value: "race_options", label: "Race" },
+  { value: "gender", label: "Gender" },
+  { value: "birth_year", label: "Year of Birth" },
+  { value: "you_from", label: "User From" },
+  { value: "father_from", label: "Father From" },
+  { value: "mother_from", label: "Mother From" },
+  { value: "paternal_gfather_from", label: "Paternal Grandfather From" },
+  { value: "paternal_gmother_from", label: "Paternal Grandmother From" },
+  { value: "maternal_gfather_from", label: "Maternal Grandfather From" },
+  { value: "maternal_gmother_from", label: "PMternal Grandmother From" }
+];
+
 export function getYearOptions() {
   const yearOptions = [];
   for (let year = 1920; year <= 2024; year++) {

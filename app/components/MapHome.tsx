@@ -6,6 +6,7 @@ import { UserProps } from '@/app/data/globalProps';
 import Link from 'next/link';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents, FeatureGroup, useMap } from 'react-leaflet';
 // import { locationList } from '@/app/data/locationData';
+import { filterOptions } from '@/app/data/uploadFormData';
 import { getCountryLatLng } from '@/app/utils/utilityFunctions';
 import 'leaflet/dist/leaflet.css';
 import L, { LatLngExpression, LatLngBounds, LeafletMouseEventHandlerFn } from 'leaflet';
@@ -15,6 +16,9 @@ import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 // import { Polyline } from 'react-leaflet/Polyline'
 // import { bezierSpline } from "@turf/bezier-spline";
+
+import FilterManager from '../components/FilterManager';
+
 import { SymbolIcon, TriangleRightIcon } from '@radix-ui/react-icons';
 
 const mapMarker = L.icon({
@@ -55,24 +59,33 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-      async function fetchUsers() {
-        try {
-          const response = await fetch('/api/users'); // Adjust the endpoint if necessary
-          if (!response.ok) {
-            throw new Error(`Failed to fetch markers: ${response.statusText}`);
-          }
-          const data = await response.json();
-          setUsers(data.data); // Assuming the API returns `{ success: true, data: [...] }`
-          // console.log('data',data);
-          
-        } catch (err: any) {
-          setError(err.message);
-        } finally {
-          setLoading(false);
+    async function fetchUsers({ filters }: { filters?: { property: string; value: string }[] } = {}) {
+      // console.log('fetct',filters);
+      
+      try {
+        // Build the query string
+        const query = filters && filters.length > 0 
+          ? `?filters=${encodeURIComponent(JSON.stringify(filters))}` 
+          : '';
+    
+        // Call the API endpoint
+        const response = await fetch(`/api/users${query}`);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch markers: ${response.statusText}`);
         }
+        const data = await response.json();
+        setUsers(data.data); // Assuming the API returns `{ success: true, data: [...] }`
+        // console.log('data',data);
+        
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-  
+    }
+
+    useEffect(() => {
       fetchUsers();
     }, []);
 
@@ -102,6 +115,8 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
     };
 
     return (
+      <>
+        <FilterManager options={filterOptions} applyFilter={fetchUsers} />
         <MapContainer
         id="map"
         center={[0,0]}
@@ -120,6 +135,8 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
             <FitBoundsOnUsers users={users} />
 
         </MapContainer>
+
+        </>
     );
 };
 

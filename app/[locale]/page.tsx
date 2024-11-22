@@ -43,8 +43,9 @@ export default async function HomePage() {
           <Image className="m-auto" src="/images/home_hero.jpg" alt="Kiddush Collective homepage hero" width={500} height={500}/>
         </div>
       </section>
+      
 
-      {/* Placeholder for map component */}
+      {/* map component */}
       <section className="w-full h-96 bg-gray-200 flex items-center justify-center">
         {/* <span className="text-gray-500">Map will be displayed here</span> */}
         <DynamicMap loc={loc} tooltip={t('mapTooltip')}/>
