@@ -6,6 +6,7 @@ import { getCurrentLocale } from '@/locales/server';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import SkipToContent from '../components/SkipToContent';
+import { fonts } from '@/app/fonts';
 
 export const metadata = {
   title: 'The Kiddush Collective',
@@ -26,7 +27,7 @@ export default async function RootLayout({
   
   return (
     <html lang={locale} dir={locale === 'ar' || locale === 'il' ? 'rtl' : 'ltr'}>
-      <body className="bg-white text-black dark:bg-black dark:text-white transition-colors">
+      <body className={`${locale === 'il' && fonts.heebo} bg-white text-black dark:bg-black dark:text-white transition-colors`}>
         <LocaleProvider locale={locale}>
           {/* <ThemeProvider> */}
             <AudioProvider>

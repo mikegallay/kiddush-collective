@@ -94,7 +94,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
                 <AudioPlayer src={user.file_upload} mode="micro" />
                 <Link className="font-semibold !text-amber-600" href={`/users/${user.slug}`}>
                 <span className="italic">{tooltip}</span>
-                <span className={`flex flex-row items-center text-lg/5 ${loc==='il' ? 'flex-row-reverse' : 'flex-row'} ${fonts.oswald}`}>{`${user.first_name} ${user.last_initial}`}<TriangleRightIcon className="scale-150"/></span></Link>
+                <span className={`flex flex-row items-center text-lg/5 ${loc==='il' ? 'flex-row-reverse' : 'flex-row'} ${fonts.roboto}`}>{`${user.first_name} ${user.last_initial}`}<TriangleRightIcon className="scale-150"/></span></Link>
             </div>
           </Popup>
         </Marker>

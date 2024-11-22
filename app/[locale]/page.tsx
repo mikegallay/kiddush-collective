@@ -22,7 +22,7 @@ export default async function HomePage() {
     <div className="flex flex-col items-center justify-start min-h-screen py-4">
       <section className='px-5 pt-2 pb-8 lg:px-10 lg:pt-6 flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-start max-w-[1280px]'>
         <div className="flex-1 w-full lg:w-3/5 flex flex-col text-center items-center lg:items-start lg:text-start">
-          <h1 className={`${fonts.oswald} text-xl lg:text-lg mb-3 font-semibold tracking-wide upppercase text-black`}>Welcome to the Kiddush Connection</h1>
+          <h1 className={`${fonts.roboto} text-xl lg:text-lg mb-3 font-semibold tracking-wide upppercase text-black`}>Welcome to the Kiddush Connection</h1>
           <h2 className={`text-4xl lg:text-5xl font-bold mb-3 text-amber-600`}>
           {t('title').split('\n').map((line, index) => (
             <span className="ttext-nowrap" key={index}>
@@ -34,7 +34,7 @@ export default async function HomePage() {
           <p className="text-base mb-4 md:max-w-[600px]">
             {t('description')}
           </p>
-          <LinkButton href="upload">
+          <LinkButton href="upload" className="hover:bg-amber-600">
             {t('button')} <ArrowIcon className="scale-150"/>
           </LinkButton>
         </div>

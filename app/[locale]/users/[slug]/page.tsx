@@ -45,7 +45,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     return (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-[1280px] mx-auto">
             <div className="flex flex-col justify-center lg:flex-row lg:justify-between lg:items-end relative mb-3">
-                <h1 className={`text-amber-600 text-3xl lg:text-4xl italic font-black mb-2 lg:mb-0 ${fonts.oswald}`}>{user.first_name} {user.last_initial}.</h1>
+                <h1 className={`text-amber-600 text-3xl lg:text-4xl italic font-black mb-2 lg:mb-0 ${fonts.roboto}`}>{user.first_name} {user.last_initial}.</h1>
                 <AudioPlayer src="/uploads/kiddush.mp3" mode="full" />
             </div>
             <div className="flex flex-col-reverse lg:flex-row gap-6 mb-6">
@@ -79,7 +79,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <div className="relative p-2 lg:p-4 my-6 italic text-gray-600 w-auto max-w-[90%] lg:max-w-[75%]">
                     <span className="absolute text-8xl -top-4 -left-6 text-amber-600 opacity-40">&ldquo;</span>
                     <span className="absolute text-8xl -bottom-16 -right-2 text-amber-600 opacity-40">&rdquo;</span>
-                    <p className={`relative z-10 italic text-amber-600 text-center w-full text-3xl ${fonts.oswald}`}>
+                    <p className={`relative z-10 italic text-amber-600 text-center w-full text-3xl ${fonts.roboto}`}>
                         {user.shabbat_memory}
                     </p>
                 </div>

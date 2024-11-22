@@ -1,5 +1,6 @@
 import Link from 'next/link';
 // import ThemeToggle from './ThemeToggle'; // Adjust the path as necessary
+import { fonts } from '@/app/fonts';
 import { getScopedI18n, getCurrentLocale } from '@/locales/server';
 import { LocaleSwitcher } from './LocaleSwitcher';
 
@@ -22,9 +23,9 @@ export default async function Header() {
   return (
     <header className={`bg-gray-100 dark:bg-gray-800 p-4`}>
       <nav aria-label="Main navigation" className="flex justify-between items-center max-w-[1280px] m-auto px-2 lg:px-6">
-        <ul className="flex gap-6 lg:gap-8">
+        <ul className={`flex gap-6 lg:gap-8 ${fonts.roboto}`}>
           {navItems.map((item, index) => (
-            <Link key={index} href={`/${locale}${item.url}`}>{item.title}</Link>
+            <Link className="hover:text-amber-600" key={index} href={`/${locale}${item.url}`}>{item.title}</Link>
           ))}
         </ul>
         <div className="flex flex-row gap-3">     

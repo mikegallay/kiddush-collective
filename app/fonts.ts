@@ -1,8 +1,8 @@
 // utils/fonts.ts
-import { Roboto, Lora, Oswald } from 'next/font/google'
+import { Roboto_Condensed, Lora, Oswald, Heebo  } from 'next/font/google'
 
-const roboto = Roboto({
-  weight: ['400', '700'],
+const roboto = Roboto_Condensed({
+  weight: ['300', '400', '700'],
   subsets: ['latin'],
 });
 
@@ -16,10 +16,16 @@ const oswald = Oswald({
     subsets: ['latin'],
   });
 
+const heebo = Heebo({
+  weight: ['500'],
+  subsets: ['latin'],
+});
+
 export const fonts = {
   roboto: roboto.className,
   lora: lora.className,
   oswald: oswald.className,
+  heebo: heebo.className
 };
 
 
