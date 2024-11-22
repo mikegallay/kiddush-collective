@@ -116,7 +116,6 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
 
     return (
       <>
-        <FilterManager options={filterOptions} applyFilter={fetchUsers} />
         <MapContainer
         id="map"
         center={[0,0]}
@@ -129,13 +128,15 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
             <FeatureGroup>
               {users.map((user) => (
                   <ZoomOnMarkerClick key={user.slug} user={user} />
-              ))}
+                  ))}
             </FeatureGroup>
             
             <FitBoundsOnUsers users={users} />
 
         </MapContainer>
-
+        <div className="bg-slate-100 flex flex-col p-4 justify-start h-full ">
+          <FilterManager options={filterOptions} applyFilter={fetchUsers} />
+        </div>
         </>
     );
 };

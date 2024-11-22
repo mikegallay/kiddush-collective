@@ -48,7 +48,7 @@ const FilterDropdown = ({
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-row gap-3">
       {/* Property Dropdown */}
       <div className="filter-dropdown">
         <Label htmlFor="property">Select Property</Label>

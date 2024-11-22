@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import FilterDropdown from './FilterDropdown';
 import  { Button } from '@/components/ui/button'
+// import { Cross2Icon, PlusIcon } from '@radix-ui/react-icons';
 
 const FilterManager = ({ options, applyFilter }: { options: { value: string; label: string }[]; applyFilter:Function }) => {
   const [filters, setFilters] = useState<{ property: string; value: string }[]>([]);
@@ -39,9 +40,11 @@ const FilterManager = ({ options, applyFilter }: { options: { value: string; lab
           onUpdate={(updatedFilter) => updateFilter(index, updatedFilter)}
         />
       ))}
-      <Button onClick={addFilter}>Add Filter</Button>
-      <Button onClick={handleApplyFilters}>Apply Filters</Button>
-      <Button onClick={handleClearFilters}>Clear Filters</Button>
+      <div className="flex flex-row gap-2 mt-4">
+        <Button onClick={addFilter}>Add Filter</Button>
+        <Button onClick={handleApplyFilters}>Apply Filters</Button>
+        <Button onClick={handleClearFilters} variant='outline'>Clear Filters</Button>
+      </div>
     </div>
   );
 };
