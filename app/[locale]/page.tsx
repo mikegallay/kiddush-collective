@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import {data} from '@/app/data/dummydata';
+import { fonts } from '@/app/fonts';
 import dynamic from 'next/dynamic';
 import {UserProps} from '@/app/data/globalProps'
 import { getScopedI18n, getCurrentLocale } from '@/locales/server';
@@ -18,25 +19,27 @@ export default async function HomePage() {
   const ArrowIcon = loc === "il" ? TriangleLeftIcon : TriangleRightIcon
   
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-4">
-      <section className='p-8 flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-start'>
+    <div className="flex flex-col items-center justify-start min-h-screen py-4">
+      <section className='px-5 pt-2 pb-8 lg:px-10 lg:pt-6 flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-start max-w-[1280px]'>
         <div className="flex-1 w-full lg:w-3/5 flex flex-col text-center items-center lg:items-start lg:text-start">
-          <h1 className="text-5xl font-bold mb-4">
+          <h1 className={`${fonts.oswald} text-xl lg:text-lg mb-3 font-semibold tracking-wide upppercase text-black`}>Welcome to the Kiddush Connection</h1>
+          <h2 className={`text-4xl lg:text-5xl font-bold mb-3 text-amber-600`}>
           {t('title').split('\n').map((line, index) => (
-            <span key={index}>
+            <span className="ttext-nowrap" key={index}>
               {line}
               <br />
             </span>
           ))}
-          </h1>
-          <p className="text-lg mb-6">
+          </h2>
+          <p className="text-base mb-4 md:max-w-[600px]">
             {t('description')}
           </p>
           <LinkButton href="upload">
             {t('button')} <ArrowIcon className="scale-150"/>
           </LinkButton>
         </div>
-        <div className='w-full lg:w-2/5'>
+        <div className='w-full mb-4 lg:mb-0 lg:w-2/5'>
+          {/* <Image className="m-auto" src="/images/shabbat.svg" alt="Kiddush Collective homepage hero" width={500} height={500}/> */}
           <Image className="m-auto" src="/images/home_hero.jpg" alt="Kiddush Collective homepage hero" width={500} height={500}/>
         </div>
       </section>

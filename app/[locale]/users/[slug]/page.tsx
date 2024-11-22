@@ -10,6 +10,7 @@ import { locationList } from '@/app/data/locationData';
 import { getSelectLabel, getCountryName, getCountryLatLng } from '@/app/utils/utilityFunctions';
 import { connectToDatabase } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
+import { SymbolIcon } from '@radix-ui/react-icons';
 
 async function getUserFromDatabase(slug: string): Promise<UserProps | null> {
     const { db } = await connectToDatabase();
@@ -36,7 +37,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     const DynamicMap = dynamic(() => import('@/app/components/MapUser'), { ssr: false });
 
     if (!params.slug) {
-        return <div>Loading...</div>;
+        return <div className="mt-8 w-full flex items-center"><SymbolIcon className="spin"/></div>;
     }
     if (!user) {
         return <div>User not found</div>;

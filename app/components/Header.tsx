@@ -21,7 +21,7 @@ export default async function Header() {
 
   return (
     <header className={`bg-gray-100 dark:bg-gray-800 p-4`}>
-      <nav aria-label="Main navigation" className="flex justify-between items-center max-w-[1280px] m-auto px-6">
+      <nav aria-label="Main navigation" className="flex justify-between items-center max-w-[1280px] m-auto px-2 lg:px-6">
         <ul className="flex gap-6 lg:gap-8">
           {navItems.map((item, index) => (
             <Link key={index} href={`/${locale}${item.url}`}>{item.title}</Link>

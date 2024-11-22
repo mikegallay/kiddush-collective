@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import DOMPurify from 'dompurify';
+import { fonts } from '@/app/fonts';
 import { customInputClasses } from '@/app/utils/customClasses';
 import { pause } from '@/app/utils/utilityFunctions'
 import MyInput from '@/app/components/ui/Input';
@@ -230,7 +231,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
         <MyCheckbox label={localeData.optin} id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>
 
-        <Button disabled={isSumbitting} className="w-auto lg:w-1/2 m-auto" type="submit">{isSumbitting ? <span className='flex flex-row justify-center items-center gap-1'><UpdateIcon className="inline spin"/> Processing</span> : localeData.submitButton}</Button>
+        <Button disabled={isSumbitting} className={`w-auto lg:w-1/2 m-auto text-lg ${fonts.oswald}`} type="submit">{isSumbitting ? <span className='flex flex-row justify-center items-center gap-1'><UpdateIcon className="inline spin"/> Processing</span> : localeData.submitButton}</Button>
       </div>
     </form>
   );

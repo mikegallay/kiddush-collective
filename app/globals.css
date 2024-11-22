@@ -71,6 +71,12 @@ body {
   }
 }
 
+html[lang='il'] {
+  body{
+    font-size: 17px;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
