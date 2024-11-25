@@ -9,7 +9,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents, FeatureGroup, use
 import { filterOptions } from '@/app/data/uploadFormData';
 import { getCountryLatLng } from '@/app/utils/utilityFunctions';
 import 'leaflet/dist/leaflet.css';
-import L, { LatLngExpression, LatLngBounds, LeafletMouseEventHandlerFn } from 'leaflet';
+import L, { LatLngExpression, LatLngBounds, LeafletMouseEventHandlerFn, DivOverlay } from 'leaflet';
 import AudioPlayer from '@/app/components/AudioPlayer';
 // import { GeoJSON as LeafletGeoJSON } from 'react-leaflet';
 import 'leaflet-defaulticon-compatibility';
@@ -131,9 +131,12 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
                   url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
 
               <FeatureGroup>
-                {users.map((user) => (
+                {users.length > 0 
+                  ? users.map((user) => (
                     <ZoomOnMarkerClick key={user.slug} user={user} />
-                    ))}
+                    ))
+                  : <div className={`z-50 bg-slate-50 border-black rounded-lg border-2 p-2 relative z-[500] text-center mx-auto w-32 text-base top-1/2 translate-y-[-50%] shadow-lg ${fonts.roboto}`}>No Users Found</div> 
+                }
               </FeatureGroup>
               
               <FitBoundsOnUsers users={users} />

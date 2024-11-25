@@ -29,16 +29,16 @@ const FilterManager = (
 
   const handleClearFilters = () => {
     setFilters([]);
-    applyFilter({filters}); // Pass filters to applyFilter function
+    // applyFilter({filters}); // Pass filters to applyFilter function
   };
 
   return (
     <div className='relative h-full'>
       <div className="flex flex-row justify-between mb-4 min-w-[300px]">
         <h4 className="text-base font-semibold"> Select Filters</h4>
-        <button onClick={closeFilter}><CrossCircledIcon className="scale-125"/></button>
+        <button role="button" aria-label="Close filter" onClick={closeFilter}><CrossCircledIcon className="scale-125"/></button>
       </div>
-      <div className="overflow-y-auto max-h-[260px]">
+      <div className="overflow-y-auto overflow-x-hidden max-h-[260px]">
         {filters.map((filter, index) => (
           <FilterDropdown
             key={index}
@@ -50,11 +50,11 @@ const FilterManager = (
       </div>
       <div className="flex flex-row gap-2 mt-4 justify-between absolute bottom-0 w-full">
         <div>
-          <Button onClick={handleClearFilters} variant='link'>Clear <Cross2Icon className="scale-105"/></Button>
+          <Button role="button" aria-label="Clear all filters" onClick={handleClearFilters} variant='link'>Clear <Cross2Icon className="scale-105"/></Button>
         </div>
         <div className="flex flex-row gap-2">
-          <Button onClick={addFilter} variant='secondary'>Add <PlusIcon className="scale-105"/></Button>
-          <Button onClick={handleApplyFilters}>Apply <MixerHorizontalIcon className="scale-105"/></Button>
+          <Button role="button" aria-label="Add new filter" onClick={addFilter} variant='secondary'>Add <PlusIcon className="scale-105"/></Button>
+          <Button role="button" aria-label="Apply filters to map" onClick={handleApplyFilters}>Apply <MixerHorizontalIcon className="scale-105"/></Button>
         </div>
       </div>
     </div>
