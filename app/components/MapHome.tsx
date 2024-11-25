@@ -17,9 +17,10 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 // import { Polyline } from 'react-leaflet/Polyline'
 // import { bezierSpline } from "@turf/bezier-spline";
 
-import FilterManager from '../components/FilterManager';
+import FilterManager from '@/app/components/FilterManager';
 
 import { SymbolIcon, TriangleRightIcon } from '@radix-ui/react-icons';
+import { Button } from '@/components/ui/button';
 
 const mapMarker = L.icon({
     iconUrl: `/images/marker-main.png`,
@@ -46,7 +47,7 @@ const FitBoundsOnUsers: React.FC<{ users: UserProps[] }> = ({ users }) => {
         users.map((user) => initialPosition(user))
       );
       
-      map.fitBounds(bounds, { padding: [50, 50] }); // Add padding for a better view
+      map.fitBounds(bounds, { maxZoom: 7 });
     }
   }, [users, map]);
 
@@ -58,6 +59,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
     const [users, setUsers] = useState<UserProps[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const [filterVisible, setFilterVisible] = useState(false)
 
     async function fetchUsers({ filters }: { filters?: { property: string; value: string }[] } = {}) {
       // console.log('fetct',filters);
@@ -75,6 +77,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
           throw new Error(`Failed to fetch markers: ${response.statusText}`);
         }
         const data = await response.json();
+        setFilterVisible(false);
         setUsers(data.data); // Assuming the API returns `{ success: true, data: [...] }`
         // console.log('data',data);
         
@@ -116,28 +119,40 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
 
     return (
       <>
-        <MapContainer
-        id="map"
-        center={[0,0]}
-        zoom={5}
-        style={{ height: '100%', width: '100%' }}
-        >
-            <TileLayer
-                url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
+        <div className={`h-full relative transition-all ${filterVisible ? 'w-0' : 'w-full' } lg:w-full `}>
+          <MapContainer
+            id="map"
+            center={[0,0]}
+            zoom={5}
+            className='relative top-0 left-0 z-10'
+            style={{ height: '100%', width: '100%' }}
+            >
+              <TileLayer
+                  url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
 
-            <FeatureGroup>
-              {users.map((user) => (
-                  <ZoomOnMarkerClick key={user.slug} user={user} />
-                  ))}
-            </FeatureGroup>
-            
-            <FitBoundsOnUsers users={users} />
+              <FeatureGroup>
+                {users.map((user) => (
+                    <ZoomOnMarkerClick key={user.slug} user={user} />
+                    ))}
+              </FeatureGroup>
+              
+              <FitBoundsOnUsers users={users} />
 
-        </MapContainer>
-        <div className="bg-slate-100 flex flex-col p-4 justify-start h-full ">
-          <FilterManager options={filterOptions} applyFilter={fetchUsers} />
+          </MapContainer>
+          <button 
+              className="bg-white border-stone-300 border-2 py-2 px-3 mb-2 top-3 right-3 z-20 rounded-sm shadow-sm absolute"
+              aria-label="Toggle Filter"
+              aria-expanded={filterVisible}
+              aria-controls="filter"
+              onClick={() => setFilterVisible(prev => !prev)}
+          >
+              FILTER
+          </button>
         </div>
-        </>
+        <div id="filter" className={`flex flex-col py-4 justify-start h-full bg-neutral-300 transition-all overflow-hidden ${filterVisible ? 'w-[500px] px-4 opacity-100' : 'w-0 px-0 opacity-0' }`}>
+          <FilterManager options={filterOptions} applyFilter={fetchUsers} closeFilter={()=>setFilterVisible(false)} />
+        </div>
+      </>
     );
 };
 

@@ -48,12 +48,12 @@ const FilterDropdown = ({
   };
 
   return (
-    <div className="flex flex-row gap-3">
+    <div className="flex flex-row gap-3 mb-2">
       {/* Property Dropdown */}
-      <div className="filter-dropdown">
-        <Label htmlFor="property">Select Property</Label>
+      <div className="filter-dropdown w-1/2">
+        <Label className="sr-only" htmlFor="property">Select Property</Label>
         <Select onValueChange={handlePropertyChange}>
-          <SelectTrigger id="property" dir={props.dir ? props.dir : 'ltr'}>
+          <SelectTrigger className="bg-slate-100" id="property" dir={props.dir ? props.dir : 'ltr'}>
             <SelectValue placeholder="Select Property" />
           </SelectTrigger>
           <SelectContent>
@@ -67,10 +67,10 @@ const FilterDropdown = ({
       </div>
 
       {/* Value Dropdown */}
-      <div className="value-dropdown">
-        <Label htmlFor="value">Select Value</Label>
+      <div className="value-dropdown w-1/2">
+        <Label className="sr-only" htmlFor="value">Select Value</Label>
         <Select onValueChange={handleValueChange} disabled={!property}>
-          <SelectTrigger id="value" dir={props.dir ? props.dir : 'ltr'}>
+          <SelectTrigger className="bg-slate-100" id="value" dir={props.dir ? props.dir : 'ltr'}>
             <SelectValue placeholder="Select Value" />
           </SelectTrigger>
           <SelectContent>

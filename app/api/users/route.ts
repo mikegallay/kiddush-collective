@@ -34,6 +34,7 @@ export async function GET(request: Request) {
     // Parse query parameters from the URL
     const url = new URL(request.url);
     const filters = JSON.parse(url.searchParams.get('filters') || '[]');
+    filters.push({property: 'approved', value: true}); //make sure that only approved users are displayed
 
     // Connect to MongoDB
     const { db } = await connectToDatabase();
