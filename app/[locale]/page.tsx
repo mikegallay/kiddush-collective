@@ -40,7 +40,7 @@ export default async function HomePage() {
         </div>
         <div className='w-full mb-4 lg:mb-0 lg:w-2/5'>
           {/* <Image className="m-auto" src="/images/shabbat.svg" alt="Kiddush Collective homepage hero" width={500} height={500}/> */}
-          <Image className="m-auto" src="/images/home_hero.jpg" alt="Kiddush Collective homepage hero" width={500} height={500}/>
+          <Image priority className="m-auto" src="/images/home_hero.jpg" alt="Kiddush Collective homepage hero" width={500} height={500}/>
         </div>
       </section>
       

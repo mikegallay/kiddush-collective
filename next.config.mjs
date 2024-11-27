@@ -8,6 +8,9 @@ const nextConfig = {
     env: {
       ENVIRONMENT: process.env.ENVIRONMENT,
     },
+    api: {
+      bodyParser: false, // Disable default body parser for file uploads
+    },
     transpilePackages: ['next-international', 'international-types'],
     // eslint: {
     //   ignoreDuringBuilds: true,

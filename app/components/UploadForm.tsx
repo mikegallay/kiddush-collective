@@ -42,7 +42,7 @@ function mapDrawer(register: any, setValue: any, localeData:UploadFormProps) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline" className={`justify-start w-auto ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>{localeData.mapButton}</>}</Button>
+        <Button variant="outline" className={`justify-start w-full ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>{localeData.mapButton}</>}</Button>
       </DrawerTrigger>
       <DrawerContent data-vaul-no-drag>
         <DrawerHeader>
@@ -108,59 +108,72 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
   }, []);
   
   const onSubmit = async (data: any) => {
-    // console.log('data',data)
     setIsSubmitting(true);
-
-    const sanitizedObject: { [key: string]: any } = {};
+  
+    const formData = new FormData();
+  
+    // Sanitize and prepare form data
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
-        if (typeof data[key] !== 'boolean') {
-          sanitizedObject[key] = DOMPurify.sanitize(data[key]);
+        if (typeof data[key] === 'boolean') {
+        // if (data[key] instanceof FileList || typeof data[key] === 'boolean') {
+          console.log(key,data[key])
+          formData.append(key, data[key]);
         } else {
-          sanitizedObject[key] = data[key];
+          formData.append(key, DOMPurify.sanitize(data[key]));
         }
       }
     }
 
-    //add approved flag and timestamp to data.
-    sanitizedObject.approved = false;
-    sanitizedObject.topUser = false;
-    sanitizedObject.csrfToken = csrfToken;
-    sanitizedObject.id = `${sanitizedObject.first_name}_${sanitizedObject.last_initial}_${Math.floor(10000 + Math.random() * 90000)}`
+    const form = document.getElementById('uploadForm') as HTMLFormElement | null;
+    const fileInput = form && form.querySelector('input[type="file"]') as HTMLInputElement | null;
+    const file = fileInput?.files?.[0]; // Get the first file from the FileList
 
-    console.log('clean',sanitizedObject);
+  
+    // Add additional fields
+    formData.append('approved', 'false');
+    formData.append('topUser', 'false');
+    formData.append('csrfToken', csrfToken);
+    formData.append(
+      'id',
+      `${data.first_name}_${data.last_initial}_${Math.floor(10000 + Math.random() * 90000)}`
+    );
 
-    return;
+    if (file) formData.set('file', file);
+    
+    console.log('File to upload:', formData.get('file')); 
 
-    // await pause(2000);
-    // setIsSubmitting(false);
-    // router.push("/upload/thank-you");
-
+    // console.log('Prepared FormData:', formData);
+    // for (let pair of formData.entries()) {
+    //   console.log(pair[0] + ': ' + pair[1]);
+    // }
+  
     try {
+            // Submit the form data
       const response = await fetch('/api/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(sanitizedObject),
+        body: formData,
       });
   
       const result = await response.json();
+  
+      // Handle response
       if (response.ok) {
         console.log(`Submission successful! ID: ${result.id}`);
-        router.push("/upload/thank-you");
-        // setIsSubmitting(false);
+        router.push('/upload/thank-you');
       } else {
         alert(`Error: ${result.error}`);
-        setIsSubmitting(false);
       }
     } catch (error) {
-      console.error("Error submitting form", error);
-      alert("An error occurred");
+      console.error('Error submitting form', error);
+      alert('An error occurred');
+    } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form id="uploadForm" onSubmit={handleSubmit(onSubmit)} noValidate encType="multipart/form-data" method="POST">
       <div className="flex gap-6 flex-col">
         <div className="flex gap-6 flex-col lg:flex-row">
             <MyInput label={localeData.fname} id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" translations={formDefaults} required/>
@@ -173,19 +186,19 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
             <MySelect dir={dir} label={localeData.gender} id="gender" options={genderOptions} translations={formDefaults} formProps={{register, errors, setValue}} className=""/>
         </div>
 
-        
-
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MyLocationSelector label={localeData.youlive} id="you_from" formProps={{register, errors, setValue}} className="w-auto lg:w-1/2" translations={formDefaults} description={localeData.fromInfo} />
+          <div className='w-auto lg:w-1/2 flex-1 max-w-[589px]'>
+            <MyLocationSelector label={localeData.youlive} id="you_from" formProps={{register, errors, setValue}} className="" translations={formDefaults} description={localeData.fromInfo} />
+          </div>
 
-          <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1">
+          <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1 max-w-[589px]">
             <p className="text-sm"><span>{localeData.youliveExact} <MyHoverCard trigger={<InfoCircledIcon/>} content={localeData.youliveMoreInfo}/></span></p>
             {mapDrawer(register,setValue,localeData)}
             <p className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>{localeData.youliveInfo}</p>
           </div>
         </div>
 
-        <MyInput label={localeData.uploadFile} id="file_upload" type="file" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
+        <MyInput label={localeData.uploadFile} id="file" type="file" name="file" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
 
         <MyTextarea maxLength={250} label={localeData.shabbatMemory} id="shabbat_memory" description={localeData.shabbatMemoryInfo} formProps={{register, errors}}/>
 
