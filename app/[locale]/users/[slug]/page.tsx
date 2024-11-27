@@ -19,7 +19,8 @@ async function getUserFromDatabase(slug: string): Promise<UserProps | null> {
     const user = await usersCollection.findOne({slug}) as UserProps;
     
     if (!user) return null;
-    
+
+    delete user._id;
     return user
   }
 
@@ -46,7 +47,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-[1280px] mx-auto">
             <div className="flex flex-col justify-center lg:flex-row lg:justify-between lg:items-end relative mb-3">
                 <h1 className={`text-amber-600 text-3xl lg:text-4xl italic font-black mb-2 lg:mb-0 ${fonts.roboto}`}>{user.first_name} {user.last_initial}.</h1>
-                <AudioPlayer src="/uploads/kiddush.mp3" mode="full" />
+                { user.file_upload && user.file_upload !== "" &&
+                    <AudioPlayer src={user.file_upload} mode="full" />
+                }
             </div>
             <div className="flex flex-col-reverse lg:flex-row gap-6 mb-6">
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2 w-auto lg:w-1/3">

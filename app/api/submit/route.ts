@@ -28,7 +28,7 @@ const pipeStream = async (readable: ReadableStream<Uint8Array>, writable: Writab
 // Process form data: validation, transformation, MongoDB save, etc.
 const processFormData = async (formData: any, fileUrl:string) => {
 
-  formData.file_upload = fileUrl;
+  formData.file_upload = fileUrl + '.mp3';
   delete formData.files;
 
   try {
@@ -96,7 +96,7 @@ export async function POST(req: NextRequest) {
           const gcsFile = bucket.file(finalFilename);
           const writeStreamToGCS = gcsFile.createWriteStream({
             resumable: false,
-            contentType: 'application/octet-stream',
+            contentType: 'audio/mpeg',
           });
 
           fs.createReadStream(tempFilePath)

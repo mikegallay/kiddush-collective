@@ -11,7 +11,7 @@ type ProviderProps = {
 
 export function LocaleProvider({ locale, children }: ProviderProps) {
   return (
-    <I18nProviderClient locale={locale} fallback={<div className="mt-8 w-full flex items-center"><SymbolIcon className="spin"/></div>}>
+    <I18nProviderClient locale={locale} fallback={<div className="mt-8 w-full flex items-center justify-center"><SymbolIcon className="spin"/></div>}>
       {children}
     </I18nProviderClient>
   );

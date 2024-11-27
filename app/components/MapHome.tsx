@@ -47,7 +47,7 @@ const FitBoundsOnUsers: React.FC<{ users: UserProps[] }> = ({ users }) => {
         users.map((user) => initialPosition(user))
       );
       
-      map.fitBounds(bounds, { maxZoom: 7 });
+      map.fitBounds(bounds, { maxZoom: 6 });
     }
   }, [users, map]);
 
@@ -107,7 +107,9 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
         <Marker position={position} icon={mapMarker || undefined} eventHandlers={{ click: handleClick }}>
           <Popup>
             <div className={`flex gap-2 items-center justify-left ${loc==='il' ? 'flex-row-reverse' : 'flex-row'}`}>
-                <AudioPlayer src={user.file_upload} mode="micro" />
+                { user.file_upload && user.file_upload !== "" &&
+                  <AudioPlayer src={user.file_upload} mode="micro" />
+                }
                 <Link className="font-semibold !text-amber-600" href={`/users/${user.slug}`}>
                 <span className="italic">{tooltip}</span>
                 <span className={`flex flex-row items-center text-lg/5 ${loc==='il' ? 'flex-row-reverse' : 'flex-row'} ${fonts.roboto}`}>{`${user.first_name} ${user.last_initial}`}<TriangleRightIcon className="scale-150"/></span></Link>
@@ -135,7 +137,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
                   ? users.map((user) => (
                     <ZoomOnMarkerClick key={user.slug} user={user} />
                     ))
-                  : <div className={`z-50 bg-slate-50 border-black rounded-lg border-2 p-2 relative z-[500] text-center mx-auto w-32 text-base top-1/2 translate-y-[-50%] shadow-lg ${fonts.roboto}`}>No Users Found</div> 
+                  : <div className={`bg-slate-50 border-black rounded-lg border-2 p-2 relative z-[500] text-center mx-auto w-32 text-base top-1/2 translate-y-[-50%] shadow-lg ${fonts.roboto}`}>No Users Found</div> 
                 }
               </FeatureGroup>
               

@@ -86,7 +86,8 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
   const [isSumbitting, setIsSubmitting] = useState(false);
   const [csrfToken, setCsrfToken] = useState('');
 
-  const dir = useCurrentLocale() === 'il' ? 'rtl' : 'ltr';
+  const loc = useCurrentLocale();
+  const dir = loc === 'il' ? 'rtl' : 'ltr';
 
   const formDefaults = {
     inputDefaultError: localeData.inputDefaultError,
@@ -128,14 +129,13 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     const form = document.getElementById('uploadForm') as HTMLFormElement | null;
     const fileInput = form && form.querySelector('input[type="file"]') as HTMLInputElement | null;
     const file = fileInput?.files?.[0]; // Get the first file from the FileList
-
   
     // Add additional fields
     formData.append('approved', 'false');
     formData.append('topUser', 'false');
     formData.append('csrfToken', csrfToken);
     formData.append(
-      'id',
+      'slug',
       `${data.first_name}_${data.last_initial}_${Math.floor(10000 + Math.random() * 90000)}`
     );
 
@@ -160,7 +160,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
       // Handle response
       if (response.ok) {
         console.log(`Submission successful! ID: ${result.id}`);
-        router.push('/upload/thank-you');
+        router.push(`/${loc}/upload/thank-you`);
       } else {
         alert(`Error: ${result.error}`);
       }
