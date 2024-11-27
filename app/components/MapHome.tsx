@@ -47,7 +47,7 @@ const FitBoundsOnUsers: React.FC<{ users: UserProps[] }> = ({ users }) => {
         users.map((user) => initialPosition(user))
       );
       
-      map.fitBounds(bounds, { maxZoom: 6 });
+      map.fitBounds(bounds, { maxZoom: 6, padding: [50,50] });
     }
   }, [users, map]);
 

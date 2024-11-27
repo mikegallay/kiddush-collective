@@ -51,7 +51,7 @@ export default async function HomePage() {
         <DynamicMap loc={loc} tooltip={t('mapTooltip')}/>
       </section>
 
-      <section className='flex flex-col'>
+      {/* <section className='flex flex-col'>
         {data && (data as UserProps[]).map((item:UserProps) => {
           return (
             <div className="mb-4" key={item.slug}>
@@ -61,7 +61,7 @@ export default async function HomePage() {
         })
 
         }
-      </section>
+      </section> */}
     </div>
   );
 }

@@ -187,11 +187,11 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <div className='w-auto lg:w-1/2 flex-1 max-w-[589px]'>
+          <div className='w-auto lg:w-1/2 flex-1 lg:max-w-[589px]'>
             <MyLocationSelector label={localeData.youlive} id="you_from" formProps={{register, errors, setValue}} className="" translations={formDefaults} description={localeData.fromInfo} />
           </div>
 
-          <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1 max-w-[589px]">
+          <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1 lg:max-w-[589px]">
             <p className="text-sm"><span>{localeData.youliveExact} <MyHoverCard trigger={<InfoCircledIcon/>} content={localeData.youliveMoreInfo}/></span></p>
             {mapDrawer(register,setValue,localeData)}
             <p className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>{localeData.youliveInfo}</p>
