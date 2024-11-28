@@ -20,7 +20,7 @@ export default async function HomePage() {
   
   return (
     <div className="flex flex-col items-center justify-start min-h-screen py-4">
-      <section className='px-5 pt-2 pb-8 lg:px-10 lg:pt-6 flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-start max-w-[1280px]'>
+      <section className='px-5 pt-2 pb-8 lg:px-8 lg:pt-6 flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-start max-w-[1280px]'>
         <div className="flex-1 w-full lg:w-3/5 flex flex-col text-center items-center lg:items-start lg:text-start">
           <h1 className={`${fonts.roboto} text-xl lg:text-lg mb-3 font-semibold tracking-wide upppercase text-black`}>Welcome to the Kiddush Connection</h1>
           <h2 className={`text-4xl lg:text-5xl font-bold mb-3 text-amber-600`}>
@@ -38,9 +38,9 @@ export default async function HomePage() {
             {t('button')} <ArrowIcon className="scale-150"/>
           </LinkButton>
         </div>
-        <div className='w-full mb-4 lg:mb-0 lg:w-2/5'>
+        <div className='w-full h-auto mb-3 lg:mb-0 lg:w-2/5'>
           {/* <Image className="m-auto" src="/images/shabbat.svg" alt="Kiddush Collective homepage hero" width={500} height={500}/> */}
-          <Image priority className="m-auto" src="/images/home_hero.jpg" alt="Kiddush Collective homepage hero" width={500} height={500}/>
+          <Image priority className="m-auto max-h-60 w-auto lg:max-h-none" src="/images/home_hero.jpg" alt="Kiddush Collective homepage hero" width={500} height={500}/>
         </div>
       </section>
       

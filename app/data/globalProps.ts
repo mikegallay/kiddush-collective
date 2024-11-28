@@ -60,6 +60,7 @@ export type UserProps = {
     fromInfo:string;
     optin: string;
     submitButton: string;
+    processingButton:string;
     cancelButton: string;
     makeSelectionButton: string;
     selectOptionButton: string;

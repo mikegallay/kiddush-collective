@@ -37,6 +37,7 @@ export default async function UploadPage() {
     fromInfo: t('fromInfo'),
     optin: t('optin'),
     submitButton: t('submitButton'),
+    processingButton: t('processingButton'),
     cancelButton: t('cancelButton'),
     makeSelectionButton: t('makeSelectionButton'),
     selectOptionButton: t('selectOptionButton'),
@@ -51,7 +52,7 @@ export default async function UploadPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-[1280px]">
+    <div className="container mx-auto px-4 py-8 lg:p-8 max-w-[1280px]">
       <h1 className="text-2xl font-bold mb-6">{t('title')}</h1>
       
       <p className="mb-6">{t('description')}</p>

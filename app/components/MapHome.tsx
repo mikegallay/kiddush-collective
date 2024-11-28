@@ -154,7 +154,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
               FILTER
           </button>
         </div>
-        <div id="filter" className={`flex flex-col py-4 justify-start h-full bg-neutral-300 transition-all overflow-hidden ${filterVisible ? 'w-[500px] px-4 opacity-100' : 'w-0 px-0 opacity-0' }`}>
+        <div id="filter" className={`flex flex-col py-4 justify-start h-full bg-neutral-300 transition-all overflow-hidden ${filterVisible ? 'w-full lg:w-[500px] px-4 opacity-100' : 'w-0 px-0 opacity-0' }`}>
           <FilterManager options={filterOptions} applyFilter={fetchUsers} closeFilter={()=>setFilterVisible(false)} />
         </div>
       </>

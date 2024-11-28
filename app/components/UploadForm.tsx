@@ -198,7 +198,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
           </div>
         </div>
 
-        <MyInput label={localeData.uploadFile} id="file" type="file" name="file" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
+        <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
 
         <MyTextarea maxLength={250} label={localeData.shabbatMemory} id="shabbat_memory" description={localeData.shabbatMemoryInfo} formProps={{register, errors}}/>
 
@@ -244,7 +244,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
         <MyCheckbox label={localeData.optin} id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>
 
-        <Button disabled={isSumbitting} className={`w-auto lg:w-1/2 m-auto text-lg ${fonts.roboto}`} type="submit">{isSumbitting ? <span className='flex flex-row justify-center items-center gap-1'><UpdateIcon className="inline spin"/> Processing</span> : localeData.submitButton}</Button>
+        <Button disabled={isSumbitting} className={`w-auto lg:w-1/2 m-auto text-lg ${fonts.roboto}`} type="submit">{isSumbitting ? <span className='flex flex-row justify-center items-center gap-1'><UpdateIcon className="inline spin"/> {localeData.processingButton}</span> : localeData.submitButton}</Button>
       </div>
     </form>
   );

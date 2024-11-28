@@ -67,6 +67,7 @@ export default {
     fromInfo: "מיקום זה לא יהיה מדויק.",
     optin: "אני מסכים שהקול שלי ייעשה בו שימוש במדיה חברתית, בתנאי שזהותי ומידע אישי אחר לא יחשף.",
     submitButton: "שלח",
+    processingButton: "עיבוד",
     cancelButton: "ביטול",
     makeSelectionButton: "בחר בחירה",
     selectOptionButton: "בחר אופציה",

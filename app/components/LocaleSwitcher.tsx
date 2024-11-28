@@ -1,6 +1,7 @@
 'use client';
 
 import { useChangeLocale, useCurrentLocale } from '../../locales/client';
+import { fonts } from '@/app/fonts';
 import {
   Select,
   SelectContent,
@@ -29,12 +30,12 @@ export function LocaleSwitcher() {
     <div className="flex flex-col w-auto gap-3">
         <Label className="hidden" htmlFor='locale-switcher'>Local Switcher</Label>
         <Select onValueChange={(value: LanguageCode) => changeLocale(value)}>
-          <SelectTrigger id='locale-switcher'>
+          <SelectTrigger id='locale-switcher' className={fonts.roboto}>
             <SelectValue placeholder={useCurrentLocale().toUpperCase()} />
           </SelectTrigger>
           <SelectContent>
             {localeOptions.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem key={option.value} value={option.value} >
                   {option.label}
                 </SelectItem>
               ))}

@@ -67,6 +67,7 @@ export default {
     fromInfo: "This location will not be exact.",
     optin: "I'm ok with my audio being used in social media, with the understanding that my identity and other personal information will not be shared.",
     submitButton: "Submit",
+    processingButton: "Processing",
     cancelButton: "Cancel",
     makeSelectionButton: "Make Selection",
     selectOptionButton: "Select an Option",

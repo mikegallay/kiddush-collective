@@ -35,7 +35,8 @@ export const observanceLevel: { value: string, label: string }[] = [
 export const kiddushFrequency: { value: string, label: string }[] = [
   { value: "every_shabbat", label: "Every Shabbat" },
   { value: "once_month", label: "Once a Month" },
-  { value: "few_year", label: "A Few Times a Year" }
+  { value: "few_year", label: "A Few Times a Year" },
+  { value: "never", label: "Never" }
 ];
 
 export const influenceLevels: { value: string, label: string }[] = [
