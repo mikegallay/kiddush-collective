@@ -11,6 +11,11 @@ export default {
     ],
     skipToMain: "דלג לתוכן הראשי"
   },
+  cookies: {
+    title: "Cookies IL",
+    description: "nom nom nom il.",
+    confirmButton: "Acknowledge il"
+  },
   footer: {
     footerLinks: [
       { title: "מדיניות פרטיות", url: "/privacy" },

@@ -18,6 +18,11 @@ export default {
     ],
     copyright:"The Kiddush Collective. All rights reserved.",
   },
+  cookies: {
+    title: "Cookies",
+    description: "nom nom nom.",
+    confirmButton: "Acknowledge"
+  },
   home:{
     title: "A Shared Tradition.\nA Personal Connection.",
     description: "Lighting Shabbat candles and saying Kiddush connects Jews across generations and geographies. The same words, through different accents and melodies, remind us all of our shared heritage. What memories and traditions keep you connected?",

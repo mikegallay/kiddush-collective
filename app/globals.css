@@ -104,12 +104,23 @@ input[type="file"] {
   display: inline;
 }
 
+/* Hide leaflet pop close */
 .leaflet-popup-close-button{
   display: none;
 }
 
 .leaflet-popup-content{
   margin: 8px 11px 10px 14px!important
+}
+
+/* Hide the drag handle if present */
+.no-drag-handle::before {
+  display: none !important; /* Common approach if the grip is pseudo-element */
+}
+
+/* Alternative selector for grip if it's a child div */
+.no-drag-handle > div:first-child {
+  display: none; /* Hides the top div that might act as a handle */
 }
 
 .spin {

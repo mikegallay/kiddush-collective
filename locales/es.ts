@@ -18,6 +18,11 @@ export default {
     ],
     copyright:"The Kiddush Collective. Reservados todos los derechos.",
   },
+  cookies: {
+    title: "Cookies SP",
+    description: "nom nom nom. SP",
+    confirmButton: "Acknowledgo"
+  },
   home:{
     title: "Una tradición compartida.\n Una conexión personal",
     description: "Encender velas de Shabat y decir Kidush conecta a judíos de generaciones y geografías. Las mismas palabras, a través de diferentes acentos y melodías, nos recuerdan a todos nuestra herencia compartida. ¿Qué recuerdos y tradiciones te mantienen conectado?",

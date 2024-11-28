@@ -7,6 +7,7 @@ import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import SkipToContent from '../components/SkipToContent';
 import { fonts } from '@/app/fonts';
+import CookieDrawerServer from '@/app/components/CoookieDrawer.server';
 
 export const metadata = {
   title: 'The Kiddush Collective',
@@ -37,6 +38,7 @@ export default async function RootLayout({
                   <main id="main-content" role="main" className="flex-grow">{children}</main>
                 <Footer />
               </section>
+              <CookieDrawerServer/>
             </AudioProvider>
           {/* </ThemeProvider> */}
         </LocaleProvider>
