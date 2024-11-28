@@ -32,21 +32,29 @@ function calculateAge(yearString: string): number | null {
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-    const user = await getUserFromDatabase(params.slug) as UserProps;//(data as UserProps[]).find((user: UserProps) => user.id === params.slug);
-    const headerClasses="text-xs font-bold pt-4 italic text-gray-500";
-
-    const DynamicMap = dynamic(() => import('@/app/components/MapUser'), { ssr: false });
-
     if (!params.slug) {
         return <div className="mt-8 w-full flex items-center"><SymbolIcon className="spin"/></div>;
     }
+    const user = await getUserFromDatabase(params.slug) as UserProps;//(data as UserProps[]).find((user: UserProps) => user.id === params.slug);
+    const headerClasses="text-xs font-bold pt-4 italic text-gray-500";
+
     if (!user) {
         return <div>User not found</div>;
     }
+
+    const DynamicMap = dynamic(() => import('@/app/components/MapUser'), { 
+        ssr: false,
+        loading: () => (
+            <div className="mt-8 w-full flex items-center justify-center">
+              <SymbolIcon className="spin" />
+            </div>
+          ),
+    });
+
     return (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-[1280px] mx-auto">
             <div className="flex flex-col justify-center lg:flex-row lg:justify-between lg:items-end relative mb-3">
-                <h1 className={`text-amber-600 text-3xl lg:text-4xl italic font-black mb-2 lg:mb-0 ${fonts.roboto}`}>{user.first_name} {user.last_initial}.</h1>
+                <h1 className={`text-[var(--accent)] text-3xl lg:text-4xl font-semibold mb-2 lg:mb-0 ${fonts.roboto}`}>{user.first_name} {user.last_initial}.</h1>
                 { user.file_upload && user.file_upload !== "" &&
                     <AudioPlayer src={user.file_upload} mode="full" />
                 }
@@ -77,16 +85,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
                     <MapUserLegend/>
                 </div>
             </div>
-
+            
+            {user.shabbat_memory && 
             <div className="bg-slate-200 dark:bg-gray-800 p-4 rounded-lg mb-6 flex justify-center align-middle ">
                 <div className="relative p-2 lg:p-4 my-6 italic text-gray-600 w-auto max-w-[90%] lg:max-w-[75%]">
-                    <span className="absolute text-8xl -top-4 -left-6 text-amber-600 opacity-40">&ldquo;</span>
-                    <span className="absolute text-8xl -bottom-16 -right-2 text-amber-600 opacity-40">&rdquo;</span>
-                    <p className={`relative z-10 italic text-amber-600 text-center w-full text-3xl ${fonts.roboto}`}>
+                    <span className="absolute text-8xl -top-4 -left-6 text-[var(--accent)] opacity-40">&ldquo;</span>
+                    <span className="absolute text-8xl -bottom-16 -right-2 text-[var(--accent)] opacity-40">&rdquo;</span>
+                    <p className={`relative z-10 italic text-[var(--accent)] font-semibold text-center w-full text-4xl ${fonts.roboto}`}>
                         {user.shabbat_memory}
                     </p>
                 </div>
             </div>
+            }
             
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2">
                 <h2>Family Information</h2>

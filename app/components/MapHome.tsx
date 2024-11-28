@@ -92,7 +92,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
       fetchUsers();
     }, []);
 
-    if (loading) return <div className='spin'><SymbolIcon/></div>;
+    if (loading) return <div className="mt-8 w-full flex items-center justify-center"><SymbolIcon className="spin" /></div>;
     if (error) return <div className="text-red-700">Error: {error}</div>;
 
     const ZoomOnMarkerClick = ({ user }: { user: UserProps }) => {
@@ -110,7 +110,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
                 { user.file_upload && user.file_upload !== "" &&
                   <AudioPlayer src={user.file_upload} mode="micro" />
                 }
-                <Link className="font-semibold !text-amber-600" href={`/users/${user.slug}`}>
+                <Link className="font-semibold !text-[var(--accent)]" href={`/users/${user.slug}`}>
                 <span className="italic">{tooltip}</span>
                 <span className={`flex flex-row items-center text-lg/5 ${loc==='il' ? 'flex-row-reverse' : 'flex-row'} ${fonts.roboto}`}>{`${user.first_name} ${user.last_initial}`}<TriangleRightIcon className="scale-150"/></span></Link>
             </div>
@@ -133,7 +133,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
                   url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
 
               <FeatureGroup>
-                {users.length > 0 
+                {users && users.length > 0 
                   ? users.map((user) => (
                     <ZoomOnMarkerClick key={user.slug} user={user} />
                     ))

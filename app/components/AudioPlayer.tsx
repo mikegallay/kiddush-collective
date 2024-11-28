@@ -98,7 +98,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
         </svg>
         <svg className="progress-ring w-full h-full absolute top-0 left-0" viewBox="0 0 36 36">
           <path
-            className="progress-ring__circle fill-none stroke-amber-600 stroke-2 [stroke-linecap:round]"
+            className="progress-ring__circle fill-none stroke-[var(--accent)] stroke-2 [stroke-linecap:round]"
             strokeDasharray={`${progress} 100`}
             d="M18 2a16 16 0 1 1 0 32 16 16 0 1 1 0-32"
           />
@@ -113,7 +113,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
         <div className="audio-info flex flex-row gap-2 items-center">
           
           <div className="time-display">
-            <span className="text-amber-600">{Math.floor(currentTime / 60)}:{Math.floor(currentTime % 60).toString().padStart(2, '0')}</span> / {Math.floor(duration / 60)}:{Math.floor(duration % 60).toString().padStart(2, '0')}
+            <span className="text-[var(--accent)]">{Math.floor(currentTime / 60)}:{Math.floor(currentTime % 60).toString().padStart(2, '0')}</span> / {Math.floor(duration / 60)}:{Math.floor(duration % 60).toString().padStart(2, '0')}
           </div>
           <button className="replay-button" onClick={handleReplay}>
             <ReloadIcon />

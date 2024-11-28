@@ -25,7 +25,7 @@ export default async function Header() {
       <nav aria-label="Main navigation" className="flex justify-between items-center max-w-[1280px] m-auto p-4 lg:px-8">
         <ul className={`flex gap-6 lg:gap-8 ${fonts.roboto}`}>
           {navItems.map((item, index) => (
-            <Link className="hover:text-amber-600" key={index} href={`/${locale}${item.url}`}>{item.title}</Link>
+            <Link className="hover:text-[var(--accent)]" key={index} href={`/${locale}${item.url}`}>{item.title}</Link>
           ))}
         </ul>
         <div className="flex flex-row gap-3">     

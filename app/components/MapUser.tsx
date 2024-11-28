@@ -12,6 +12,7 @@ import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import { Polyline } from 'react-leaflet/Polyline'
 import { bezierSpline } from "@turf/bezier-spline";
+import { SymbolIcon } from '@radix-ui/react-icons';
 
 // interface PolylineProps {
 //     positions: LatLngExpression[];
@@ -51,6 +52,9 @@ const mapMarker: (icon: string) => L.Icon = (icon:string) => {
 
 // const MapUser = ({ setLocation }: { setLocation: (latLng: [number, number] | null) => void }) => {
 const MapUser = (data :  UserProps | null)  => {
+    
+    // if (data?.first_name === null) return <div className='spin'><SymbolIcon/></div>;
+    // if (error) return <div className="text-red-700">Error: {error}</div>;
 
     const initialPosition: L.LatLngExpression = 
       data?.specific_location === '' 

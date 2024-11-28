@@ -7,7 +7,7 @@ import { buttonVariants } from '@/components/ui/button';
 
 type BtnProps = "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
 
-const LinkButton = async ({ href, children, className, vari = 'default' }: { href: string; children: React.ReactNode; className?:string; vari:BtnProps }) => {
+const LinkButton = async ({ href, children, className, vari = 'default' }: { href: string; children: React.ReactNode; className?:string; vari?:BtnProps }) => {
 
   const loc = await getCurrentLocale();
 
@@ -18,7 +18,7 @@ const LinkButton = async ({ href, children, className, vari = 'default' }: { hre
         buttonVariants({ variant: vari }),
         'inline-flex items-center justify-center',
         `${loc==='il' ? fonts.heebo : fonts.roboto} text-base`,
-        `${vari !=='link' ? 'hover:bg-amber-600' : 'hover:text-amber-600 p-0 h-auto'}`,
+        `${vari !=='link' ? 'hover:bg-[var(--accent)]' : 'hover:text-[var(--accent)] p-0 h-auto'}`,
         {className}
       )}
     >
