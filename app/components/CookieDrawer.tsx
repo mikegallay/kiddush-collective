@@ -11,27 +11,37 @@ interface CookieDrawerProps {
 }
 
 export default function CookieDrawer({ locale, content }: CookieDrawerProps) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [allowClose, setAllowClose] = useState(false);
 
   useEffect(() => {
     const acknowledged = getCookie('cookieAcknowledged');
-    if (acknowledged === 'true') {
-      setIsOpen(false);
-    }
+    if (!acknowledged) setIsOpen(true);
   }, []);
 
+  useEffect(() => {
+    if (allowClose) {
+      setIsOpen(false);
+    }
+  }, [allowClose]);
+
   const handleAcknowledge = () => {
-    setCookie('cookieAcknowledged', 'true', { path: '/', maxAge: 365 * 24 * 60 * 60 });
-    setIsOpen(false);
+    console.log('acknolegde');
+    
+    setCookie("cookieAcknowledged", "true", { path: "/", maxAge: 365 * 24 * 60 * 60 });
+    setAllowClose(true); // Allow the drawer to close
   };
 
   return (
-    <Drawer open={isOpen} onOpenChange={(open) => {
-        // Prevent closing when clicking outside or pressing Esc
-        if (!open) {
-          setIsOpen(true);
-        }
-      }}>
+    <Drawer 
+        open={isOpen}
+        onOpenChange={(open) => {
+            if (!allowClose) {
+                setIsOpen(true); // Prevent closing via drag or outside click
+              } else {
+                setIsOpen(open); // Allow controlled closing after "Acknowledge"
+              }
+        }}>
       <DrawerContent className="no-drag-handle" data-vaul-no-drag>
         <DrawerHeader>
           <DrawerTitle>{content.title}</DrawerTitle>
