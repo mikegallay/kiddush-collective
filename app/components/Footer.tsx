@@ -11,7 +11,7 @@ export default async function Footer() {
           <ul className="flex justify-center gap-6">
             <li>
               <a
-                href="/privacy"
+                href="/privacy-policy"
                 className="focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-yellow-500"
               >
                 Privacy Policy

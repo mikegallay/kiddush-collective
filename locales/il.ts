@@ -23,6 +23,10 @@ export default {
     ],
     copyright: "הקולקטיב קידוש. כל הזכויות שמורות."
   },
+  privacy: {
+    title: "Privacy Policy IL",
+    description: "<h2>Title IL</h2><p>html test</p><p>html test</p><h2>Title</h2><p>html test</p><p>html test</p>"
+  },
   home: {
     title: "מסורת משותפת. חיבור אישי.",
     description: "הדלקת נרות שבת ואמירת קידוש מחברת יהודים על פני דורות וגיאוגרפיות. אותן מילים, באמצעות מבטאים ומנגינות שונות, מזכירות לכולנו את המורשת המשותפת שלנו. אילו זיכרונות ומסורות מחזיקים אותך מחובר?",
@@ -95,35 +99,3 @@ export default {
   
 
 } as const;
-
-// We can also write locales using nested objects
-// export default {
-//   hello: 'Hello',
-//   welcome: 'Hello {name}!',
-//   about: {
-//     you: 'Hello {name}! You have {age} yo',
-//   },
-//   scope: {
-//     test: 'A scope',
-//     more: {
-//       test: 'A scope',
-//       param: 'A scope with {param}',
-//       and: {
-//         more: {
-//           test: 'A scope',
-//         },
-//       },
-//       'stars#one': '1 star on GitHub',
-//       'stars#other': '{count} stars on GitHub',
-//     },
-//   },
-//   missing: {
-//     translation: {
-//       in: {
-//         fr: 'This should work',
-//       },
-//     },
-//   },
-//   'cows#one': 'A cow',
-//   'cows#other': '{count} cows',
-// } as const;

@@ -26,8 +26,6 @@ export default function CookieDrawer({ locale, content }: CookieDrawerProps) {
   }, [allowClose]);
 
   const handleAcknowledge = () => {
-    console.log('acknolegde');
-    
     setCookie("cookieAcknowledged", "true", { path: "/", maxAge: 365 * 24 * 60 * 60 });
     setAllowClose(true); // Allow the drawer to close
   };

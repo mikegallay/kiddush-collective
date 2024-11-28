@@ -23,6 +23,10 @@ export default {
     description: "nom nom nom.",
     confirmButton: "Acknowledge"
   },
+  privacy: {
+    title: "Privacy Policy",
+    description: "<h2 class='mb-4'>Titlee</h2><p>html test</p><p>html test</p><h2>Title</h2><p>html test</p><p>html test</p>"
+  },
   home:{
     title: "A Shared Tradition.\nA Personal Connection.",
     description: "Lighting Shabbat candles and saying Kiddush connects Jews across generations and geographies. The same words, through different accents and melodies, remind us all of our shared heritage. What memories and traditions keep you connected?",
@@ -93,35 +97,3 @@ export default {
   }
 
 } as const;
-
-// We can also write locales using nested objects
-// export default {
-//   hello: 'Hello',
-//   welcome: 'Hello {name}!',
-//   about: {
-//     you: 'Hello {name}! You have {age} yo',
-//   },
-//   scope: {
-//     test: 'A scope',
-//     more: {
-//       test: 'A scope',
-//       param: 'A scope with {param}',
-//       and: {
-//         more: {
-//           test: 'A scope',
-//         },
-//       },
-//       'stars#one': '1 star on GitHub',
-//       'stars#other': '{count} stars on GitHub',
-//     },
-//   },
-//   missing: {
-//     translation: {
-//       in: {
-//         fr: 'This should work',
-//       },
-//     },
-//   },
-//   'cows#one': 'A cow',
-//   'cows#other': '{count} cows',
-// } as const;
