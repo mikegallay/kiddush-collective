@@ -2,7 +2,8 @@
 
 import { MouseEventHandler, useState } from 'react';
 import FilterDropdown from './FilterDropdown';
-import  { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
+import { useEffect } from 'react';
 import { Cross2Icon, CrossCircledIcon, MixerHorizontalIcon, PlusIcon } from '@radix-ui/react-icons';
 
 const FilterManager = (
@@ -18,6 +19,16 @@ const FilterManager = (
     
   };
 
+  useEffect(() => {
+    if (filters.length === 0) {
+      const timer = setTimeout(() => {
+        addFilter();
+      }, 1000);
+  
+      return () => clearTimeout(timer); 
+    }
+  }, [filters]);
+
   const addFilter = () => {
     setFilters([...filters, { property: '', value: '' }]);
   };
@@ -29,7 +40,7 @@ const FilterManager = (
 
   const handleClearFilters = () => {
     setFilters([]);
-    // applyFilter({filters}); // Pass filters to applyFilter function
+    applyFilter(filters); // Pass filters to applyFilter function
   };
 
   return (

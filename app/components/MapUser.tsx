@@ -14,10 +14,12 @@ import { Polyline } from 'react-leaflet/Polyline'
 import { bezierSpline } from "@turf/bezier-spline";
 import { SymbolIcon } from '@radix-ui/react-icons';
 
-// interface PolylineProps {
-//     positions: LatLngExpression[];
-//     color: string;
-//   }
+interface PolylineProps {
+    positions: LatLngExpression[];
+    color: string;
+    curve: GeoJSON.LineString;
+    dash: string;
+  }
 
 const mapMarker: (icon: string) => L.Icon = (icon:string) => {
   return L.icon({
@@ -31,24 +33,24 @@ const mapMarker: (icon: string) => L.Icon = (icon:string) => {
 })
 }
 
-// const FitBoundsOnPolylines: React.FC<{ polylines: PolylineProps[] }> = ({ polylines }) => {
-//     const map = useMap();
+const FitBoundsOnPolylines: React.FC<{ polylines: PolylineProps[] }> = ({ polylines }) => {
+    const map = useMap();
+
+    useEffect(() => {
+      if (polylines.length > 0) {
+        const bounds = new LatLngBounds([]);
   
-//     useEffect(() => {
-//       if (polylines.length > 0) {
-//         const bounds = new LatLngBounds([]);
-  
-//         // Add all polyline positions to the bounds
-//         polylines.forEach((polyline) => {
-//           polyline.positions.forEach((position) => bounds.extend(position));
-//         });
-  
-//         map.fitBounds(bounds);
-//       }
-//     }, [map, polylines]);
-  
-//     return null;
-//   };
+        // Add all polyline positions to the bounds
+        polylines.forEach((polyline) => {
+          polyline.positions.forEach((position: LatLngExpression) => bounds.extend(position));
+        });
+        
+        map.fitBounds(bounds, { maxZoom: 6, padding: [50,50] });
+      }
+    }, [polylines, map]);
+
+    return null;
+  };
 
 // const MapUser = ({ setLocation }: { setLocation: (latLng: [number, number] | null) => void }) => {
 const MapUser = (data :  UserProps | null)  => {
@@ -155,7 +157,7 @@ const MapUser = (data :  UserProps | null)  => {
                 
             </FeatureGroup>
             
-            {/* <FitBoundsOnPolylines polylines={polylines} /> */}
+            <FitBoundsOnPolylines polylines={polylines} />
         </MapContainer>
     );
 };

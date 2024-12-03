@@ -77,8 +77,8 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
           throw new Error(`Failed to fetch markers: ${response.statusText}`);
         }
         const data = await response.json();
-        setFilterVisible(false);
         setUsers(data.data); // Assuming the API returns `{ success: true, data: [...] }`
+        setFilterVisible(false);
         // console.log('data',data);
         
       } catch (err: any) {
