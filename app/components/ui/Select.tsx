@@ -29,7 +29,6 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
     
     const localDropdown = `uploadForm.${id}` as `uploadForm.${DropdownIds}`;
     const t  = useScopedI18n(localDropdown);
-
     const trans = (str : keyof typeof t) => t(str) || 'error'
 
     // const isDesktop = useMediaQuery("(min-width: 768px)")
