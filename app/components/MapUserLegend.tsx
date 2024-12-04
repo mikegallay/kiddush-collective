@@ -1,4 +1,5 @@
 'use client'
+import { InfoCircledIcon } from '@radix-ui/react-icons';
 // components/Header.tsx
 import {  useState } from 'react';
 
@@ -14,7 +15,7 @@ export default function MapUserLegend() {
                 aria-controls="legend"
                 onClick={() => setLegendVisible(prev => !prev)}
             >
-                LEGEND
+                <InfoCircledIcon className="scale-125"/>
             </button>
 
             {legendVisible &&
@@ -24,8 +25,8 @@ export default function MapUserLegend() {
                 <li><span><img className='inline pr-2' src={'/images/marker-pat-mother.png'} width='25' height='29'/>Father's Mother</span></li>
                 <li><span><img className='inline pr-2' src={'/images/marker-pat-father.png'} width='25' height='29'/>Father's Father</span></li>
                 <li><span><img className='inline pr-2' src={'/images/marker-mother.png'} width='25' height='29'/>Mother</span></li>
-                <li><span><img className='inline pr-2' src={'/images/marker-mat-mother.png'} width='25' height='29'/>Mother's Mother</span></li>
                 <li><span><img className='inline pr-2' src={'/images/marker-mat-father.png'} width='25' height='29'/>Mother's Father</span></li>
+                <li><span><img className='inline pr-2' src={'/images/marker-mat-mother.png'} width='25' height='29'/>Mother's Mother</span></li>
             </ul>}
         </div>
     );

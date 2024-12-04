@@ -98,6 +98,11 @@ export default {
   },
   uploadForm: {
     filters:{
+      user_not_found: "user no find",
+      personal_info:"Personal in",
+      age:"Approximate age",
+      from:"from",
+      family_information:"family inforrr",
       select_property:"Select Property",
       select_value:"Select Value",
       influence_level:"influence",

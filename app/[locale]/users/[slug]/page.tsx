@@ -2,7 +2,7 @@
 import dynamic from 'next/dynamic';
 // import {data} from '@/app/data/dummydata';
 import { fonts } from '@/app/fonts';
-import {UserProps} from '@/app/data/globalProps';
+import {DropdownIds, UserProps} from '@/app/data/globalProps';
 import MapUserLegend from '@/app/components/MapUserLegend';
 import AudioPlayer from '@/app/components/AudioPlayer';
 import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, shabbatFavorite } from '@/app/data/uploadFormData';
@@ -11,6 +11,7 @@ import { getSelectLabel, getCountryName, getCountryLatLng } from '@/app/utils/ut
 import { connectToDatabase } from '@/lib/mongodb';
 import { ObjectId } from 'mongodb';
 import { SymbolIcon } from '@radix-ui/react-icons';
+import { getScopedI18n } from '@/locales/server';
 
 async function getUserFromDatabase(slug: string): Promise<UserProps | null> {
     const { db } = await connectToDatabase();
@@ -31,7 +32,20 @@ function calculateAge(yearString: string): number | null {
     return currentYear - year;
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Users({ params }: { params: { slug: string } }) {
+
+    const v  = await getScopedI18n('uploadForm.filters');
+
+    async function getTranslatedResponse(id:DropdownIds, options: {value:string;label:string;}[]) {
+        const val = getSelectLabel(options, user[id as keyof UserProps] as string)
+        console.log(id, val);
+        
+        const localValue = `uploadForm.${id}` as `uploadForm.${DropdownIds}`;
+        const t  = await getScopedI18n(localValue);
+        
+        return t(val?.split('.').at(-1) as keyof typeof t);
+    }
+
     if (!params.slug) {
         return <div className="mt-8 w-full flex items-center"><SymbolIcon className="spin"/></div>;
     }
@@ -39,7 +53,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     const headerClasses="text-xs font-bold pt-4 italic text-gray-500";
 
     if (!user) {
-        return <div>User not found</div>;
+        return <div>{v('user_not_found')}</div>;
     }
 
     const DynamicMap = dynamic(() => import('@/app/components/MapUser'), { 
@@ -61,21 +75,21 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
             <div className="flex flex-col-reverse lg:flex-row gap-6 mb-6">
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2 w-auto lg:w-1/3">
-                    <h2 className="hidden">Personal Information</h2>
-                    <h3 className={`${headerClasses} !pt-0`}>Approximate Age</h3>
+                    <h2 className="hidden">{v('personal_info')}</h2>
+                    <h3 className={`${headerClasses} !pt-0`}>{v('age')}</h3>
                     <p>{calculateAge(user.birth_year)}</p>
-                    <h3 className={headerClasses}>From</h3>
+                    <h3 className={headerClasses}>{v('from')}</h3>
                     <p>{getCountryName(locationList,user.you_from)}</p>
-                    <h3 className={headerClasses}>Race</h3>
-                    <p>{getSelectLabel(raceOptions,user.race_options)}</p>
-                    <h3 className={headerClasses}>Level of Jewish Influence</h3>
-                    <p>{getSelectLabel(influenceLevels,user.influence_level)}</p>
-                    <h3 className={headerClasses}>Level of Jewish Observance</h3>
-                    <p>{getSelectLabel(observanceLevel,user.level_of_observance)}</p>
-                    <h3 className={headerClasses}>Kiddush Frequency</h3>
-                    <p>{getSelectLabel(kiddushFrequency,user.kiddush_frequency)}</p>
-                    <h3 className={headerClasses}>Jewish Heritage</h3>
-                    <p>{getSelectLabel(jewishOptions,user.jewish_heritage)}</p>
+                    <h3 className={headerClasses}>{v('race_options')}</h3>
+                    <p>{getTranslatedResponse('race_options',raceOptions)}</p>
+                    <h3 className={headerClasses}>{v('influence_level')}</h3>
+                    <p>{getTranslatedResponse('influence_level',influenceLevels)}</p>
+                    <h3 className={headerClasses}>{v('level_of_observance')}</h3>
+                    <p>{getTranslatedResponse('level_of_observance',observanceLevel)}</p>
+                    <h3 className={headerClasses}>{v('kiddush_frequency')}</h3>
+                    <p>{getTranslatedResponse('kiddush_frequency',kiddushFrequency)}</p>
+                    <h3 className={headerClasses}>{v('jewish_heritage')}</h3>
+                    <p>{getTranslatedResponse('jewish_heritage',jewishOptions)}</p>
                 </div>
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2 flex-1 relative">
                     <div className="w-full h-96 lg:h-full overflow-hidden bg-gray-200 flex items-center justify-center z-10 relative">
@@ -99,36 +113,36 @@ export default async function Page({ params }: { params: { slug: string } }) {
             }
             
             <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md border-2">
-                <h2>Family Information</h2>
+                <h2>{v('family_information')}</h2>
                 <div className="flex lg:gap-4 flex-col lg:flex-row">
                     <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
-                        <h3 className={headerClasses}>My Mother is from</h3>
+                        <h3 className={headerClasses}>{v('mother_from')}</h3>
                         <p>{getCountryName(locationList,user.mother_from)}</p>
                     </div>
                     <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
-                        <h3 className={headerClasses}>My Father is from</h3>
+                        <h3 className={headerClasses}>{v('father_from')}</h3>
                         <p>{getCountryName(locationList,user.father_from)}</p>
                     </div>
                 </div>
 
                 <div className="flex lg:gap-4 flex-col lg:flex-row">
                     <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
-                        <h3 className={headerClasses}>My Maternal Grandmother is from</h3>
+                        <h3 className={headerClasses}>{v('maternal_gmother_from')}</h3>
                         <p>{getCountryName(locationList,user.maternal_gmother_from)}</p>
                     </div>
                     <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
-                        <h3 className={headerClasses}>My Maternal Grandfather is from</h3>
+                        <h3 className={headerClasses}>{v('maternal_gfather_from')}</h3>
                         <p>{getCountryName(locationList,user.maternal_gfather_from)}</p>
                     </div>
                 </div>
 
                 <div className="flex lg:gap-4 flex-col lg:flex-row">
                     <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
-                        <h3 className={headerClasses}>My Paternal Grandmother is from</h3>
+                        <h3 className={headerClasses}>{v('paternal_gmother_from')}</h3>
                         <p>{getCountryName(locationList,user.paternal_gmother_from)}</p>
                     </div>
                     <div className="flex gap-1 flex-col w-auto lg:w-1/2 flex-1">
-                        <h3 className={headerClasses}>My Paternal Grandfather is from</h3>
+                        <h3 className={headerClasses}>{v('paternal_gfather_from')}</h3>
                         <p>{getCountryName(locationList,user.paternal_gfather_from)}</p>
                     </div>
                 </div>
