@@ -28,7 +28,8 @@ export default {
     description: "<h2>Title IL</h2><p>html test</p><p>html test</p><h2>Title</h2><p>html test</p><p>html test</p>"
   },
   home: {
-    title: "מסורת משותפת. חיבור אישי.",
+    prehead: "ברוכים הבאים לקולקטיב הקידוש",
+    title: "מסורת משותפת.<br/>חיבור אישי.",
     description: "הדלקת נרות שבת ואמירת קידוש מחברת יהודים על פני דורות וגיאוגרפיות. אותן מילים, באמצעות מבטאים ומנגינות שונות, מזכירות לכולנו את המורשת המשותפת שלנו. אילו זיכרונות ומסורות מחזיקים אותך מחובר?",
     button:"שתפו את החיבור שלכם",
     mapTooltip: "לגלוֹת"
@@ -94,7 +95,73 @@ export default {
     subhead: "הגשתך התקבלה בהצלחה.",
     content: "על מנת להבטיח שכל התוכן שנוצר על ידי המשתמש עומד בסטנדרטים שלנו, אנו נבדוק ונאשר כל הגשה באופן אישי. תהליך זה עשוי להימשך עד 48 שעות. אנו מעריכים את סבלנותך והבנתך.",
     backhome: "חזרה לדף הבית"
+  },
+  uploadForm: {
+    filters:{
+      select_property:"Select Property_IL",
+      select_value:"Select Value_IL",
+      influence_level:"influence_IL",
+      kiddush_frequency:"kidfreq_IL",
+      level_of_observance:"level of o_IL",
+      jewish_heritage:"jewish her_IL",
+      race_options:"race_IL",
+      gender:"xy_IL",
+      birth_year:"dob_IL",
+      you_from:"user from_IL",
+      father_from:"father from_IL",
+      mother_from:"mother from_IL",
+      paternal_gfather_from:"pat gf from_IL",
+      paternal_gmother_from:"pat gm from_IL",
+      maternal_gfather_from:"mat gf from_IL",
+      maternal_gmother_from:"mat gm from_IL"
+    },
+    race_options: {
+      white: "White_IL",
+      black: "Black_IL",
+      asian: "Asian_IL",
+      hispanic: "Hispanic_IL",
+      other: "Other_IL"
+    },
+    level_of_observance: {
+      no_observance: 'No Observance_IL',
+      secular: 'Secular_IL',
+      traditionalist: 'Rraditionalist_IL',
+      reform: 'Reform_IL',
+      conservative: 'Conservative_IL',
+      conservadox: 'Conservadox_IL',
+      modern_orthodox: 'Modern Orthodox_IL',
+      orthodox: 'Orthodox_IL'
 
+    },
+    kiddush_frequency: {
+      every_shabbat: 'Every Shabbat_IL',
+      once_month: "Once a Month_IL",
+      few_year: "A Few Times a Year_IL",
+      never: "Never_IL"
+    },
+    jewish_heritage: {
+      ashkenazi_jews: 'Ashkenazi Jewssss_IL',
+      sephardi_jews: 'Sephardi Jews_IL',
+      mizrahi_jews: 'Mizrahi Jews_IL',
+      ethiopian_jews: 'Ethiopian Jews (Beta Israel)_IL',
+      indian_jews: 'Indian Jews_IL',
+      yemeni_jews: 'Yemeni Jews_IL',
+      chinese_jews: 'Chinese Jews_IL',
+    },
+    gender: {
+      male: 'male_IL',
+      female: 'female_IL'
+    },
+    shabbat_is_favorite: {
+      true: 'true_IL',
+      false: 'false_IL'
+    },
+    influence_level: {
+      strict_observance: 'Strict Observance_IL',
+      holidays: 'Just the Holidays_IL',
+      traditionalist: 'Traditionalist_IL',
+      no_influence: 'No Influence_IL'
+    }
   }
   
 

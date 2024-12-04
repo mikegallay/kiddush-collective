@@ -13,6 +13,7 @@ export default async function HomePage() {
   
   const t = await getScopedI18n('home');
   const loc = await getCurrentLocale();
+  const u = await getScopedI18n('upload');
 
   const DynamicMap = dynamic(() => import('@/app/components/MapHome'), { 
     ssr: false,
@@ -28,15 +29,8 @@ export default async function HomePage() {
     <div className="flex flex-col items-center justify-start min-h-screen py-4">
       <section className='px-5 pt-2 pb-8 lg:px-8 lg:pt-6 flex flex-col-reverse lg:flex-row items-center justify-center lg:justify-start max-w-[1280px]'>
         <div className="flex-1 w-full lg:w-3/5 flex flex-col text-center items-center lg:items-start lg:text-start">
-          <h1 className={`${fonts.roboto} text-xl lg:text-lg mb-3 font-semibold tracking-wide upppercase text-black`}>Welcome to the Kiddush Connection</h1>
-          <h2 className={`text-4xl lg:text-5xl font-bold mb-3 text-[var(--accent)]`}>
-          {t('title').split('\n').map((line, index) => (
-            <span className="ttext-nowrap" key={index}>
-              {line}
-              <br />
-            </span>
-          ))}
-          </h2>
+          <h1 className={`${fonts.roboto} text-xl lg:text-lg mb-3 font-semibold tracking-wide upppercase text-black`}>{t('prehead')}</h1>
+          <h2 className={`text-4xl lg:text-5xl font-bold mb-3 text-[var(--accent)] text-nowrap`} dangerouslySetInnerHTML={{ __html: t('title') }} />
           <p className="text-base mb-4 md:max-w-[600px]">
             {t('description')}
           </p>

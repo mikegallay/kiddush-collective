@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import DOMPurify from 'dompurify';
 import { fonts } from '@/app/fonts';
 import { customInputClasses } from '@/app/utils/customClasses';
-import { pause } from '@/app/utils/utilityFunctions'
 import MyInput from '@/app/components/ui/Input';
 import MySelect from '@/app/components/ui/Select';
 import MyCheckbox from '@/app/components/ui/Checkbox';
@@ -18,7 +17,7 @@ import {
 } from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button";
 import {UploadFormProps, FormDefaultProps} from '@/app/data/globalProps'
-import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, getYearOptions } from '@/app/data/uploadFormData';
+import { genderOptions, raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, getYearOptions, shabbatFavorite } from '@/app/data/uploadFormData';
 import { useForm } from 'react-hook-form';
 import { InfoCircledIcon, UpdateIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
@@ -213,7 +212,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
         <div className="flex gap-6 flex-col lg:flex-row">
           <MySelect dir={dir} label={localeData.influence} id="influence_level" options={influenceLevels} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
 
-          <MySelect dir={dir} label={localeData.favoriteDay} id="shabbat_is_favorite" options={[{value: "true", label: "True" },{ value: "false", label: "False" }]} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.favoriteDay} id="shabbat_is_favorite" options={shabbatFavorite} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">

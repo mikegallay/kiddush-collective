@@ -5,7 +5,7 @@ import { fonts } from '@/app/fonts';
 import {UserProps} from '@/app/data/globalProps';
 import MapUserLegend from '@/app/components/MapUserLegend';
 import AudioPlayer from '@/app/components/AudioPlayer';
-import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels } from '@/app/data/uploadFormData';
+import { raceOptions, jewishOptions, observanceLevel, kiddushFrequency, influenceLevels, shabbatFavorite } from '@/app/data/uploadFormData';
 import { locationList } from '@/app/data/locationData';
 import { getSelectLabel, getCountryName, getCountryLatLng } from '@/app/utils/utilityFunctions';
 import { connectToDatabase } from '@/lib/mongodb';

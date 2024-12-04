@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/select";
 import { customInputClasses } from '@/app/utils/customClasses';
 import { Label } from "@/components/ui/label";
-import { FormDefaultProps } from '@/app/data/globalProps'
+import { FormDefaultProps, DropdownIds } from '@/app/data/globalProps'
 import { forwardRef } from 'react';
-
+import { useScopedI18n } from '@/locales/client';
 interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
     id: string;
@@ -21,10 +21,17 @@ interface SelectProps extends React.InputHTMLAttributes<HTMLInputElement> {
     formProps?: any;
 }
 
+// type DropdownId = 'race_options' | 'level_of_observance' | 'kiddush_frequency' | 'jewish_heritage' | 'gender' |'influence_level' | 'shabbat_is_favorite';
 
 const MySelect = forwardRef<HTMLInputElement, SelectProps>(
-    ({ label, id, description, defaultOption, onChange, options, translations, formProps, ...props }: SelectProps, ref) => {
+  
+  ({ label, id, description, defaultOption, onChange, options, translations, formProps, ...props }: SelectProps, ref) => {
     
+    const localDropdown = `uploadForm.${id}` as `uploadForm.${DropdownIds}`;
+    const t  = useScopedI18n(localDropdown);
+
+    const trans = (str : keyof typeof t) => t(str) || 'error'
+
     // const isDesktop = useMediaQuery("(min-width: 768px)")
     const requiredDefault = (props.required) ? translations.inputDefaultError : false;
     const defaultSelectOption = (defaultOption) ? defaultOption : translations.selectDefault;
@@ -44,7 +51,8 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
           <SelectContent>
             {options.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
-                  {option.label}
+                  {/* {option.label} */}
+                  {trans(option.value as keyof typeof t)}
                 </SelectItem>
               ))}
           </SelectContent>

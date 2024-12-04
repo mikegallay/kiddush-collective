@@ -28,7 +28,8 @@ export default {
     description: "<h2>Titlo</h2><p>html test</p><p>html test</p><h2>Title</h2><p>html test</p><p>html test</p>"
   },
   home:{
-    title: "Una tradición compartida.\n Una conexión personal",
+    prehead: "Bienvenidos al Colectivo Kidush",
+    title: "Una tradición compartida.<br/>Una conexión personal",
     description: "Encender velas de Shabat y decir Kidush conecta a judíos de generaciones y geografías. Las mismas palabras, a través de diferentes acentos y melodías, nos recuerdan a todos nuestra herencia compartida. ¿Qué recuerdos y tradiciones te mantienen conectado?",
     button: "Comparte Tu Conexión",
     mapTooltip: "Descubrir"
@@ -94,7 +95,73 @@ export default {
     subhead: "Su envío ha sido recibido exitosamente.",
     content: "Para garantizar que todo el contenido generado por los usuarios cumpla con nuestros estándares, revisaremos y aprobaremos personalmente cada envío. Este proceso puede tardar hasta 48 horas. Agradecemos su paciencia y comprensión.",
     backhome: "Volver a la página de inicio"
+  },
+  uploadForm: {
+    filters:{
+      select_property:"Select Property_SP",
+      select_value:"Select Value_SP",
+      influence_level:"influence_SP",
+      kiddush_frequency:"kidfreq_SP",
+      level_of_observance:"level of o_SP",
+      jewish_heritage:"jewish her_SP",
+      race_options:"race_SP",
+      gender:"xy_SP",
+      birth_year:"dob_SP",
+      you_from:"user from_SP",
+      father_from:"father from_SP",
+      mother_from:"mother from_SP",
+      paternal_gfather_from:"pat gf from_SP",
+      paternal_gmother_from:"pat gm from_SP",
+      maternal_gfather_from:"mat gf from_SP",
+      maternal_gmother_from:"mat gm from_SP"
+    },
+    race_options: {
+      white: "White_SP",
+      black: "Black_SP",
+      asian: "Asian_SP",
+      hispanic: "Hispanic_SP",
+      other: "Other_SP"
+    },
+    level_of_observance: {
+      no_observance: 'No Observance_SP',
+      secular: 'Secular_SP',
+      traditionalist: 'Rraditionalist_SP',
+      reform: 'Reform_SP',
+      conservative: 'Conservative_SP',
+      conservadox: 'Conservadox_SP',
+      modern_orthodox: 'Modern Orthodox_SP',
+      orthodox: 'Orthodox_SP'
 
+    },
+    kiddush_frequency: {
+      every_shabbat: 'Every Shabbat_SP',
+      once_month: "Once a Month_SP",
+      few_year: "A Few Times a Year_SP",
+      never: "Never_SP"
+    },
+    jewish_heritage: {
+      ashkenazi_jews: 'Ashkenazi Jewssss_SP',
+      sephardi_jews: 'Sephardi Jews_SP',
+      mizrahi_jews: 'Mizrahi Jews_SP',
+      ethiopian_jews: 'Ethiopian Jews (Beta Israel)_SP',
+      indian_jews: 'Indian Jews_SP',
+      yemeni_jews: 'Yemeni Jews_SP',
+      chinese_jews: 'Chinese Jews_SP',
+    },
+    gender: {
+      male: 'male_SP',
+      female: 'female_SP'
+    },
+    shabbat_is_favorite: {
+      true: 'true_SP',
+      false: 'false_SP'
+    },
+    influence_level: {
+      strict_observance: 'Strict Observance_SP',
+      holidays: 'Just the Holidays_SP',
+      traditionalist: 'Traditionalist_SP',
+      no_influence: 'No Influence_SP'
+    }
   }
 
 } as const;

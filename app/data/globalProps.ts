@@ -74,6 +74,16 @@ export type UserProps = {
     filterList: string;
   }
 
+  export type FilterProps = {
+    race_options:string;
+    level_of_observance:string;
+    kiddush_frequency:string;
+    jewish_heritage:string;
+    gender:string;
+    influence_level:string;
+    shabbat_is_favorite:string;
+  }
+
   export type FormDefaultProps = {
     inputDefaultError: string;
     requiredError: string;
@@ -82,3 +92,5 @@ export type UserProps = {
     charError: string;
     filterList: string;
   }
+
+  export type DropdownIds = 'race_options' | 'level_of_observance' | 'kiddush_frequency' | 'jewish_heritage' | 'gender' |'influence_level' | 'shabbat_is_favorite' | 'filters';
