@@ -40,8 +40,8 @@ export const kiddushFrequency: { value: string, label: string }[] = [
 ];
 
 export const shabbatFavorite: { value: string, label: string }[] = [
-  { value: "true", label: "uploadForm.true_false.true" },
-  { value: "false", label: "uploadForm.true_false.false" }
+  { value: "true", label: "uploadForm.shabbat_is_favorite.true" },
+  { value: "false", label: "uploadForm.shabbat_is_favorite.false" }
 ];
 
 export const influenceLevels: { value: string, label: string }[] = [
@@ -58,6 +58,7 @@ export const filterOptions: { value: string, label: string }[] = [
   { value: "jewish_heritage", label: "uploadForm.filters.jewish_heritage" },
   { value: "race_options", label: "uploadForm.filters.race_options" },
   { value: "gender", label: "uploadForm.filters.gender" },
+  { value: "shabbat_is_favorite", label: "uploadForm.filters.shabbat_is_favorite" },
   { value: "birth_year", label: "uploadForm.filters.birth_year" },
   { value: "you_from", label: "uploadForm.filters.you_from" },
   { value: "father_from", label: "uploadForm.filters.father_from" },

@@ -199,7 +199,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
         <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
 
-        <MyTextarea maxLength={250} label={localeData.shabbatMemory} id="shabbat_memory" description={localeData.shabbatMemoryInfo} formProps={{register, errors}}/>
+        <MyTextarea maxLength={300} label={localeData.shabbatMemory} id="shabbat_memory" description={localeData.shabbatMemoryInfo} chars={localeData.characters} formProps={{register, errors}}/>
 
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">{localeData.moreInfoTitle}</h2>
 

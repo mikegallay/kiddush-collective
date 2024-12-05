@@ -43,6 +43,7 @@ export type UserProps = {
     uploadFileInfo: string;
     shabbatMemory: string;
     shabbatMemoryInfo: string;
+    characters:string;
     moreInfoTitle: string;
     observance: string;
     kiddushFreq: string;
@@ -93,4 +94,4 @@ export type UserProps = {
     filterList: string;
   }
 
-  export type DropdownIds = 'race_options' | 'level_of_observance' | 'kiddush_frequency' | 'jewish_heritage' | 'gender' |'influence_level' | 'shabbat_is_favorite' | 'filters';
+  export type DropdownIds = 'race_options' | 'level_of_observance' | 'kiddush_frequency' | 'jewish_heritage' | 'gender' | 'influence_level' | 'shabbat_is_favorite' | 'filters';

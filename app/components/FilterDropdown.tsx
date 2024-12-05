@@ -76,7 +76,7 @@ const ValueDropdown = ({ property, defaultValue, dir,  onChange } : {property : 
     birth_year: getYearOptions(),
     level_of_observance: observanceLevel,
     kiddush_frequency: kiddushFrequency,
-    true_false: shabbatFavorite,
+    shabbat_is_favorite: shabbatFavorite,
     influence_level: influenceLevels,
     you_from: locationList,
     father_from: locationList,

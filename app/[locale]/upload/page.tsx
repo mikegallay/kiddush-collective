@@ -20,6 +20,7 @@ export default async function UploadPage() {
     uploadFileInfo: t('uploadFileInfo'),
     shabbatMemory: t('shabbatMemory'),
     shabbatMemoryInfo: t('shabbatMemoryInfo'),
+    characters: t('characters'),
     moreInfoTitle: t('moreInfoTitle'),
     observance: t('observance'),
     kiddushFreq: t('kiddushFreq'),

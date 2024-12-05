@@ -10,13 +10,14 @@ interface MyTextareaProps extends React.InputHTMLAttributes<HTMLInputElement> {
     id: string;
     description?: string;
     maxLength: number;
+    chars: string;
     formProps: any;
     // register: UseFormRegister<any>;
     // errors: FieldErrors<any>;
 }
 
 const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
-    ({ label, id, description, maxLength=100, formProps, ...props }: MyTextareaProps, ref) => {
+    ({ label, id, description, maxLength=100, chars, formProps, ...props }: MyTextareaProps, ref) => {
     
     const [charCount, setCharCount] = useState(0);
     const requiredDefault = (props.required) ? 'This field is required.' : false;
@@ -32,7 +33,7 @@ const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
             {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
           </Label>
           <div className="text-xs text-gray-500">
-            {charCount}/{maxLength} characters
+            {charCount}/{maxLength} {chars}
           </div>
         </div>
         <Textarea
