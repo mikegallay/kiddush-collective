@@ -53,7 +53,10 @@ export default async function Users({ params }: { params: { slug: string } }) {
     const headerClasses="text-xs font-bold pt-4 italic text-gray-500";
 
     if (!user) {
-        return <div>{v('user_not_found')}</div>;
+        return <div className="container mx-auto p-4 lg:p-8 max-w-[1280px]">
+        <h1 className="text-xl font-bold mb-6">{v('user_not_found')}</h1>
+        {/* <p className="mb-6">{t('description')}</p> */}
+      </div>
     }
 
     const DynamicMap = dynamic(() => import('@/app/components/MapUser'), { 

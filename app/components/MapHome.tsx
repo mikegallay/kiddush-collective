@@ -21,6 +21,7 @@ import FilterManager from '@/app/components/FilterManager';
 
 import { SymbolIcon, TriangleRightIcon } from '@radix-ui/react-icons';
 import { Button } from '@/components/ui/button';
+import { useScopedI18n } from '@/locales/client';
 
 const mapMarker = L.icon({
     iconUrl: `/images/marker-main.png`,
@@ -60,6 +61,9 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [filterVisible, setFilterVisible] = useState(false)
+
+    const t  = useScopedI18n('uploadForm.filters');
+    // const trans = (str : keyof typeof v) => v(str) || 'error'
 
     async function fetchUsers({ filters }: { filters?: { property: string; value: string }[] } = {}) {
       // console.log('fetct',filters);
@@ -151,7 +155,7 @@ const MapHome = ({loc, tooltip}:{loc:string; tooltip:string;})  => {
               aria-controls="filter"
               onClick={() => setFilterVisible(prev => !prev)}
           >
-              FILTER
+              {t('filter')}
           </button>
         </div>
         <div id="filter" className={`flex flex-col py-4 justify-start h-full bg-neutral-300 transition-all overflow-hidden ${filterVisible ? 'w-full lg:w-[500px] px-4 opacity-100' : 'w-0 px-0 opacity-0' }`}>

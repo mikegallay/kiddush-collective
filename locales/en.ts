@@ -98,6 +98,7 @@ export default {
   },
   uploadForm: {
     filters:{
+      filter: "FILTER",
       user_not_found: "user no find",
       personal_info:"Personal in",
       age:"Approximate age",
