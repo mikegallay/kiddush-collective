@@ -128,12 +128,25 @@ input[type="file"] {
   animation: spin 1.5s linear infinite;
 }
 
+.pulse {
+  animation: pulse 1.5s linear infinite;
+}
+
 @keyframes spin {
   50% {
     transform: rotate(180deg);
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
   }
 }
 

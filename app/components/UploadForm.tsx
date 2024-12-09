@@ -23,6 +23,7 @@ import { InfoCircledIcon, UpdateIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from 'react';
 import { useCurrentLocale } from '@/locales/client'
+import AudioInput from '@/app/components/AudioInput';
 
 const DynamicMap = dynamic(() => import('@/app/components/Map'), { ssr: false });
 
@@ -196,6 +197,8 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
             <p className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>{localeData.youliveInfo}</p>
           </div>
         </div>
+
+        <AudioInput localeData={localeData} translations={formDefaults} formProps={{register, errors}} />
 
         <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
 
