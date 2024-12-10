@@ -6,6 +6,10 @@ import clientPromise from '@/lib/mongodb';
 import { encrypt } from '@/app/utils/encryptionHelper';
 import { Readable, Writable } from 'stream';
 import { Storage } from '@google-cloud/storage';
+import ffmpeg from 'fluent-ffmpeg';
+import ffmpegInstaller from '@ffmpeg-installer/ffmpeg'; 
+
+ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
 const storage = new Storage({ keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS });
 const bucket = storage.bucket(process.env.GCS_BUCKET_NAME as string);
@@ -70,18 +74,33 @@ export async function POST(req: NextRequest) {
             throw new Error('Temporary file does not exist');
           }
 
-          const contentType = (fieldname === 'blob' && file instanceof Blob)
-            ? 'audio/webm'
-            : 'audio/mpeg';
+          const convertedTempFilePath = path.join('/tmp', `${Date.now()}_converted.webm`);
+
+          ffmpeg(tempFilePath)
+            .output(convertedTempFilePath)
+            .audioCodec('libopus')  // For audio conversion to WebM
+            .videoCodec('libvpx')   // Video codec for WebM
+            .on('end', async () => {
+                // After conversion, upload the converted file to GCS
+                console.log('ended',finalFilename)
+                const gcsFile = bucket.file(finalFilename);  // Adjust final filename if needed
+                const writeStreamToGCS = gcsFile.createWriteStream({
+                    resumable: false,
+                    contentType: 'audio/webm', // Set MIME type for WebM
+                });
+
+          // const contentType = (fieldname === 'blob' && file instanceof Blob)
+          //   ? 'audio/webm'
+          //   : 'audio/mpeg';
     
           // Upload to Google Cloud Storage
-          const gcsFile = bucket.file(finalFilename);
-          const writeStreamToGCS = gcsFile.createWriteStream({
-            resumable: false,
-            contentType: contentType, 
-          });
+          // const gcsFile = bucket.file(finalFilename);
+          // const writeStreamToGCS = gcsFile.createWriteStream({
+          //   resumable: false,
+          //   contentType: contentType, 
+          // });
     
-          fs.createReadStream(tempFilePath)
+          fs.createReadStream(convertedTempFilePath)
             .pipe(writeStreamToGCS)
             .on('finish', async () => {
               // File uploaded successfully
@@ -89,6 +108,7 @@ export async function POST(req: NextRequest) {
 
               // Clean up temporary file
               await fs.promises.unlink(tempFilePath);
+              await fs.promises.unlink(convertedTempFilePath);
 
               // Add file URL to formData
               formData.file_upload = fileUrl;
@@ -100,6 +120,11 @@ export async function POST(req: NextRequest) {
             });
     
           console.log('File successfully uploaded:', finalFilename);
+        })
+        .on('error', (error:any) => {
+            reject(new Error(`Error during file conversion: ${error.message}`));
+        })
+        .run();
         } catch (error:any) {
           console.error('Error processing file:', error);
           reject(new Error(`File processing failed: ${error.message}`));

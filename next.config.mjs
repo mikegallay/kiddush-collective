@@ -18,7 +18,10 @@ const nextConfig = {
     // typescript: {
     //   ignoreBuildErrors: true,
     // },
-    webpack(config) {
+    webpack(config, { isServer }) {
+      if (isServer) {
+        config.externals.push('@ffmpeg-installer/ffmpeg', 'fluent-ffmpeg');
+      }
       config.module.rules.push({
         test: /\.svg$/, // Match SVG files
         use: ['@svgr/webpack'], // Use SVGR to transform them into React components

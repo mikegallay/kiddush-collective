@@ -86,7 +86,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
   return (
     <div className={`audio-player flex flex-row gap-3 lg:gap-2 justify-center ${mode === 'micro' ? 'micro-player' : 'p-2 lg:p-1 lg:pr-2 bg-slate-100 border-slate-400 border-2 rounded-full shadow-md'}`}>
       <audio ref={audioRef} onEnded={() => setIsPlaying(false)}>
-      <source src={src} type="audio/mpeg"/>
+      <source src={src} type="audio/webm"/>
       Your browser does not support the audio element.
   </audio>
 
