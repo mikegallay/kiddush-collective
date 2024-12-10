@@ -4,11 +4,12 @@ import fs from 'fs';
 import path from 'path';
 import clientPromise from '@/lib/mongodb';
 import { encrypt } from '@/app/utils/encryptionHelper';
-import { Writable } from 'stream';
+import { Readable, Writable } from 'stream';
 import { Storage } from '@google-cloud/storage';
 
 const storage = new Storage({ keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS });
 const bucket = storage.bucket(process.env.GCS_BUCKET_NAME as string);
+
 
 export async function POST(req: NextRequest) {
   if (!req.body) {
@@ -23,15 +24,18 @@ export async function POST(req: NextRequest) {
 
   // Capture form fields
   busboy.on('field', (fieldname, val) => {
-    // console.log('on field ', fieldname, ": ", val);
+    
     formData[fieldname] = val;
+
   });
 
   // Handle file uploads
-  busboy.on('file', async (fieldname: string, file: Writable, filename: string | any) => {
-    // console.log(`File [${fieldname}] received:`, filename);
+  busboy.on('file', async (fieldname: string, file: Writable | Blob, filename: string | any) => {
+    // const extension = (fieldname === 'blob' && file instanceof Blob)
+      // ? '.webm' : '.mp3';
     let finalFilename = '';
-
+  
+    // Determine final filename
     if (typeof filename === 'string') {
       finalFilename = filename;
     } else if (filename && filename.name) {
@@ -39,65 +43,86 @@ export async function POST(req: NextRequest) {
     } else {
       finalFilename = `${Date.now()}_file`;
     }
-
+  
     const tempFilePath = path.join('/tmp', finalFilename);
+    let writeStream: any;
 
-    const writeStream = fs.createWriteStream(tempFilePath);
+    // Handle Blob or Writable (e.g., file upload)
+    if (fieldname === 'blob' && file instanceof Blob) {
+      // Convert Blob to Buffer
+      const buffer = Buffer.from(await file.arrayBuffer());
 
-    file.pipe(writeStream);
+      // Write buffer to temporary file
+      await fs.promises.writeFile(tempFilePath, buffer, 'binary');
+    } else if (file instanceof Readable) {
 
-    const fileUploadPromise = new Promise<void>((resolve, reject) => {
+      writeStream = fs.createWriteStream(tempFilePath);
+      file.pipe(writeStream);
+    } else {
+      throw new Error('Unsupported file type');
+    }
+  
+    const fileUploadPromise = new Promise<void>(async (resolve, reject) => {
       writeStream.on('close', async () => {
-        // console.log('File written to temporary path:', tempFilePath);
-
         try {
+          // Check if the temporary file exists
           if (!fs.existsSync(tempFilePath)) {
-            // console.error('Error: Temporary file does not exist before upload.');
-            reject(new Error('Temporary file does not exist'));
-            return;
+            throw new Error('Temporary file does not exist');
           }
 
+          const contentType = (fieldname === 'blob' && file instanceof Blob)
+            ? 'audio/webm'
+            : 'audio/mpeg';
+    
+          // Upload to Google Cloud Storage
           const gcsFile = bucket.file(finalFilename);
           const writeStreamToGCS = gcsFile.createWriteStream({
             resumable: false,
-            contentType: 'audio/mpeg',
+            contentType: contentType, 
           });
-
+    
           fs.createReadStream(tempFilePath)
             .pipe(writeStreamToGCS)
             .on('finish', async () => {
-              // console.log('File uploaded to Google Cloud Storage successfully');
-              const fileUrl = `https://storage.googleapis.com/${process.env.GCS_BUCKET_NAME}/${finalFilename}`;
+              // File uploaded successfully
+              const fileUrl = `https://storage.cloud.google.com/${bucket.name}/${finalFilename}`;
 
-              fs.unlinkSync(tempFilePath);
+              // Clean up temporary file
+              await fs.promises.unlink(tempFilePath);
 
-              // Add file URL to formData after successful upload
+              // Add file URL to formData
               formData.file_upload = fileUrl;
 
-              resolve(); // Resolve the file upload promise
+              resolve();
             })
             .on('error', (error) => {
-              // console.error('Error uploading to Google Cloud Storage:', error);
               reject(new Error(`Error uploading to Google Cloud Storage: ${error.message}`));
             });
-        } catch (error: any) {
-          // console.error('Error uploading file to Google Cloud Storage:', error);
-          reject(new Error(`Error uploading file to Google Cloud Storage: ${error.message}`));
+    
+          console.log('File successfully uploaded:', finalFilename);
+        } catch (error:any) {
+          console.error('Error processing file:', error);
+          reject(new Error(`File processing failed: ${error.message}`));
         }
-      });
+      })
     });
 
     fileUploadPromiseArr.push(fileUploadPromise); // Add the file upload promise to the array
+  
   });
 
   // Handle completion of form processing
   return new Promise((resolve, reject) => {
     busboy.on('finish', async () => {
+      // console.log('Form submitted:', formData);
+      
       try {
         // If no files were uploaded, set a default value for file_upload
         if (fileUploadPromiseArr.length === 0) {
-          // console.log('No files uploaded, setting file_upload to default.');
-          formData.file_upload = ''; // Set to an empty string or `null`
+          console.log('No files uploaded, setting file_upload to default.',formData.blob_uploaded);
+          if (!formData.blob_uploaded) formData.file_upload = ''; // Set to an empty string or `null`
+          delete formData.blob_uploaded;
+          delete formData.blob;
         } else {
           await Promise.all(fileUploadPromiseArr);
         }
@@ -123,7 +148,6 @@ export async function POST(req: NextRequest) {
           NextResponse.json({ message: 'Data saved successfully', id: result.insertedId }, { status: 200 })
         );
       } catch (error: any) {
-        // console.error('Error saving data:', error);
         reject(
           NextResponse.json({ error: `Error saving data: ${error.message}` }, { status: 500 })
         );

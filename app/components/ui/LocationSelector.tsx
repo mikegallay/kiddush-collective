@@ -132,7 +132,7 @@ function StatusList({
         <CommandGroup>
           {locations.map((loc) => (
             <CommandItem
-              key={loc.value}
+              key={`${id}_${loc.value}`}
               value={loc.label}
               onSelect={(value) => {
                 const selectedValue = locations.find((priority) => priority.label === value) || null

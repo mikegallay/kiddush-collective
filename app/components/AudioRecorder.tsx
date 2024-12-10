@@ -3,30 +3,32 @@
 import { Button } from "@/components/ui/button";
 import React, { useState, useRef } from "react";
 
-const AudioRecorder = ({ onComplete }: { onComplete: (audioURL: string | null) => void }) => {
+const AudioRecorder = ({ onComplete, preRecorded = null, preData = null }: { onComplete: (audioURL: string | null, audioData: Blob | null) => void; preRecorded?: string | null; preData?: Blob | null }) => {
     const [isRecording, setIsRecording] = useState(false);
-    const [audioURL, setAudioURL] = useState<string | null>(null);
-    const [isMicAccessible, setIsMicAccessible] = useState(false);
+    const [audioURL, setAudioURL] = useState<string | null>(preRecorded);
+    const [audioData, setAudioData] = useState<Blob | null>(preData);
+    // const [isMicAccessible, setIsMicAccessible] = useState(false);
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
     const audioChunksRef = useRef<Blob[]>([]); // Use a ref to avoid async state issues.
     
-    const checkMicPermissions = async () => {
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-          stream.getTracks().forEach((track) => track.stop()); // Stop stream to free resources
-          setIsMicAccessible(true);
-        } catch {
-          setIsMicAccessible(false);
-          console.log("Microphone access denied. Please allow mic to record.");
-          alert('Microphone access denied. Please allow mic to record.')
-        //   toast({ title: "Microphone access denied. Please allow mic to record." });
-        }
-      };
+    // const checkMicPermissions = async () => {
+    //     try {
+    //       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    //       stream.getTracks().forEach((track) => track.stop()); // Stop stream to free resources
+    //       setIsMicAccessible(true);
+    //       startRecording();
+    //     } catch {
+    //       setIsMicAccessible(false);
+    //       console.log("Microphone access denied. Please allow mic to record.");
+    //       alert('Microphone access denied. Please allow mic to record.')
+    //     //   toast({ title: "Microphone access denied. Please allow mic to record." });
+    //     }
+    //   };
 
     const startRecording = async () => {
-    if (!isMicAccessible) {
-        checkMicPermissions()
-    }else{
+    // if (!isMicAccessible) {
+    //     checkMicPermissions()
+    // }else{
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -56,8 +58,9 @@ const AudioRecorder = ({ onComplete }: { onComplete: (audioURL: string | null) =
             if (audioBlob.size > 0) {
               const generatedURL = URL.createObjectURL(audioBlob);
               console.log("Generated Audio URL:", generatedURL);
+              setAudioData(audioBlob);
               setAudioURL(generatedURL);
-              onComplete(generatedURL);
+              onComplete(generatedURL,audioBlob);
             } else {
               console.error("Recording failed. Blob size is 0.");
             }
@@ -77,7 +80,7 @@ const AudioRecorder = ({ onComplete }: { onComplete: (audioURL: string | null) =
       } catch (error) {
         console.error("Error starting recording:", error);
       }
-    }
+    // }
     };
   
     const stopRecording = () => {
@@ -91,14 +94,17 @@ const AudioRecorder = ({ onComplete }: { onComplete: (audioURL: string | null) =
     const deleteRecording = () => {
         setMediaRecorder(null);
         setAudioURL(null);
-        onComplete(null);
+        setAudioData(null);
+        onComplete(null, null);
+        setIsRecording(false);
         audioChunksRef.current = [];
-        console.log("Recording stopped.");
     };
+
+    
   
     return (
       <div className="px-4 flex flex-row gap-4 items-center">
-        <Button variant={audioURL ? 'destructive' : 'default'} onClick={isRecording 
+        <Button onClick={isRecording 
                 ? stopRecording
                 : audioURL 
                     ? deleteRecording
@@ -107,16 +113,11 @@ const AudioRecorder = ({ onComplete }: { onComplete: (audioURL: string | null) =
             {isRecording 
                 ? 'Stop Recording'
                 : audioURL 
-                    ? 'Delete Audio'
+                    ? 'Re-Record'
                     : 'Start Recording'
             }
         </Button>
-        {/* <button onClick={startRecording} disabled={isRecording}>
-          Start Recording
-        </button>
-        <button onClick={stopRecording} disabled={!isRecording}>
-          Stop Recording
-        </button> */}
+
         {isRecording && <div className="rounded-full bg-red-700 pulse w-5 h-5" />}
         {audioURL && <audio src={audioURL} controls />}
       </div>

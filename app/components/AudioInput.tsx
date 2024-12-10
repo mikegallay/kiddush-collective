@@ -15,10 +15,11 @@ import { customInputClasses } from "../utils/customClasses";
 import { PlusIcon } from "@radix-ui/react-icons";
 
 
-const AudioInput = ({ localeData, translations, formProps }: any) => {
+const AudioInput = ({ localeData, translations, id, formProps }: any) => {
     // const [recording, setRecording] = useState(false);
     const [audioURL, setAudioURL] = useState<string | null>(null);
-    // const [isMicAccessible, setIsMicAccessible] = useState(true);
+    const [audioData, setAudioData] = useState<Blob | null>(null);
+    const [isMicAccessible, setIsMicAccessible] = useState(true);
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -48,29 +49,37 @@ const AudioInput = ({ localeData, translations, formProps }: any) => {
 
   const handleDrawerClose = () => {
     setDrawerOpen(false);
-    clearRecordedAudio();
+    // clearRecordedAudio();
   };
 
-//   const checkMicPermissions = async () => {
-//     try {
-//       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-//       stream.getTracks().forEach((track) => track.stop()); // Stop stream to free resources
-//       setIsMicAccessible(true);
-//     } catch {
-//       setIsMicAccessible(false);
-//       console.log("Microphone access denied. Please allow mic to record.");
-//       alert('Microphone access denied. Please allow mic to record.')
-//     //   toast({ title: "Microphone access denied. Please allow mic to record." });
-//     }
-//   };
+  const checkMicPermissions = async () => {
+    console.log('check mikc');
+    
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      stream.getTracks().forEach((track) => track.stop()); // Stop stream to free resources
+      setIsMicAccessible(true);
+    } catch {
+      setIsMicAccessible(false);
+      console.log("Microphone access denied. Please allow mic to record.");
+      alert('Microphone access denied. Please allow mic to record.')
+    //   toast({ title: "Microphone access denied. Please allow mic to record." });
+    }
+  };
   
-const handleRecordingComplete = (url: string | null) => {
+const handleRecordingComplete = (url: string | null, blob: Blob | null) => {
     setAudioURL(url);
+    setAudioData(blob);
+    formProps.setValue("blob", blob)
+
 // setDrawerOpen(false);
 // setUploadedFile(null); // Disable file upload if recording is done
 };
 
 function onClick() {
+  console.log('on click');
+  
+  if (audioURL) clearRecordedAudio();
     // setValue("specific_location", location)
 }
 
@@ -81,9 +90,9 @@ function onClick() {
       {/* File Upload Input */}
       <MyInput
         label={localeData.uploadFile}
-        id="file"
+        id={id}
         type="file"
-        name="file"
+        name={id}
         accept="audio/*"
         description={localeData.uploadFileInfo}
         translations={translations}
@@ -112,26 +121,20 @@ function onClick() {
         <AudioRecorder onComplete={handleRecordingComplete} />
       </Drawer> */}
 
-      <Drawer>
+      <Drawer >
         <DrawerTrigger asChild>
-          <Button variant="outline" className={`justify-start w-full ${customInputClasses}`}>{location === 'hi' ? `I want to record my own`  : <>{localeData.mapButton}</>}</Button>
+          <Button variant="outline"  onClick={() => {
+          checkMicPermissions().then(() => setDrawerOpen(true));
+        }} className={`justify-start w-full ${customInputClasses}`}>{audioURL ? <>{audioURL}</>  : `I want to record my own`}</Button>
         </DrawerTrigger>
         <DrawerContent data-vaul-no-drag>
           <DrawerHeader>
             <DrawerTitle>{localeData.mapDrawerTitle}</DrawerTitle>
             <DrawerDescription>{localeData.mapDrawerDescription}</DrawerDescription>
           </DrawerHeader>
-          <AudioRecorder onComplete={handleRecordingComplete}  />
+          <AudioRecorder onComplete={handleRecordingComplete} preRecorded={audioURL} preData={audioData} />
 
-          <button
-          onClick={() => setDrawerOpen(true)}
-        // onClick={() => {
-        //   checkMicPermissions().then(() => setDrawerOpen(true));
-        // }}
-        disabled={!!uploadedFile} // Disable recording if file exists
-      >
-        {localeData.recordAudio}
-      </button>
+         
 
     {/* {audioURL && (
         <div>
@@ -145,14 +148,16 @@ function onClick() {
                 <Button
                   size="lg"
                   className="w-1/2"
-                  variant="outline"
-                >{localeData.cancelButton}</Button>
+                  variant={audioURL ? 'destructive' : 'outline'}
+                  onClick={() => onClick()}
+                >{`${audioURL ? 'Delete &' : ''} ${localeData.cancelButton}`}</Button>
               </DrawerClose>
               <DrawerClose asChild>
                 <Button
                   size="lg"
                   className="w-1/2"
-                  onClick={() => onClick()}
+                  
+                  
                 >{localeData.makeSelectionButton}</Button>
               </DrawerClose>
             </div>

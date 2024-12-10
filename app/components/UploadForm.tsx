@@ -116,10 +116,12 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     // Sanitize and prepare form data
     for (const key in data) {
       if (data.hasOwnProperty(key)) {
-        if (typeof data[key] === 'boolean') {
+        if (key === 'blob') {
         // if (data[key] instanceof FileList || typeof data[key] === 'boolean') {
           console.log(key,data[key])
-          formData.append(key, data[key]);
+          // formData.append(key, data[key]);
+          console.log('blob type',data[key].type)
+          formData.append('blob', data[key], 'audio.webm');
         } else {
           formData.append(key, DOMPurify.sanitize(data[key]));
         }
@@ -129,9 +131,10 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     const form = document.getElementById('uploadForm') as HTMLFormElement | null;
     const fileInput = form && form.querySelector('input[type="file"]') as HTMLInputElement | null;
     const file = fileInput?.files?.[0]; // Get the first file from the FileList
+    // const blob = 
   
     // Add additional fields
-    formData.append('approved', 'false');
+    formData.append('approved', 'true');
     formData.append('topUser', 'false');
     formData.append('csrfToken', csrfToken);
     formData.append(
@@ -140,14 +143,19 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     );
 
     if (file) formData.set('file', file);
+    // if (formData.has('blob')) {
+    //   const blob = new Blob([audioData], { type: 'audio/webm' });
+    //   formData.append('file', formData.get('blob') as Blob, 'recording.webm');
+    //   formData.delete('blob');
+    // }
     
-    console.log('File to upload:', formData.get('file')); 
+    
+    // console.log('File to upload:', formData.get('file')); 
 
-    // console.log('Prepared FormData:', formData);
     // for (let pair of formData.entries()) {
     //   console.log(pair[0] + ': ' + pair[1]);
     // }
-  
+
     try {
             // Submit the form data
       const response = await fetch('/api/submit', {
@@ -198,7 +206,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
           </div>
         </div>
 
-        <AudioInput localeData={localeData} translations={formDefaults} formProps={{register, errors}} />
+        <AudioInput id="file" localeData={localeData} translations={formDefaults} formProps={{register, setValue, errors}} />
 
         <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
 
