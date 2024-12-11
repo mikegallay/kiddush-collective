@@ -142,11 +142,14 @@ input[type="file"] {
 }
 
 @keyframes pulse {
+  0% {
+    background-color: transparent
+  }
   50% {
-    opacity: 0;
+    background-color: rgb(185 28 28);
   }
   100% {
-    opacity: 100;
+    background-color: transparent
   }
 }
 

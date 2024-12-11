@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import React, { useState, useRef, useEffect } from "react";
 import AudioPlayer from "./AudioPlayer";
+import { Close } from "@radix-ui/react-popover";
+import { Cross1Icon, ReloadIcon } from "@radix-ui/react-icons";
 
 const AudioRecorder = ({ onComplete, onRecording, preRecorded = null, preData = null }: { onComplete: (audioURL: string | null, audioData: Blob | null) => void; onRecording: (recording:boolean) => void; preRecorded?: string | null; preData?: Blob | null }) => {
     const [isRecording, setIsRecording] = useState(false);
@@ -105,22 +107,24 @@ const AudioRecorder = ({ onComplete, onRecording, preRecorded = null, preData = 
     };
   
     return (
-      <div className="px-4 flex flex-row gap-4 items-center h-[44px]">
-        <Button onClick={isRecording 
+      <div className="px-4 flex flex-col justify-start items-center lg:justify-start lg:flex-row gap-4 lg:items-center h-[105px] lg:h-[44px]">
+        <div className="flex">
+          <Button onClick={isRecording 
                 ? stopRecording
                 : audioURL 
                     ? deleteRecording
                     : startRecording
             }>
             {isRecording 
-                ? 'Stop Recording'
+                ? <><span className="rounded-full bg-red-700 pulse w-4 h-4 mr-2 border border-white"></span>Stop Recording</>
                 : audioURL 
-                    ? 'Re-Record'
+                    ? <span className="flex items-center justify-center"><ReloadIcon className="mr-2" />Re-Record</span>
                     : 'Start Recording'
             }
-        </Button>
+          </Button>
 
-        {isRecording && <div className="rounded-full bg-red-700 pulse w-5 h-5" />}
+          {/* {isRecording && <div className="rounded-full bg-red-700 pulse w-5 h-5" />} */}
+        </div>
         {/* {audioURL && <audio src={audioURL} controls />} */}
         {audioURL && <AudioPlayer src={audioURL} />}
       </div>
