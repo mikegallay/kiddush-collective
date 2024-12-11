@@ -200,15 +200,15 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
           </div>
 
           <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1 lg:max-w-[589px]">
-            <p className="text-sm"><span>{localeData.youliveExact} <MyHoverCard trigger={<InfoCircledIcon/>} content={localeData.youliveMoreInfo}/></span></p>
+            <p className="text-sm -mb-[5px] inline">{localeData.youliveExact} <MyHoverCard trigger={<InfoCircledIcon/>} content={localeData.youliveMoreInfo}/></p>
             {mapDrawer(register,setValue,localeData)}
-            <p className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>{localeData.youliveInfo}</p>
+            <span className='text-gray-500 font-medium text-xs -mt-1 italic'>{localeData.youliveInfo}</span>
           </div>
         </div>
 
         <AudioInput id="file" localeData={localeData} translations={formDefaults} formProps={{register, setValue, errors}} />
 
-        <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/>
+        {/* <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/> */}
 
         <MyTextarea maxLength={300} label={localeData.shabbatMemory} id="shabbat_memory" description={localeData.shabbatMemoryInfo} chars={localeData.characters} formProps={{register, errors}}/>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
     Drawer,
     DrawerContent,
@@ -12,16 +12,19 @@ import AudioRecorder from "@/app/components/AudioRecorder";
 import { Button } from "@/components/ui/button";
 import { UploadFormProps } from "../data/globalProps";
 import { customInputClasses } from "../utils/customClasses";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { CrossCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 
 
 const AudioInput = ({ localeData, translations, id, formProps }: any) => {
     // const [recording, setRecording] = useState(false);
     const [audioURL, setAudioURL] = useState<string | null>(null);
     const [audioData, setAudioData] = useState<Blob | null>(null);
+    const [isRecording, setIsRecording] = useState<boolean>(false);
     const [isMicAccessible, setIsMicAccessible] = useState(true);
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement | null>(null);  // Ref for the file input
+
 
 //   const toast = useToast();
 
@@ -30,6 +33,8 @@ const AudioInput = ({ localeData, translations, id, formProps }: any) => {
   // Handles file upload input
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    console.log('uploaded',file);
+    
     if (file) {
       setUploadedFile(file);
       setAudioURL(null); // Disable recording if a file is uploaded
@@ -39,6 +44,9 @@ const AudioInput = ({ localeData, translations, id, formProps }: any) => {
   // Removes uploaded file
   const clearUploadedFile = () => {
     setUploadedFile(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';  // Reset the file input
+    }
   };
 
   // Removes recorded audio
@@ -67,13 +75,14 @@ const AudioInput = ({ localeData, translations, id, formProps }: any) => {
     }
   };
   
-const handleRecordingComplete = (url: string | null, blob: Blob | null) => {
+  const handleRecording = (recording: boolean) => {
+    setIsRecording(recording)
+  };
+
+  const handleRecordingComplete = (url: string | null, blob: Blob | null) => {
     setAudioURL(url);
     setAudioData(blob);
     formProps.setValue("blob", blob)
-
-// setDrawerOpen(false);
-// setUploadedFile(null); // Disable file upload if recording is done
 };
 
 function onClick() {
@@ -83,87 +92,77 @@ function onClick() {
     // setValue("specific_location", location)
 }
 
-  
-
   return (
-    <div>
+    <div className="flex gap-6 flex-row">
+      <div className="flex-1 max-w-[589px]">
+        <div className="flex flex-col gap-2">
+          <p className="text-sm -mb-[5px]">Label</p>
+          <Drawer>
+            <DrawerTrigger asChild>
+              <Button disabled={!!uploadedFile} variant="outline" onClick={() => {
+              checkMicPermissions().then(() => setDrawerOpen(true));
+            }} className={`justify-start ${customInputClasses}`}>{audioURL ? <>{audioURL}</>  : `I want to record my own`}</Button>
+            </DrawerTrigger>
+            <DrawerContent data-vaul-no-drag>
+              <DrawerHeader>
+                <DrawerTitle>{localeData.mapDrawerTitle}</DrawerTitle>
+                <DrawerDescription>{localeData.mapDrawerDescription}</DrawerDescription>
+              </DrawerHeader>
+              <AudioRecorder 
+                onComplete={handleRecordingComplete} 
+                onRecording={handleRecording}
+                preRecorded={audioURL} 
+                preData={audioData} 
+              />
+
+              <div className="p-3">
+                <div className="flex justify-center gap-3">
+                <DrawerClose asChild>
+                    <Button
+                      size="lg"
+                      className="w-1/2"
+                      variant={audioURL ? 'destructive' : 'outline'}
+                      onClick={() => onClick()}
+                    >{`${audioURL ? 'Delete &' : ''} ${localeData.cancelButton}`}</Button>
+                  </DrawerClose>
+                  <DrawerClose asChild>
+                    <Button
+                      size="lg"
+                      className="w-1/2"
+                      disabled={!!isRecording}
+                    >{localeData.makeSelectionButton}</Button>
+                  </DrawerClose>
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+          <span className='text-gray-500 font-medium text-xs -mt-1 italic'>Description</span>
+        </div>
+      </div>
+     
+
       {/* File Upload Input */}
-      <MyInput
-        label={localeData.uploadFile}
-        id={id}
-        type="file"
-        name={id}
-        accept="audio/*"
-        description={localeData.uploadFileInfo}
-        translations={translations}
-        formProps={formProps}
-        disabled={!!audioURL} // Disable file upload if recording exists
-        onChange={handleFileChange}
-      />
+      <div className="flex-1 max-w-[589px] relative">
+        <MyInput
+          label={localeData.uploadFile}
+          id={id}
+          type="file"
+          name={id}
+          accept="audio/*"
+          ref={fileInputRef}
+          description={localeData.uploadFileInfo}
+          translations={translations}
+          formProps={formProps}
+          disabled={!!audioURL} // Disable file upload if recording exists
+          onChange={handleFileChange}
+        />
 
-      {/* <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={translations} formProps={{register, errors}}/> */}
-
-
-      {uploadedFile && (
-        <div>
-          <p>{`Uploaded file: ${uploadedFile.name}`}</p>
-          <button onClick={clearUploadedFile}>Remove Uploaded File</button>
-        </div>
-      )}
-
-      {/* Audio Recording Option */}
-
-      {/* {recordingDrawer(register,setValue,localeData)} */}
-      
-
-      {/* Drawer for Audio Recording */}
-      {/* <Drawer open={drawerOpen} onClose={handleDrawerClose}>
-        <AudioRecorder onComplete={handleRecordingComplete} />
-      </Drawer> */}
-
-      <Drawer >
-        <DrawerTrigger asChild>
-          <Button variant="outline"  onClick={() => {
-          checkMicPermissions().then(() => setDrawerOpen(true));
-        }} className={`justify-start w-full ${customInputClasses}`}>{audioURL ? <>{audioURL}</>  : `I want to record my own`}</Button>
-        </DrawerTrigger>
-        <DrawerContent data-vaul-no-drag>
-          <DrawerHeader>
-            <DrawerTitle>{localeData.mapDrawerTitle}</DrawerTitle>
-            <DrawerDescription>{localeData.mapDrawerDescription}</DrawerDescription>
-          </DrawerHeader>
-          <AudioRecorder onComplete={handleRecordingComplete} preRecorded={audioURL} preData={audioData} />
-
-         
-
-    {/* {audioURL && (
-        <div>
-          <audio src={audioURL} controls />
-          <button onClick={clearRecordedAudio}>Remove Recorded Audio</button>
-        </div>
-      )} */}
-          <div className="p-3">
-            <div className="flex justify-center gap-3">
-             <DrawerClose asChild>
-                <Button
-                  size="lg"
-                  className="w-1/2"
-                  variant={audioURL ? 'destructive' : 'outline'}
-                  onClick={() => onClick()}
-                >{`${audioURL ? 'Delete &' : ''} ${localeData.cancelButton}`}</Button>
-              </DrawerClose>
-              <DrawerClose asChild>
-                <Button
-                  size="lg"
-                  className="w-1/2"
-                  
-                  
-                >{localeData.makeSelectionButton}</Button>
-              </DrawerClose>
-            </div>
+        {uploadedFile && (
+          <div className="absolute top-0 right-0">
+            <button className="text-red-700 text-sm flex flex-row items-center gap-1" onClick={clearUploadedFile}>Remove <CrossCircledIcon/></button>
           </div>
-        </DrawerContent>
-      </Drawer>
+        )}
+      </div>
     </div>
   );
 };

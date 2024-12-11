@@ -88,17 +88,6 @@ export async function POST(req: NextRequest) {
                     resumable: false,
                     contentType: 'audio/webm', // Set MIME type for WebM
                 });
-
-          // const contentType = (fieldname === 'blob' && file instanceof Blob)
-          //   ? 'audio/webm'
-          //   : 'audio/mpeg';
-    
-          // Upload to Google Cloud Storage
-          // const gcsFile = bucket.file(finalFilename);
-          // const writeStreamToGCS = gcsFile.createWriteStream({
-          //   resumable: false,
-          //   contentType: contentType, 
-          // });
     
           fs.createReadStream(convertedTempFilePath)
             .pipe(writeStreamToGCS)

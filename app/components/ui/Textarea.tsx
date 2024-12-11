@@ -27,7 +27,7 @@ const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
     };
 
     return (
-      <div className={`flex flex-col gap-3 flex-1 ${props.className || ''}`}>
+      <div className={`flex flex-col gap-2 flex-1 ${props.className || ''}`}>
         <div className="flex flex-row justify-between">
           <Label htmlFor={id}>
             {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
@@ -46,8 +46,8 @@ const MyTextarea = forwardRef<HTMLInputElement, MyTextareaProps>(
             // placeholder={`Enter your ${label}`}
         />
         {formProps.errors[id]?.message ? 
-          <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span> :
-          description && <span className='text-gray-500 font-medium text-xs -mt-2 italic'>{String(description)}</span>
+          <span className='text-rose-700 text-sm italic -mt-1'>{String(formProps.errors[id]?.message)}</span> :
+          description && <span className='text-gray-500 font-medium text-xs -mt-1 italic'>{String(description)}</span>
         }
       {/* {formProps.errors[id]?.message && <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span>} */}
       </div>

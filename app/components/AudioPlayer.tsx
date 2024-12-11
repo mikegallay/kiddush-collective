@@ -19,16 +19,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const intervalRef = useRef<number | null>(null);
 
   // Set duration once audio metadata is loaded
   useEffect(() => {
     
     const audioElement = audioRef.current;
+    
     if (audioElement) {
-        audioElement.load();
+      audioElement.load();
       audioElement.onloadedmetadata = () => {
+        const duration = (audioElement.duration === Infinity) ? 0 : audioElement.duration;
         
-        setDuration(audioElement.duration);
+        setDuration(duration);
       };
       audioElement.addEventListener('timeupdate', handleTimeUpdate);
     }
@@ -47,6 +50,32 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
     }
   }, [activeAudio]);
 
+  useEffect(() => {
+    const checkDuration = () => {
+      const audioElement = audioRef.current;
+      console.log('interval');
+
+      if (audioElement) {
+        const currentDuration = audioElement.duration;
+
+        if (!isNaN(currentDuration) && currentDuration !== Infinity) {
+          setDuration(currentDuration);
+          if (intervalRef.current) clearInterval(intervalRef.current); 
+        }
+      }
+    };
+
+    // Start an interval to check duration
+    intervalRef.current = window.setInterval(checkDuration, 200);
+
+    return () => {
+      // Clean up interval on unmount
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [audioRef]);
+
   // Play/pause control
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -54,6 +83,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
     } else {
       if (activeAudio !== audioRef.current) stopAllAudio();
       audioRef.current?.play();
+      
       setActiveAudio(audioRef.current);
     }
     setIsPlaying(!isPlaying);
@@ -81,7 +111,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, mode = 'full' }) => {
   };
 
   // Circular progress calculation
-  const progress = (currentTime / duration) * 100;
+  const progress = (typeof duration === 'number') ? (currentTime / duration) * 100 : 0;
 
   return (
     <div className={`audio-player flex flex-row gap-3 lg:gap-2 justify-center ${mode === 'micro' ? 'micro-player' : 'p-2 lg:p-1 lg:pr-2 bg-slate-100 border-slate-400 border-2 rounded-full shadow-md'}`}>

@@ -27,7 +27,7 @@ export function LocaleSwitcher() {
 
   return (
     // <MySelect label="Birth Year" id="birth_year" options={localeOptions} onChange={(e) => changeLocale('es')} className=""/>
-    <div className="flex flex-col w-auto gap-3">
+    <div className="flex flex-col w-auto gap-2">
         <Label className="hidden" htmlFor='locale-switcher'>Local Switcher</Label>
         <Select onValueChange={(value: LanguageCode) => changeLocale(value)}>
           <SelectTrigger id='locale-switcher' className={fonts.roboto}>

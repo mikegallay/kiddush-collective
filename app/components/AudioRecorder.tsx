@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import AudioPlayer from "./AudioPlayer";
 
-const AudioRecorder = ({ onComplete, preRecorded = null, preData = null }: { onComplete: (audioURL: string | null, audioData: Blob | null) => void; preRecorded?: string | null; preData?: Blob | null }) => {
+const AudioRecorder = ({ onComplete, onRecording, preRecorded = null, preData = null }: { onComplete: (audioURL: string | null, audioData: Blob | null) => void; onRecording: (recording:boolean) => void; preRecorded?: string | null; preData?: Blob | null }) => {
     const [isRecording, setIsRecording] = useState(false);
     const [audioURL, setAudioURL] = useState<string | null>(preRecorded);
     const [audioData, setAudioData] = useState<Blob | null>(preData);
@@ -11,24 +12,17 @@ const AudioRecorder = ({ onComplete, preRecorded = null, preData = null }: { onC
     const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null);
     const audioChunksRef = useRef<Blob[]>([]); // Use a ref to avoid async state issues.
     
-    // const checkMicPermissions = async () => {
-    //     try {
-    //       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    //       stream.getTracks().forEach((track) => track.stop()); // Stop stream to free resources
-    //       setIsMicAccessible(true);
-    //       startRecording();
-    //     } catch {
-    //       setIsMicAccessible(false);
-    //       console.log("Microphone access denied. Please allow mic to record.");
-    //       alert('Microphone access denied. Please allow mic to record.')
-    //     //   toast({ title: "Microphone access denied. Please allow mic to record." });
-    //     }
-    //   };
+    // Clean up media recorder on unmount
+    useEffect(() => {
+        return () => {
+            if (mediaRecorder) {
+                audioChunksRef.current = []
+                mediaRecorder.stop();
+            }
+        }
+    }, [mediaRecorder]);
 
     const startRecording = async () => {
-    // if (!isMicAccessible) {
-    //     checkMicPermissions()
-    // }else{
 
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -72,10 +66,12 @@ const AudioRecorder = ({ onComplete, preRecorded = null, preData = null }: { onC
         setTimeout(() => {
             recorder.stop(); // Automatically stop after a fixed duration
             setIsRecording(false);
+            onRecording(false);
           }, 30000); // Limit to 30 seconds
   
         recorder.start();
         setIsRecording(true);
+        onRecording(true);
         console.log("Recording started...");
       } catch (error) {
         console.error("Error starting recording:", error);
@@ -87,6 +83,7 @@ const AudioRecorder = ({ onComplete, preRecorded = null, preData = null }: { onC
       if (mediaRecorder) {
         mediaRecorder.stop();
         setIsRecording(false);
+        onRecording(false);
         console.log("Recording stopped.");
       }
     };
@@ -97,13 +94,12 @@ const AudioRecorder = ({ onComplete, preRecorded = null, preData = null }: { onC
         setAudioData(null);
         onComplete(null, null);
         setIsRecording(false);
+        onRecording(false);
         audioChunksRef.current = [];
     };
-
-    
   
     return (
-      <div className="px-4 flex flex-row gap-4 items-center">
+      <div className="px-4 flex flex-row gap-4 items-center h-[44px]">
         <Button onClick={isRecording 
                 ? stopRecording
                 : audioURL 
@@ -119,7 +115,8 @@ const AudioRecorder = ({ onComplete, preRecorded = null, preData = null }: { onC
         </Button>
 
         {isRecording && <div className="rounded-full bg-red-700 pulse w-5 h-5" />}
-        {audioURL && <audio src={audioURL} controls />}
+        {/* {audioURL && <audio src={audioURL} controls />} */}
+        {audioURL && <AudioPlayer src={audioURL} />}
       </div>
     );
   };

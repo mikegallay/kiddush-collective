@@ -61,7 +61,7 @@ const MyLocationSelector = (
     if (isDesktop) {
       return (
         <div className="flex flex-col w-auto gap-2 flex-1">
-          <p className="text-sm">
+          <p className="text-sm -mb-1">
             {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
           </p>
           <Popover open={open} onOpenChange={setOpen}>
@@ -77,8 +77,8 @@ const MyLocationSelector = (
             </PopoverContent>
           </Popover>
           {formProps.errors[id]?.message ? 
-            <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span> :
-            description && <span className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>{String(description)}</span>
+            <span className='text-rose-700 text-sm italic -mt-1'>{String(formProps.errors[id]?.message)}</span> :
+            description && <span className='text-gray-500 font-medium text-xs -mt-1 italic'>{String(description)}</span>
           }
         </div>
       )
@@ -86,7 +86,7 @@ const MyLocationSelector = (
 
     return (
       <div className="flex flex-col w-full gap-2">
-          <p className="text-sm">
+          <p className="text-sm -mb-1">
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
           </p>
         <Drawer open={open} onOpenChange={setOpen}>
@@ -102,8 +102,8 @@ const MyLocationSelector = (
           </DrawerContent>
         </Drawer>
         {formProps.errors[id]?.message ? 
-          <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span> :
-          description && <span className='text-gray-500 font-medium text-xs -mt-2 italic pt-1'>{String(description)}</span>
+          <span className='text-rose-700 text-sm italic -mt-1'>{String(formProps.errors[id]?.message)}</span> :
+          description && <span className='text-gray-500 font-medium text-xs -mt-1 italic'>{String(description)}</span>
         }
       </div>
     )

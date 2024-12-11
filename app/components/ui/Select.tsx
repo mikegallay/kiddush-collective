@@ -36,7 +36,7 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
     const defaultSelectOption = (defaultOption) ? defaultOption : translations.selectDefault;
 
     return (
-      <div className={`flex flex-col w-auto gap-3 ${props.className || ''}`}>
+      <div className={`flex flex-col w-auto gap-2 ${props.className || ''}`}>
         <Label htmlFor={id}>
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
@@ -56,8 +56,8 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
               ))}
           </SelectContent>
           {formProps.errors[id]?.message ? 
-            <span className='text-rose-700 text-sm italic -mt-2'>{String(formProps.errors[id]?.message)}</span> :
-            description && <span className='text-gray-500 font-medium text-xs -mt-2 italic'>{String(description)}</span>
+            <span className='text-rose-700 text-sm italic -mt-1'>{String(formProps.errors[id]?.message)}</span> :
+            description && <span className='text-gray-500 font-medium text-xs -mt-1 italic'>{String(description)}</span>
           }
         </Select>
       </div>
