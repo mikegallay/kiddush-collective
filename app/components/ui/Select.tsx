@@ -49,7 +49,7 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
           </SelectTrigger>
           <SelectContent>
             {options.map((option) => (
-                <SelectItem key={option.value} value={option.value}>
+                <SelectItem key={option.value} value={option.value} dir={props.dir ? props.dir : 'ltr'}>
                   {/* {option.label} */}
                   {trans(option.value as keyof typeof t)}
                 </SelectItem>

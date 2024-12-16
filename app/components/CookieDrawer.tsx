@@ -14,6 +14,8 @@ export default function CookieDrawer({ locale, content }: CookieDrawerProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [allowClose, setAllowClose] = useState(false);
 
+  const dir= locale === 'ar' || locale === 'il' ? 'rtl' : 'ltr';
+
   useEffect(() => {
     const acknowledged = getCookie('cookieAcknowledged');
     if (!acknowledged) setIsOpen(true);
@@ -41,11 +43,11 @@ export default function CookieDrawer({ locale, content }: CookieDrawerProps) {
               }
         }}>
       <DrawerContent className="no-drag-handle" data-vaul-no-drag>
-        <DrawerHeader>
+        <DrawerHeader dir={dir ? dir : 'ltr'} className={dir && dir==='rtl' ? 'sm:text-center md:text-right' : ''}>
           <DrawerTitle>{content.title}</DrawerTitle>
           <DrawerDescription>{content.description}</DrawerDescription>
         </DrawerHeader>
-        <DrawerFooter>
+        <DrawerFooter className={dir && dir==='rtl' ? 'sm:items-center md:items-start' : ''}>
           <DrawerClose asChild>
             <Button size="lg" className="w-1/2" onClick={handleAcknowledge}>
             {content.confirmButton}

@@ -27,7 +27,7 @@ import AudioInput from '@/app/components/AudioInput';
 
 const DynamicMap = dynamic(() => import('@/app/components/Map'), { ssr: false });
 
-function mapDrawer(register: any, setValue: any, localeData:UploadFormProps) {
+function mapDrawer(register: any, setValue: any, localeData:UploadFormProps, dir?:string) {
 
   const [location, setLocation] = useState<number[] | null>(null);
   register("specific_location", { required: false })
@@ -45,7 +45,7 @@ function mapDrawer(register: any, setValue: any, localeData:UploadFormProps) {
         <Button variant="outline" className={`justify-start w-full ${customInputClasses}`}>{location ? <>{'lat: ' + location[0] + ', lng: ' + location[1]} </> : <>{localeData.mapButton}</>}</Button>
       </DrawerTrigger>
       <DrawerContent data-vaul-no-drag>
-        <DrawerHeader>
+        <DrawerHeader dir={dir ? dir : 'ltr'} className={dir && dir==='rtl' ? 'sm:text-center md:text-right' : ''}>
           <DrawerTitle>{localeData.mapDrawerTitle}</DrawerTitle>
           <DrawerDescription>{localeData.mapDrawerDescription}</DrawerDescription>
         </DrawerHeader>
@@ -201,12 +201,12 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
 
           <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1 lg:max-w-[589px]">
             <p className="text-sm -mb-[5px] inline">{localeData.youliveExact} <MyHoverCard trigger={<InfoCircledIcon/>} content={localeData.youliveMoreInfo}/></p>
-            {mapDrawer(register,setValue,localeData)}
+            {mapDrawer(register,setValue,localeData, dir)}
             <span className='text-gray-500 font-medium text-xs -mt-1 italic'>{localeData.youliveInfo}</span>
           </div>
         </div>
 
-        <AudioInput id="file" localeData={localeData} translations={formDefaults} formProps={{register, setValue, errors}} />
+        <AudioInput dir={dir} id="file" localeData={localeData} translations={formDefaults} formProps={{register, setValue, errors}} />
 
         {/* <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/> */}
 

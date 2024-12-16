@@ -6,7 +6,14 @@ import AudioPlayer from "./AudioPlayer";
 import { Close } from "@radix-ui/react-popover";
 import { Cross1Icon, ReloadIcon } from "@radix-ui/react-icons";
 
-const AudioRecorder = ({ onComplete, onRecording, preRecorded = null, preData = null }: { onComplete: (audioURL: string | null, audioData: Blob | null) => void; onRecording: (recording:boolean) => void; preRecorded?: string | null; preData?: Blob | null }) => {
+const AudioRecorder = (
+  { onComplete, onRecording, preRecorded = null, preData = null, translations } :
+  { onComplete: (audioURL: string | null, audioData: Blob | null) => void; 
+    onRecording: (recording:boolean) => void; 
+    preRecorded?: string | null; 
+    preData?: Blob | null;
+    translations: { [key: string]: string };
+  }) => {
     const [isRecording, setIsRecording] = useState(false);
     const [audioURL, setAudioURL] = useState<string | null>(preRecorded);
     const [audioData, setAudioData] = useState<Blob | null>(preData);
@@ -116,10 +123,10 @@ const AudioRecorder = ({ onComplete, onRecording, preRecorded = null, preData = 
                     : startRecording
             }>
             {isRecording 
-                ? <><span className="rounded-full bg-red-700 pulse w-4 h-4 mr-2 border border-white"></span>Stop Recording</>
+                ? <><span className="rounded-full bg-red-700 pulse w-4 h-4 mr-2 border border-white"></span>{translations.stopBtn}</>
                 : audioURL 
-                    ? <span className="flex items-center justify-center"><ReloadIcon className="mr-2" />Re-Record</span>
-                    : 'Start Recording'
+                    ? <span className="flex items-center justify-center"><ReloadIcon className="mr-2" />{translations.rerecordBtn}</span>
+                    : <span>{translations.startBtn}</span>
             }
           </Button>
 

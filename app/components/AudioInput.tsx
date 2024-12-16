@@ -15,7 +15,7 @@ import { customInputClasses } from "../utils/customClasses";
 import { CrossCircledIcon, PlusIcon } from "@radix-ui/react-icons";
 
 
-const AudioInput = ({ localeData, translations, id, formProps }: any) => {
+const AudioInput = ({ localeData, translations, id, formProps, ...props }: any) => {
     // const [recording, setRecording] = useState(false);
     const [audioURL, setAudioURL] = useState<string | null>(null);
     const [audioData, setAudioData] = useState<Blob | null>(null);
@@ -94,25 +94,26 @@ function onClick() {
 
   return (
     <div className="flex gap-6 flex-row">
-      <div className="flex-1 max-w-[589px]">
+      <div className="flex-1 max-w-[589px] relative">
         <div className="flex flex-col gap-2">
-          <p className="text-sm -mb-[5px]">Label</p>
+          <p className="text-sm -mb-[5px]">{localeData.recordAudio}</p>
           <Drawer>
             <DrawerTrigger asChild>
               <Button disabled={!!uploadedFile} variant="outline" onClick={() => {
               checkMicPermissions().then(() => setDrawerOpen(true));
-            }} className={`justify-start ${customInputClasses}`}>{audioURL ? <>{audioURL}</>  : `I want to record my own`}</Button>
+            }} className={`justify-start ${customInputClasses}`}>{audioURL ? <>{audioURL}</>  : localeData.recordAudioButton}</Button>
             </DrawerTrigger>
             <DrawerContent data-vaul-no-drag>
-              <DrawerHeader>
-                <DrawerTitle>{localeData.mapDrawerTitle}</DrawerTitle>
-                <DrawerDescription>{localeData.mapDrawerDescription}</DrawerDescription>
+              <DrawerHeader dir={props.dir ? props.dir : 'ltr'} className={props.dir && props.dir==='rtl' ? 'sm:text-center md:text-right' : ''}>
+                <DrawerTitle>{localeData.recordDrawerTitle}</DrawerTitle>
+                <DrawerDescription>{localeData.recordDrawerDescription}</DrawerDescription>
               </DrawerHeader>
               <AudioRecorder 
                 onComplete={handleRecordingComplete} 
                 onRecording={handleRecording}
                 preRecorded={audioURL} 
-                preData={audioData} 
+                preData={audioData}
+                translations={{startBtn: localeData.recordAudioStart, stopBtn: localeData.recordAudioStop, rerecordBtn: localeData.recordAudioRerecord}}
               />
 
               <div className="p-3">
@@ -123,21 +124,26 @@ function onClick() {
                       className="w-1/2"
                       variant={audioURL ? 'destructive' : 'outline'}
                       onClick={() => onClick()}
-                    >{`${audioURL ? 'Delete &' : ''} ${localeData.cancelButton}`}</Button>
+                    >{audioURL ? localeData.recordAudioDeleteCancel  : localeData.recordAudioCancel}</Button>
                   </DrawerClose>
                   <DrawerClose asChild>
                     <Button
                       size="lg"
                       className="w-1/2"
                       disabled={!!isRecording}
-                    >{localeData.makeSelectionButton}</Button>
+                    >{localeData.recordAudioAccept}</Button>
                   </DrawerClose>
                 </div>
               </div>
             </DrawerContent>
           </Drawer>
-          <span className='text-gray-500 font-medium text-xs -mt-1 italic'>Description</span>
+          <span className='text-gray-500 font-medium text-xs -mt-1 italic'>{localeData.recordAudioInfo}</span>
         </div>
+        {audioURL && (
+          <div className="absolute top-0 right-0">
+            <button className="text-red-700 text-sm flex flex-row items-center gap-1" onClick={clearRecordedAudio}>{localeData.recordRemove}<CrossCircledIcon/></button>
+          </div>
+        )}
       </div>
      
 
@@ -159,7 +165,7 @@ function onClick() {
 
         {uploadedFile && (
           <div className="absolute top-0 right-0">
-            <button className="text-red-700 text-sm flex flex-row items-center gap-1" onClick={clearUploadedFile}>Remove <CrossCircledIcon/></button>
+            <button className="text-red-700 text-sm flex flex-row items-center gap-1" onClick={clearUploadedFile}>{localeData.uploadRemove} <CrossCircledIcon/></button>
           </div>
         )}
       </div>

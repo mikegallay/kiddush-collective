@@ -56,8 +56,8 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
             // placeholder={`Enter your ${label}`}
         />
       {formProps.errors[id]?.message ? 
-        <span className='text-rose-700 text-sm italic -mb-1'>{String(formProps.errors[id]?.message)}</span> :
-        description && <span className='text-gray-500 font-medium text-xs italic -mb-1'>{String(description)}</span>
+        <span className='text-rose-700 text-sm italic -mt-1'>{String(formProps.errors[id]?.message)}</span> :
+        description && <span className='text-gray-500 font-medium text-xs italic -mt-1'>{String(description)}</span>
       }
       </div>
     );
