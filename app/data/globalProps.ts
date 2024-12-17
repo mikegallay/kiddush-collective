@@ -51,6 +51,8 @@ export type UserProps = {
     recordAudioInfo: string;
     recordDrawerTitle: string;
     recordDrawerDescription: string;
+    recordToastTitle: string;
+    recordToastDescription: string;
     uploadFile: string;
     uploadFileInfo: string;
     uploadRemove: string;

@@ -13,22 +13,21 @@ import { Button } from "@/components/ui/button";
 import { UploadFormProps } from "../data/globalProps";
 import { customInputClasses } from "../utils/customClasses";
 import { CrossCircledIcon, PlusIcon } from "@radix-ui/react-icons";
+import { useToast } from "@/hooks/use-toast"
+
 
 
 const AudioInput = ({ localeData, translations, id, formProps, ...props }: any) => {
-    // const [recording, setRecording] = useState(false);
-    const [audioURL, setAudioURL] = useState<string | null>(null);
-    const [audioData, setAudioData] = useState<Blob | null>(null);
-    const [isRecording, setIsRecording] = useState<boolean>(false);
-    const [isMicAccessible, setIsMicAccessible] = useState(true);
-    const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const fileInputRef = useRef<HTMLInputElement | null>(null);  // Ref for the file input
+  // const [recording, setRecording] = useState(false);
+  const [audioURL, setAudioURL] = useState<string | null>(null);
+  const [audioData, setAudioData] = useState<Blob | null>(null);
+  const [isRecording, setIsRecording] = useState<boolean>(false);
+  const [isMicAccessible, setIsMicAccessible] = useState(true);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);  // Ref for the file input
 
-
-//   const toast = useToast();
-
-  const location = 'hi'
+  const { toast } = useToast();
 
   // Handles file upload input
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,8 +68,13 @@ const AudioInput = ({ localeData, translations, id, formProps, ...props }: any) 
       setIsMicAccessible(true);
     } catch {
       setIsMicAccessible(false);
-      console.log("Microphone access denied. Please allow mic to record.");
-      alert('Microphone access denied. Please allow mic to record.')
+      // console.log("Microphone access denied. Please allow mic to record.");
+      // alert('Microphone access denied. Please allow mic to record.')
+      toast({
+        variant: "destructive",
+        title: localeData.recordToastTitle,
+        description: localeData.recordToastDescription,
+      })
     //   toast({ title: "Microphone access denied. Please allow mic to record." });
     }
   };
@@ -85,12 +89,10 @@ const AudioInput = ({ localeData, translations, id, formProps, ...props }: any) 
     formProps.setValue("blob", blob)
 };
 
-function onClick() {
-  console.log('on click');
-  
-  if (audioURL) clearRecordedAudio();
-    // setValue("specific_location", location)
-}
+  const onClick = () => {
+    // console.log('on click');
+    if (audioURL) clearRecordedAudio();
+  }
 
   return (
     <div className="flex gap-6 flex-row">

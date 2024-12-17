@@ -68,6 +68,8 @@ export default {
     recordAudioInfo: "graba algo.",
     recordDrawerTitle: "Grabar algo",
     recordDrawerDescription: "Por favor, asegúrate de que tu mic esté accesible. El límite de tiempo para las grabaciones es de 2:00 minutos.",
+    recordToastTitle: "Acceso al micrófono denegado.",
+    recordToastDescription: "Por favor, verifica tus ajustes de micrófono y vuelve a intentarlo.",
     uploadFile: "Sube tu audio de Kidush (opcional)",
     uploadFileInfo: "No tienes un archivo para compartir? No hay problema. Aun así, nos encantaría saber más sobre ti y de dónde eres.",
     uploadRemove: "Eliminar archivo",

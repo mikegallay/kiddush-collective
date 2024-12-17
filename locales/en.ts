@@ -68,6 +68,8 @@ export default {
     recordAudioInfo: "record something.",
     recordDrawerTitle: "Record Something",
     recordDrawerDescription: "Please make sure your mic is accessible. The time limit for recordings is 2:00 minutes.",
+    recordToastTitle: "Microphone access denied.",
+    recordToastDescription: "Please check your microphone settings and try again.",
     uploadFile: "Upload Your Kiddush Audio (optional)",
     uploadFileInfo: "No file to share? That's ok! We'd still love to learn more about you and where you are from.",
     uploadRemove: "Remove File",

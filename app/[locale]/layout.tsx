@@ -6,6 +6,7 @@ import { getCurrentLocale } from '@/locales/server';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import SkipToContent from '../components/SkipToContent';
+import { Toaster } from "@/components/ui/toaster"
 import { fonts } from '@/app/fonts';
 import CookieDrawerServer from '@/app/components/CoookieDrawer.server';
 
@@ -39,6 +40,7 @@ export default async function RootLayout({
                 <Footer />
               </section>
               <CookieDrawerServer/>
+              <Toaster />
             </AudioProvider>
           {/* </ThemeProvider> */}
         </LocaleProvider>

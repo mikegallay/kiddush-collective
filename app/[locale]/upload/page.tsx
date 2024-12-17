@@ -28,6 +28,8 @@ export default async function UploadPage() {
     recordAudioInfo:  t('recordAudioInfo'),
     recordDrawerTitle: t('recordDrawerTitle'),
     recordDrawerDescription: t('recordDrawerDescription'),
+    recordToastTitle: t('recordToastTitle'),
+    recordToastDescription: t('recordToastDescription'),
     uploadFile: t('uploadFile'),
     uploadFileInfo: t('uploadFileInfo'),
     uploadRemove: t('uploadRemove'),

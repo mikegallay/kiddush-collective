@@ -19,7 +19,7 @@
     "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-select": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.0",
-    "@radix-ui/react-toast": "^1.2.2",
+    "@radix-ui/react-toast": "^1.2.4",
     "@shadcn/ui": "^0.0.4",
     "@svgr/webpack": "^8.1.0",
     "@turf/bezier-spline": "^7.1.0",

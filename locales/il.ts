@@ -68,6 +68,8 @@ export default {
     recordAudioInfo: "הקלט משהו.",
     recordDrawerTitle: "הקליט משהו",
     recordDrawerDescription: "אנא ודא שהמיקרופון שלך זמין. הזמן המרבי להקלטות הוא 2:00 דקות.",
+    recordToastTitle: "הגישה למיקרופון נדחתה.",
+    recordToastDescription: "אנא בדוק את הגדרות המיקרופון שלך ונסה שוב.",
     uploadFile: "העלה את קובץ הקידוש שלך (אופציונלי)",
     uploadFileInfo: "אין לך קובץ לשתף? אין בעיה! נשמח ללמוד עוד עליך ועל המקום ממנו אתה מגיע.",
     uploadRemove: "הסרת קובץ",
