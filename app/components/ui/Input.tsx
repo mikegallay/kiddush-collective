@@ -45,14 +45,14 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
         <Input
-            id={id}
+            {...formProps.register(id, registerOptions)}
             {...props}
+            id={id}
             type={type}
+            ref={ref}
             maxLength={(id === 'last_initial') ? 1 : 100}
             className={`${customInputClasses} ${(id === 'last_initial') ? 'lg:w-12' : ''} ${formProps.errors[id]?.message && 'border-rose-700'}`}
-            {...formProps.register(id, registerOptions)}
             onChange={props.onChange}
-            ref={ref}
             // placeholder={`Enter your ${label}`}
         />
       {formProps.errors[id]?.message ? 

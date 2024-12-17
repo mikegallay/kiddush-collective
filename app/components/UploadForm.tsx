@@ -109,6 +109,8 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
   }, []);
   
   const onSubmit = async (data: any) => {
+    console.log('submitting');
+    
     setIsSubmitting(true);
   
     const formData = new FormData();
