@@ -85,7 +85,7 @@ export const locationList: { value: string, label: string, lat: number, lng: num
   {label: "Colombia - Medellín", value: "Medellín", lat: 6.2442, lng: -75.5812 },
   {label: "Comoros", value: "Comoros", lat: -11.6667, lng: 43.2333},
   {label: "Congo", value: "Congo", lat: -0.3833, lng: 26.0333},
-  {label: "Congo", value: "Congo", lat: -0.25, lng: 15.55},
+  // {label: "Congo", value: "Congo", lat: -0.25, lng: 15.55},
   {label: "Cook Islands", value: "Cook Islands", lat: -21.2, lng: -159.7667},
   {label: "Costa Rica", value: "Costa Rica", lat: 9.9333, lng: -83.75},
   {label: "Croatia", value: "Croatia", lat: 45.1, lng: 15.5},

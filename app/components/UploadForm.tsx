@@ -82,7 +82,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
   
   const router = useRouter();
  
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const { register, handleSubmit, setValue, trigger, formState: { errors } } = useForm();
   const [isSumbitting, setIsSubmitting] = useState(false);
   const [csrfToken, setCsrfToken] = useState('');
 
@@ -97,6 +97,13 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     charError: localeData.charError,
     filterList: localeData.filterList
   }
+
+  const formProps = {
+    register,
+    setValue,
+    trigger,
+    errors
+  };
 
   useEffect(() => {
     const fetchCsrfToken = async () => {
@@ -186,19 +193,19 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
     <form id="uploadForm" onSubmit={handleSubmit(onSubmit)} noValidate encType="multipart/form-data" method="POST">
       <div className="flex gap-6 flex-col">
         <div className="flex gap-6 flex-col lg:flex-row">
-            <MyInput label={localeData.fname} id="first_name" formProps={{register, errors}} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" translations={formDefaults} required/>
-            <MyInput label={localeData.linitial} id="last_initial" translations={formDefaults} formProps={{register, errors}} />
+            <MyInput label={localeData.fname} id="first_name" formProps={formProps} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" translations={formDefaults} required/>
+            <MyInput label={localeData.linitial} id="last_initial" translations={formDefaults} formProps={formProps} />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-            <MyInput label={localeData.email} id="email" type="email" formProps={{register, errors}} translations={formDefaults} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
-            <MySelect dir={dir} label={localeData.dob} id="birth_year" options={getYearOptions()} translations={formDefaults} formProps={{register, errors, setValue}} className=""/>
-            <MySelect dir={dir} label={localeData.gender} id="gender" options={genderOptions} translations={formDefaults} formProps={{register, errors, setValue}} className=""/>
+            <MyInput label={localeData.email} id="email" type="email" formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2 lg:max-w-[calc(50%_-_12px)]" required/>
+            <MySelect dir={dir} label={localeData.dob} id="birth_year" options={getYearOptions()} translations={formDefaults} formProps={formProps} className="" required/>
+            <MySelect dir={dir} label={localeData.gender} id="gender" options={genderOptions} translations={formDefaults} formProps={formProps} className=""/>
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
           <div className='w-auto lg:w-1/2 flex-1 lg:max-w-[589px]'>
-            <MyLocationSelector label={localeData.youlive} id="you_from" formProps={{register, errors, setValue}} className="" translations={formDefaults} description={localeData.fromInfo} />
+            <MyLocationSelector label={localeData.youlive} id="you_from" formProps={formProps} className="" translations={formDefaults} description={localeData.fromInfo} required/>
           </div>
 
           <div className="w-auto lg:w-1/2 flex flex-col gap-2 flex-1 lg:max-w-[589px]">
@@ -208,7 +215,7 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
           </div>
         </div>
 
-        <AudioInput dir={dir} id="file" localeData={localeData} translations={formDefaults} formProps={{register, setValue, errors}} />
+        <AudioInput dir={dir} id="file" localeData={localeData} translations={formDefaults} formProps={{register, setValue, trigger, errors}} />
 
         {/* <MyInput label={localeData.uploadFile} id="file" type="file" name="file" accept="audio/*" description={localeData.uploadFileInfo} translations={formDefaults} formProps={{register, errors}}/> */}
 
@@ -217,44 +224,44 @@ export default function UploadForm({ localeData }:{ localeData: UploadFormProps;
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">{localeData.moreInfoTitle}</h2>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect dir={dir} label={localeData.observance} id="level_of_observance" options={observanceLevel} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.observance} id="level_of_observance" options={observanceLevel} formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
           
-          <MySelect dir={dir} label={localeData.kiddushFreq} id="kiddush_frequency" options={kiddushFrequency} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2  flex-1" />
+          <MySelect dir={dir} label={localeData.kiddushFreq} id="kiddush_frequency" options={kiddushFrequency} formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2  flex-1" />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect dir={dir} label={localeData.influence} id="influence_level" options={influenceLevels} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.influence} id="influence_level" options={influenceLevels} formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
 
-          <MySelect dir={dir} label={localeData.favoriteDay} id="shabbat_is_favorite" options={shabbatFavorite} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.favoriteDay} id="shabbat_is_favorite" options={shabbatFavorite} formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MySelect dir={dir} label={localeData.race} id="race_options" options={raceOptions} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.race} id="race_options" options={raceOptions} formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
 
-          <MySelect dir={dir} label={localeData.heritage} id="jewish_heritage" options={jewishOptions} formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
+          <MySelect dir={dir} label={localeData.heritage} id="jewish_heritage" options={jewishOptions} formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2 flex-1"/>
         </div>
 
         <h2 className="font-bold border-b-2 border-solid border-gray-700 dark:border-gray-400">{localeData.familyTitle}</h2>
    
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MyLocationSelector label={localeData.motherFrom} id="mother_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
+          <MyLocationSelector label={localeData.motherFrom} id="mother_from" formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
 
-          <MyLocationSelector label={localeData.fatherFrom} id="father_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
+          <MyLocationSelector label={localeData.fatherFrom} id="father_from" formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MyLocationSelector label={localeData.matGrandmotherFrom} id="maternal_gmother_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
+          <MyLocationSelector label={localeData.matGrandmotherFrom} id="maternal_gmother_from" formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
 
-          <MyLocationSelector label={localeData.matGrandfatherFrom} id="maternal_gfather_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
+          <MyLocationSelector label={localeData.matGrandfatherFrom} id="maternal_gfather_from" formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
         </div>
 
         <div className="flex gap-6 flex-col lg:flex-row">
-          <MyLocationSelector label={localeData.patGrandmotherFrom} id="paternal_gmother_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
+          <MyLocationSelector label={localeData.patGrandmotherFrom} id="paternal_gmother_from" formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
 
-          <MyLocationSelector label={localeData.patGrandmfatherFrom} id="paternal_gfather_from" formProps={{register, errors, setValue}} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
+          <MyLocationSelector label={localeData.patGrandmfatherFrom} id="paternal_gfather_from" formProps={formProps} translations={formDefaults} className="w-auto lg:w-1/2" description={localeData.fromInfo} />
         </div>
 
-        <MyCheckbox label={localeData.optin} id="ok_with_audio" formProps={{register, errors, setValue}} defaultChecked={true}/>
+        <MyCheckbox label={localeData.optin} id="ok_with_audio" formProps={formProps} defaultChecked={true}/>
 
         <Button disabled={isSumbitting} className={`w-auto lg:w-1/2 m-auto text-lg ${fonts.roboto}`} type="submit">{isSumbitting ? <span className='flex flex-row justify-center items-center gap-1'><UpdateIcon className="inline spin"/> {localeData.processingButton}</span> : localeData.submitButton}</Button>
       </div>

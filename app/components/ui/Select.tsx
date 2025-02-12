@@ -40,7 +40,7 @@ const MySelect = forwardRef<HTMLInputElement, SelectProps>(
         <Label htmlFor={id}>
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
-        <Select onValueChange={(value: string) => formProps.setValue(id, value)}>
+        <Select onValueChange={(value: string) => {formProps.setValue(id, value); formProps.trigger(id)}}>
           <SelectTrigger 
             className={`${customInputClasses} ${formProps.errors[id]?.message && 'border-rose-700'}`} 
             {...formProps.register(id, { required: requiredDefault })}

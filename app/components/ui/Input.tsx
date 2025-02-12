@@ -16,28 +16,29 @@ interface MyInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     // errors: FieldErrors<any>;
 }
 
-function configureRegisterOptions(required: boolean | undefined, label: string, type: string, translations: FormDefaultProps): object{
-
-    const requiredDefault = (required) ? `${label} ${translations.requiredError}.` : false;
-    let registerOptions: RegisterOptions = {
-        required: requiredDefault,
-        validate: (value: string) => !/[<>'"&“”‘’]/gi.test(value) || translations.charError
-    }   
-
-    if (type === 'email') {
-        registerOptions = {
-            ...registerOptions,
-            validate: (value: string) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value) || translations.emailError
-        }
-    }
-    
-    return registerOptions;
-}
-
 const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
-    ({ label, id, type = 'text', description, formProps, translations,  ...props }: MyInputProps, ref) => {
+    ({ label, id, type = 'text', description, formProps, translations,...props }: MyInputProps, ref) => {
     
-    const registerOptions = configureRegisterOptions(props.required, label, type, translations)
+    const requiredDefault = (props.required) ? label + ' ' + translations.requiredError : false;
+
+    const validate = (value: string) => {
+      
+      // Skip validation if the field is not required and is empty
+      if (!value && !props.required) return true;
+
+      // Character validation for text
+      if (/[<>'"&“”‘’]/gi.test(value)) {
+        return translations.charError;
+      }
+
+      // Email validation
+      if (type === 'email' && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+        return translations.emailError;
+      }
+
+      // If everything is valid
+      return true;
+    };
     
     return (
       <div className={`flex flex-col gap-2 ${props.className || ''}`}>
@@ -45,14 +46,14 @@ const MyInput = forwardRef<HTMLInputElement, MyInputProps>(
           {label}{props.required && <span className="text-rose-700 font-bold">*</span>}
         </Label>
         <Input
-            {...formProps.register(id, registerOptions)}
             {...props}
             id={id}
             type={type}
             ref={ref}
             maxLength={(id === 'last_initial') ? 1 : 100}
             className={`${customInputClasses} ${(id === 'last_initial') ? 'lg:w-12' : ''} ${formProps.errors[id]?.message && 'border-rose-700'}`}
-            onChange={props.onChange}
+            {...formProps.register(id, { required: requiredDefault, validate: (value: string) => validate(value)})}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {formProps.setValue(id, e.target.value); formProps.trigger(id)}}
             // placeholder={`Enter your ${label}`}
         />
       {formProps.errors[id]?.message ? 

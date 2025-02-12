@@ -68,7 +68,7 @@ const MyLocationSelector = (
             <PopoverTrigger asChild >
               <Button 
                 variant="outline" 
-                className={`w-auto justify-start ${customInputClasses}`}>
+                className={`w-auto justify-start ${customInputClasses} ${formProps.errors[id]?.message && 'border-rose-700'}`}>
                 {selectedStatus ? <>{selectedStatus.label}</> : <>{pin} {translations.selectDefault}</>}
               </Button>
             </PopoverTrigger>
@@ -91,7 +91,7 @@ const MyLocationSelector = (
           </p>
         <Drawer open={open} onOpenChange={setOpen}>
           <DrawerTrigger asChild>
-            <Button variant="outline" className={`w-auto justify-start ${customInputClasses}`}>
+            <Button variant="outline" className={`w-auto justify-start ${customInputClasses} ${formProps.errors[id]?.message && 'border-rose-700'}`}>
               {selectedStatus ? <>{selectedStatus.label}</> : <>{pin} {translations.selectDefault}</>}
             </Button>
           </DrawerTrigger>
@@ -138,6 +138,7 @@ function StatusList({
                 const selectedValue = locations.find((priority) => priority.label === value) || null
                 const selected = (selectedValue) ? selectedValue.value : 'No Selection'
                 formProps.setValue(id, selected)
+                formProps.trigger(id)
                 setSelectedStatus(selectedValue)
                 setOpen(false)
               }}
